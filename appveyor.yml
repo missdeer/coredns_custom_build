@@ -140,12 +140,14 @@ build_script:
 after_build:
     - mkdir -p "distrib/coredns-$PREFIX" 
     - cp "$APPVEYOR_BUILD_FOLDER/coredns/coredns" "distrib/coredns-$PREFIX/coredns$SUFFIX"
+    - cp "$APPVEYOR_BUILD_FOLDER/coredns/coredns" "distrib/coredns$SUFFIX"
     - cd distrib
     - curl -s -L git.io/corefile | bash
-    - 7z a "coredns-$PREFIX.zip" "coredns-$PREFIX" Corefile
+    - 7z a "coredns-$PREFIX.7z" "coredns-$PREFIX" Corefile
+    - 7z a coredns.7z "coredns$SUFFIX"
 
 artifacts:
-    - path: distrib/coredns-$PREFIX.zip
+    - path: distrib/coredns-$PREFIX.7z
       name: full_package
-    - path: distrib/coredns-$PREFIX/coredns*
+    - path: distrib/coredns.7z
       name: exe_only
