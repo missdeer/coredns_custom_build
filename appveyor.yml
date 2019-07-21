@@ -1,0 +1,154 @@
+image: Visual Studio 2017
+
+version: 1.5.2.{build}
+
+branches:
+    only:
+        - master
+
+environment:
+    matrix:
+        - GOOS: windows
+          GOARCH: amd64
+          PREFIX: windows-amd64
+          SUFFIX: .exe
+        - GOOS: darwin
+          GOARCH: amd64
+          PREFIX: darwin-amd64
+          SUFFIX: 
+        - GOOS: linux
+          GOARCH: amd64
+          PREFIX: linux-amd64
+          SUFFIX: 
+        - GOOS: freebsd
+          GOARCH: amd64
+          PREFIX: freebsd-amd64
+          SUFFIX: 
+        - GOOS: netbsd
+          GOARCH: amd64
+          PREFIX: netbsd-amd64
+          SUFFIX: 
+        - GOOS: openbsd
+          GOARCH: amd64
+          PREFIX: openbsd-amd64
+          SUFFIX: 
+        - GOOS: dragonfly
+          GOARCH: amd64
+          PREFIX: dragonfly-amd64
+          SUFFIX: 
+        - GOOS: solaris
+          GOARCH: amd64
+          PREFIX: solaris-amd64
+          SUFFIX: 
+        - GOOS: windows
+          GOARCH: 386
+          PREFIX: windows-386
+          SUFFIX: .exe
+        - GOOS: linux
+          GOARCH: 386
+          PREFIX: linux-386
+          SUFFIX: 
+        - GOOS: freebsd
+          GOARCH: 386
+          PREFIX: freebsd-386
+          SUFFIX: 
+        - GOOS: netbsd
+          GOARCH: 386
+          PREFIX: netbsd-386
+          SUFFIX: 
+        - GOOS: openbsd
+          GOARCH: 386
+          PREFIX: openbsd-386
+          SUFFIX: 
+        - GOOS: linux
+          GOARCH: arm
+          GOARM: 5
+          PREFIX: linux-armv5
+          SUFFIX: 
+        - GOOS: linux
+          GOARCH: arm
+          GOARM: 6
+          PREFIX: linux-armv6
+          SUFFIX: 
+        - GOOS: linux
+          GOARCH: arm
+          GOARM: 7
+          PREFIX: linux-armv7
+          SUFFIX: 
+        - GOOS: freebsd
+          GOARCH: arm
+          PREFIX: freebsd-arm
+          SUFFIX: 
+        - GOOS: netbsd
+          GOARCH: arm
+          PREFIX: netbsd-arm
+          SUFFIX: 
+        - GOOS: linux
+          GOARCH: arm64
+          PREFIX: linux-arm64
+          SUFFIX: 
+        - GOOS: linux
+          GOARCH: ppc64
+          PREFIX: linux-ppc64
+          SUFFIX: 
+        - GOOS: linux
+          GOARCH: ppc64le
+          PREFIX: linux-ppc64le
+          SUFFIX: 
+        - GOOS: linux
+          GOARCH: mips64
+          PREFIX: linux-mips64
+          SUFFIX: 
+        - GOOS: linux
+          GOARCH: mips64le
+          PREFIX: linux-mips64le
+          SUFFIX: 
+        - GOOS: linux
+          GOARCH: mips
+          PREFIX: linux-mips
+          SUFFIX: 
+        - GOOS: linux
+          GOARCH: mipsle
+          PREFIX: linux-mipsle
+          SUFFIX: 
+        - GOOS: linux
+          GOARCH: s390x
+          PREFIX: linux-s390x
+          SUFFIX: 
+
+clone_depth: 1
+
+# scripts that run after cloning repository
+install:
+    - set GOVERSION=1.12.7
+    - rmdir c:\go /s /q
+    - appveyor DownloadFile https://storage.googleapis.com/golang/go%GOVERSION%.windows-amd64.msi
+    - msiexec /i go%GOVERSION%.windows-amd64.msi /q
+    - set PATH=C:\Go\bin;%PATH%
+    - set GO111MODULE=on
+    - git clone --recursive https://github.com/coredns/coredns.git
+
+# scripts that run before build
+before_build:
+    - go env
+    - go version
+
+# custom build scripts
+build_script:
+    - copy plugin.cfg coredns\plugin.cfg
+    - cd coredns
+    - make -j 4
+    - cd ..
+
+# scripts that run after build
+after_build:
+    - mkdir "distrib\coredns-%PREFIX%\" 
+    - copy "%APPVEYOR_BUILD_FOLDER%\coredns\coredns-%PREFIX%%SUFFIX%" "distrib\coredns-%PREFIX%\coredns%SUFFIX%"
+    - cd distrib
+    - 7z a "coredns-%PREFIX%.zip" "coredns-%PREFIX%"
+
+artifacts:
+    - path: distrib\coredns-%PREFIX%.zip
+      name: full_package
+    - path: distrib\coredns-%PREFIX%\coredns*
+      name: exe_only
