@@ -132,7 +132,7 @@ before_build:
 build_script:
     - cp plugin.cfg coredns/plugin.cfg
     - cd coredns
-    - make -j 4
+    - make -j 4 coredns
     - cd ..
 
 # scripts that run after build
