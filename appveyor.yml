@@ -137,7 +137,7 @@ before_build:
 build_script:
     - copy plugin.cfg coredns\plugin.cfg
     - cd coredns
-    - C:\MinGW\bin\mingw32-make -j 4
+    - C:\cygwin64\bin\make -j 4
     - cd ..
 
 # scripts that run after build
