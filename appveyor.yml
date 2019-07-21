@@ -130,7 +130,7 @@ before_build:
 
 # custom build scripts
 build_script:
-    - copy plugin.cfg coredns/plugin.cfg
+    - cp plugin.cfg coredns/plugin.cfg
     - cd coredns
     - make -j 4
     - cd ..
