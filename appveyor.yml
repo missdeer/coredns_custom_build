@@ -1,4 +1,4 @@
-image: Visual Studio 2017
+image: Ubuntu1804
 
 version: 1.5.2.{build}
 
@@ -120,11 +120,6 @@ clone_depth: 1
 
 # scripts that run after cloning repository
 install:
-    - set GOVERSION=1.12.7
-    - rmdir c:\go /s /q
-    - appveyor DownloadFile https://storage.googleapis.com/golang/go%GOVERSION%.windows-amd64.msi
-    - msiexec /i go%GOVERSION%.windows-amd64.msi /q
-    - set PATH=C:\Go\bin;%PATH%
     - set GO111MODULE=on
     - git clone --recursive https://github.com/coredns/coredns.git
 
@@ -135,20 +130,20 @@ before_build:
 
 # custom build scripts
 build_script:
-    - copy plugin.cfg coredns\plugin.cfg
+    - copy plugin.cfg coredns/plugin.cfg
     - cd coredns
-    - C:\msys64\bin\make -j 4
+    - make -j 4
     - cd ..
 
 # scripts that run after build
 after_build:
-    - mkdir "distrib\coredns-%PREFIX%\" 
-    - copy "%APPVEYOR_BUILD_FOLDER%\coredns\coredns-%PREFIX%%SUFFIX%" "distrib\coredns-%PREFIX%\coredns%SUFFIX%"
+    - mkdir "distrib/coredns-$PREFIX" 
+    - cp "$APPVEYOR_BUILD_FOLDER/coredns/coredns-$PREFIX$SUFFIX" "distrib/coredns-$PREFIX/coredns$SUFFIX"
     - cd distrib
-    - 7z a "coredns-%PREFIX%.zip" "coredns-%PREFIX%"
+    - 7z a "coredns-$PREFIX.zip" "coredns-$PREFIX"
 
 artifacts:
-    - path: distrib\coredns-%PREFIX%.zip
+    - path: distrib/coredns-$PREFIX.zip
       name: full_package
-    - path: distrib\coredns-%PREFIX%\coredns*
+    - path: distrib/coredns-$PREFIX/coredns*
       name: exe_only
