@@ -127,6 +127,8 @@ install:
 before_build:
     - go env
     - go version
+    - go get -u github.com/missdeer/block
+    - go get -u github.com/coredns/proxy
 
 # custom build scripts
 build_script:
@@ -137,7 +139,7 @@ build_script:
 
 # scripts that run after build
 after_build:
-    - mkdir "distrib/coredns-$PREFIX" 
+    - mkdir -p "distrib/coredns-$PREFIX" 
     - cp "$APPVEYOR_BUILD_FOLDER/coredns/coredns-$PREFIX$SUFFIX" "distrib/coredns-$PREFIX/coredns$SUFFIX"
     - cd distrib
     - 7z a "coredns-$PREFIX.zip" "coredns-$PREFIX"
