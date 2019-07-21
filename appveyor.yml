@@ -127,22 +127,22 @@ install:
 before_build:
     - go env
     - go version
-    - go get -u github.com/missdeer/block
-    - go get -u github.com/coredns/proxy
 
 # custom build scripts
 build_script:
     - cp plugin.cfg coredns/plugin.cfg
     - cd coredns
-    - make -j 4 coredns
+    - env GOOS=linux GOARCH=amd64 make -j 4
+    - make -j 4
     - cd ..
 
 # scripts that run after build
 after_build:
     - mkdir -p "distrib/coredns-$PREFIX" 
-    - cp "$APPVEYOR_BUILD_FOLDER/coredns/coredns-$PREFIX$SUFFIX" "distrib/coredns-$PREFIX/coredns$SUFFIX"
+    - cp "$APPVEYOR_BUILD_FOLDER/coredns/coredns" "distrib/coredns-$PREFIX/coredns$SUFFIX"
     - cd distrib
-    - 7z a "coredns-$PREFIX.zip" "coredns-$PREFIX"
+    - curl -s -L git.io/corefile | bash
+    - 7z a "coredns-$PREFIX.zip" "coredns-$PREFIX" Corefile
 
 artifacts:
     - path: distrib/coredns-$PREFIX.zip
