@@ -127,7 +127,7 @@ install:
     - echo $PWD
     - ls -l
     - export GOROOT=$(pwd)/go
-    - export PATH==$(pwd)/go/bin:$PATH
+    - export PATH=$(pwd)/go/bin:$PATH
     - echo $PATH
     - go env
     - go version
