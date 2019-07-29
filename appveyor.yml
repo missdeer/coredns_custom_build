@@ -124,9 +124,10 @@ install:
     - wget "https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz"
     - tar xzf "go$GOVERSION.linux-amd64.tar.gz"
     - pwd
+    - echo $PWD
     - ls -l
-    - export GOROOT=$PWD/go
-    - export PATH=$PWD/go/bin:$PATH
+    - export GOROOT=$(pwd)/go
+    - export PATH==$(pwd)/go/bin:$PATH
     - echo $PATH
     - go env
     - go version
