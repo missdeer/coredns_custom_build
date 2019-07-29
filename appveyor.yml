@@ -144,7 +144,6 @@ before_build:
 
 # custom build scripts
 build_script:
-    - cp plugin.cfg coredns/plugin.cfg
     - cd coredns
     - env GOOS=linux GOARCH=amd64 make -j 4
     - make -j 4
