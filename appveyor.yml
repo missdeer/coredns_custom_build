@@ -123,15 +123,21 @@ install:
     - export GOVERSION=1.12.7
     - wget "https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz"
     - tar xzf "go$GOVERSION.linux-amd64.tar.gz"
+    - pwd
     - ls -l
     - export GOROOT=$PWD/go
     - export PATH=$PWD/go/bin:$PATH
     - echo $PATH
+    - go env
+    - go version
+    - ls -l $GOROOT
     - export GO111MODULE=on
     - git clone --recursive https://github.com/coredns/coredns.git
 
 # scripts that run before build
 before_build:
+    - pwd
+    - ls -l
     - go env
     - go version
 
