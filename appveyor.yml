@@ -123,6 +123,7 @@ install:
     - export GOVERSION=1.12.7
     - wget "https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz"
     - tar xzf "go$GOVERSION.linux-amd64.tar.gz"
+    - ls -l
     - export GOROOT=$PWD/go
     - export PATH=$PWD/go/bin:$PATH
     - echo $PATH
