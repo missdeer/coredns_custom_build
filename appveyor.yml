@@ -137,7 +137,7 @@ before_build:
 build_script:
     - cd coredns
     - echo "block:github.com/missdeer/block" >> plugin.cfg
-    - echo "proxy:github.com/coredns/proxy" >> plugin.cfg
+    - echo "proxy:github.com/missdeer/proxy" >> plugin.cfg
     - env GOOS=linux GOARCH=amd64 make -j 4
     - make -j 4
     - cd ..
