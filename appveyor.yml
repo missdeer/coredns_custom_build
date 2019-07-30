@@ -1,6 +1,6 @@
 image: Ubuntu1804
 
-version: 1.5.2.{build}
+version: 1.6.0.{build}
 
 branches:
     only:
@@ -120,7 +120,12 @@ clone_depth: 1
 
 # scripts that run after cloning repository
 install:
-    - set GO111MODULE=on
+    - export GOVERSION=1.12.7
+    - wget "https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz"
+    - tar xzf "go$GOVERSION.linux-amd64.tar.gz"
+    - export GOROOT=$(pwd)/go
+    - export PATH=$(pwd)/go/bin:$PATH
+    - export GO111MODULE=on
     - git clone --recursive https://github.com/coredns/coredns.git
 
 # scripts that run before build
@@ -130,8 +135,9 @@ before_build:
 
 # custom build scripts
 build_script:
-    - cp plugin.cfg coredns/plugin.cfg
     - cd coredns
+    - echo "block:github.com/missdeer/block" >> plugin.cfg
+    - echo "proxy:github.com/missdeer/proxy" >> plugin.cfg
     - env GOOS=linux GOARCH=amd64 make -j 4
     - make -j 4
     - cd ..
