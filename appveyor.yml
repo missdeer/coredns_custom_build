@@ -151,12 +151,12 @@ after_build:
     - curl -s -L git.io/corefile | bash
     - 7z a "coredns-$PREFIX.7z" "coredns-$PREFIX" Corefile
     - 7z a coredns.7z "coredns$SUFFIX"
-    - md5sum "coredns-$PREFIX"
-    - sha1sum "coredns-$PREFIX"
-    - sha224sum "coredns-$PREFIX"
-    - sha256sum "coredns-$PREFIX"
-    - sha384sum "coredns-$PREFIX"
-    - sha512sum "coredns-$PREFIX"
+    - md5sum "coredns$SUFFIX"
+    - sha1sum "coredns$SUFFIX"
+    - sha224sum "coredns$SUFFIX"
+    - sha256sum "coredns$SUFFIX"
+    - sha384sum "coredns$SUFFIX"
+    - sha512sum "coredns$SUFFIX"
     - md5sum coredns.7z
     - sha1sum coredns.7z
     - sha224sum coredns.7z
