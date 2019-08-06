@@ -1,6 +1,6 @@
 image: Ubuntu1804
 
-version: 1.6.0.{build}
+version: 1.6.1.{build}
 
 branches:
     only:
