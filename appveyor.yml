@@ -126,6 +126,7 @@ install:
     - export GOROOT=$(pwd)/go
     - export PATH=$(pwd)/go/bin:$PATH
     - export GO111MODULE=on
+    - export GOPROXY=direct
     - git clone --recursive --depth=1 https://github.com/coredns/coredns.git
 
 # scripts that run before build
