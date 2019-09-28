@@ -128,6 +128,8 @@ install:
     - export GO111MODULE=on
     - export GOPROXY=direct
     - git clone --recursive --depth=1 https://github.com/coredns/coredns.git
+    - git clone --recursive --depth=1 https://github.com/missdeer/proxy.git
+    - git clone --recursive --depth=1 https://github.com/missdeer/block.git
 
 # scripts that run before build
 before_build:
@@ -141,6 +143,8 @@ build_script:
     - echo "block:github.com/missdeer/block" >> plugin.cfg
     - sed -i '$d' go.mod
     - echo "	k8s.io/client-go v11.0.0+incompatible => k8s.io/client-go v0.0.0-20190620085101-78d2af792bab" >> go.mod
+    - echo "    github.com/missdeer/proxy => ../proxy" >> go.mod
+    - echo "    github.com/missdeer/block => ../block" >> go.mod
     - echo ")" >> go.mod
     - env GOOS=linux GOARCH=amd64 make -j 4
     - make -j 4
