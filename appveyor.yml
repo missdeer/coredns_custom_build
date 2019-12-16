@@ -137,7 +137,7 @@ before_build:
 # custom build scripts
 build_script:
     - cd coredns
-    - sed -i.bak 's/forward:forward/proxy:github.com\/coredns\/proxy\nforward:forward/g' plugin.cfg
+    - sed -i.bak 's/forward:forward/forward:forward\nproxy:github.com\/coredns\/proxy/g' plugin.cfg
     - env GOOS=linux GOARCH=amd64 make -j 4
     - make -j 4
     - cd ..
