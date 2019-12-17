@@ -138,8 +138,9 @@ before_build:
 build_script:
     - cd coredns
     - git apply "$APPVEYOR_BUILD_FOLDER/forward-quick-lookup-except.patch"
-    - sed -i.bak 's|forward:forward|forward:forward\nproxy:github.com/coredns/proxy|g' plugin.cfg
-    - sed -i.bak 's|hosts:hosts|ads:github.com/c-mueller/ads\nhosts:hosts|g' plugin.cfg
+    - sed -i 's|forward:forward|forward:forward\nproxy:github.com/coredns/proxy|g' plugin.cfg
+    - sed -i 's|hosts:hosts|ads:github.com/c-mueller/ads\nhosts:hosts|g' plugin.cfg
+    - sed -i 's|cache:cache|cache:cache\nredisc:github.com/miekg/redis|g' plugin.cfg
     - env GOOS=linux GOARCH=amd64 make -j 2
     - make -j 2
     - cd ..
