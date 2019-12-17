@@ -1,5 +1,5 @@
 diff --git a/plugin/forward/forward.go b/plugin/forward/forward.go
-index 4e54ef46..fcbc481f 100644
+index 897d9e7e..46badced 100644
 --- a/plugin/forward/forward.go
 +++ b/plugin/forward/forward.go
 @@ -8,6 +8,7 @@ import (
@@ -10,7 +10,7 @@ index 4e54ef46..fcbc481f 100644
  	"time"
  
  	"github.com/coredns/coredns/plugin"
-@@ -29,7 +30,7 @@ type Forward struct {
+@@ -30,7 +31,7 @@ type Forward struct {
  	hcInterval time.Duration
  
  	from    string
@@ -19,16 +19,16 @@ index 4e54ef46..fcbc481f 100644
  
  	tlsConfig     *tls.Config
  	tlsServerName string
-@@ -43,7 +44,7 @@ type Forward struct {
+@@ -44,7 +45,7 @@ type Forward struct {
  
  // New returns a new Forward.
  func New() *Forward {
--	f := &Forward{maxfails: 2, tlsConfig: new(tls.Config), expire: defaultExpire, p: new(random), from: ".", hcInterval: hcInterval}
-+	f := &Forward{maxfails: 2, tlsConfig: new(tls.Config), expire: defaultExpire, p: new(random), from: ".", hcInterval: hcInterval, ignored: make(map[string]struct{})}
+-	f := &Forward{maxfails: 2, tlsConfig: new(tls.Config), expire: defaultExpire, p: new(policy.Random), from: ".", hcInterval: hcInterval}
++	f := &Forward{maxfails: 2, tlsConfig: new(tls.Config), expire: defaultExpire, p: new(policy.Random), from: ".", hcInterval: hcInterval, ignored: make(map[string]struct{})}
  	return f
  }
  
-@@ -173,11 +174,14 @@ func (f *Forward) isAllowedDomain(name string) bool {
+@@ -174,11 +175,14 @@ func (f *Forward) isAllowedDomain(name string) bool {
  		return true
  	}
  
@@ -46,10 +46,10 @@ index 4e54ef46..fcbc481f 100644
  }
  
 diff --git a/plugin/forward/setup.go b/plugin/forward/setup.go
-index d4575669..ae504923 100644
+index 73c9cf94..1831b403 100644
 --- a/plugin/forward/setup.go
 +++ b/plugin/forward/setup.go
-@@ -131,9 +131,8 @@ func parseBlock(c *caddy.Controller, f *Forward) error {
+@@ -132,9 +132,8 @@ func parseBlock(c *caddy.Controller, f *Forward) error {
  			return c.ArgErr()
  		}
  		for i := 0; i < len(ignore); i++ {
