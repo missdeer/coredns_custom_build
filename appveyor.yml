@@ -139,6 +139,7 @@ before_build:
 build_script:
     - cd fallback
     - git apply "$APPVEYOR_BUILD_FOLDER/fallback.patch"
+    - go mod init github.com/coredns/fallback
     - cd ..
     - cd coredns
     - git apply "$APPVEYOR_BUILD_FOLDER/forward-quick-lookup-except.patch"
