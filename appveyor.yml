@@ -127,7 +127,8 @@ install:
     - export PATH=$(pwd)/go/bin:$PATH
     - export GO111MODULE=on
     - export GOPROXY=direct
-    - git clone --recursive --depth=1 https://github.com/coredns/coredns.git
+    - git clone --depth=1 https://github.com/coredns/coredns.git
+    - git clone --depth=1 https://github.com/coredns/fallback.git
 
 # scripts that run before build
 before_build:
@@ -136,11 +137,15 @@ before_build:
 
 # custom build scripts
 build_script:
+    - cd fallback
+    - git apply "$APPVEYOR_BUILD_FOLDER/fallback.patch"
+    - cd ..
     - cd coredns
     - git apply "$APPVEYOR_BUILD_FOLDER/forward-quick-lookup-except.patch"
-    - sed -i 's|forward:forward|forward:forward\nproxy:github.com/coredns/proxy|g' plugin.cfg
+    - sed -i 's|forward:forward|fallback:github.com/coredns/fallback\nforward:forward\nproxy:github.com/coredns/proxy|g' plugin.cfg
     - sed -i 's|hosts:hosts|ads:github.com/c-mueller/ads\nhosts:hosts|g' plugin.cfg
     - sed -i 's|cache:cache|cache:cache\nredisc:github.com/miekg/redis|g' plugin.cfg
+    - sed -i 's|replace (|replace (\n\tgithub.com/coredns/fallback => ../fallback|g' go.mod
     - env GOOS=linux GOARCH=amd64 make -j 2
     - make -j 2
     - cd ..

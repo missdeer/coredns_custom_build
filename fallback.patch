@@ -1,0 +1,29 @@
+diff --git a/fallback.go b/fallback.go
+index ae660e3..d2618f2 100644
+--- a/fallback.go
++++ b/fallback.go
+@@ -6,7 +6,7 @@ import (
+ 
+ 	"github.com/coredns/coredns/plugin"
+ 	"github.com/coredns/coredns/plugin/pkg/nonwriter"
+-	"github.com/coredns/coredns/plugin/proxy"
++	"github.com/coredns/proxy"
+ 
+ 	"fmt"
+ 
+diff --git a/setup.go b/setup.go
+index 1c8475a..08eeeb5 100644
+--- a/setup.go
++++ b/setup.go
+@@ -6,9 +6,9 @@ import (
+ 
+ 	"github.com/coredns/coredns/core/dnsserver"
+ 	"github.com/coredns/coredns/plugin"
+-	"github.com/coredns/coredns/plugin/proxy"
++	"github.com/coredns/proxy"
+ 
+-	"github.com/mholt/caddy"
++	"github.com/caddyserver/caddy"
+ 	"github.com/miekg/dns"
+ )
+ 
