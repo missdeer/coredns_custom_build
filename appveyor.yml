@@ -97,19 +97,43 @@ environment:
           SUFFIX: 
         - GOOS: linux
           GOARCH: mips64
-          PREFIX: linux-mips64
+          GOMIPS: hardfloat
+          PREFIX: linux-mips64-hardfloat
+          SUFFIX: 
+        - GOOS: linux
+          GOARCH: mips64
+          GOMIPS: softfloat
+          PREFIX: linux-mips64-softfloat
           SUFFIX: 
         - GOOS: linux
           GOARCH: mips64le
-          PREFIX: linux-mips64le
+          GOMIPS: hardfloat
+          PREFIX: linux-mips64le-hardfloat
+          SUFFIX: 
+        - GOOS: linux
+          GOARCH: mips64le
+          GOMIPS: softfloat
+          PREFIX: linux-mips64le-softfloat
           SUFFIX: 
         - GOOS: linux
           GOARCH: mips
-          PREFIX: linux-mips
+          GOMIPS: hardfloat
+          PREFIX: linux-mips-hardfloat
+          SUFFIX: 
+        - GOOS: linux
+          GOARCH: mips
+          GOMIPS: softfloat
+          PREFIX: linux-mips-softfloat
           SUFFIX: 
         - GOOS: linux
           GOARCH: mipsle
-          PREFIX: linux-mipsle
+          GOMIPS: hardfloat
+          PREFIX: linux-mipsle-hardfloat
+          SUFFIX: 
+        - GOOS: linux
+          GOARCH: mipsle
+          GOMIPS: softfloat
+          PREFIX: linux-mipsle-softfloat
           SUFFIX: 
         - GOOS: linux
           GOARCH: s390x
@@ -149,6 +173,9 @@ build_script:
     - sed -i 's|rewrite:rewrite|rewrite:rewrite\nbogus:github.com/missdeer/bogus\nipset:github.com/missdeer/ipset|g' plugin.cfg
     - sed -i 's|replace (|replace (\n\tgithub.com/coredns/fallback => ../fallback|g' go.mod
     - env GOOS=linux GOARCH=amd64 make -j 2
+    - echo "==============================================="
+    - ./coredns -plugins
+    - echo "==============================================="
     - make -j 2
     - cd ..
 
