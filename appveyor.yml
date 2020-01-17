@@ -172,6 +172,9 @@ build_script:
     - sed -i 's|cache:cache|cache:cache\nredisc:github.com/miekg/redis|g' plugin.cfg
     - sed -i 's|rewrite:rewrite|rewrite:rewrite\nbogus:github.com/missdeer/bogus\nipset:github.com/missdeer/ipset|g' plugin.cfg
     - sed -i 's|replace (|replace (\n\tgithub.com/coredns/fallback => ../fallback|g' go.mod
+    - echo "replace (" >> go.mod
+    - echo "    github.com/coredns/fallback => ../fallback" >> go.mod
+    - echo ")" >> go.mod
     - env GOOS=linux GOARCH=amd64 make -j 2
     - echo "==============================================="
     - ./coredns -plugins
