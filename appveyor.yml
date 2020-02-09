@@ -1,6 +1,6 @@
 image: Ubuntu1804
 
-version: 1.6.6.{build}
+version: 1.6.7.{build}
 
 branches:
     only:
@@ -167,11 +167,11 @@ build_script:
     - cd ..
     - cd coredns
     - git apply "$APPVEYOR_BUILD_FOLDER/forward-quick-lookup-except.patch"
+    - git apply "$APPVEYOR_BUILD_FOLDER/plugin.cfg.patch"
     - sed -i 's|forward:forward|fallback:github.com/coredns/fallback\nforward:forward\nproxy:github.com/coredns/proxy|g' plugin.cfg
     - sed -i 's|hosts:hosts|ads:github.com/c-mueller/ads\nhosts:hosts|g' plugin.cfg
     - sed -i 's|cache:cache|cache:cache\nredisc:github.com/miekg/redis|g' plugin.cfg
     - sed -i 's|rewrite:rewrite|rewrite:rewrite\nbogus:github.com/missdeer/bogus\nipset:github.com/missdeer/ipset|g' plugin.cfg
-    - sed -i 's|replace (|replace (\n\tgithub.com/coredns/fallback => ../fallback|g' go.mod
     - echo "replace (" >> go.mod
     - echo "    github.com/coredns/fallback => ../fallback" >> go.mod
     - echo ")" >> go.mod

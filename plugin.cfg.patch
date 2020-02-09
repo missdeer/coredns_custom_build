@@ -1,0 +1,13 @@
+diff --git a/plugin.cfg b/plugin.cfg
+index 84441a42..af992683 100644
+--- a/plugin.cfg
++++ b/plugin.cfg
+@@ -51,8 +51,6 @@ template:template
+ transfer:transfer
+ ads:github.com/c-mueller/ads
+ hosts:hosts
+-route53:route53
+-azure:azure
+ clouddns:clouddns
+ federation:github.com/coredns/federation
+ k8s_external:k8s_external

@@ -7,6 +7,7 @@ index 897d9e7e..46badced 100644
  	"crypto/tls"
  	"errors"
 +	"strings"
+	"sync/atomic"
  	"time"
  
  	"github.com/coredns/coredns/plugin"
