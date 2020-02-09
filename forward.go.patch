@@ -1,5 +1,5 @@
 diff --git a/plugin/forward/forward.go b/plugin/forward/forward.go
-index 897d9e7e..46badced 100644
+index f6dd939e..b824171e 100644
 --- a/plugin/forward/forward.go
 +++ b/plugin/forward/forward.go
 @@ -8,6 +8,7 @@ import (
@@ -7,11 +7,10 @@ index 897d9e7e..46badced 100644
  	"crypto/tls"
  	"errors"
 +	"strings"
-	"sync/atomic"
+ 	"sync/atomic"
  	"time"
  
- 	"github.com/coredns/coredns/plugin"
-@@ -30,7 +31,7 @@ type Forward struct {
+@@ -33,7 +34,7 @@ type Forward struct {
  	hcInterval time.Duration
  
  	from    string
@@ -20,7 +19,7 @@ index 897d9e7e..46badced 100644
  
  	tlsConfig     *tls.Config
  	tlsServerName string
-@@ -44,7 +45,7 @@ type Forward struct {
+@@ -52,7 +53,7 @@ type Forward struct {
  
  // New returns a new Forward.
  func New() *Forward {
@@ -29,7 +28,7 @@ index 897d9e7e..46badced 100644
  	return f
  }
  
-@@ -174,11 +175,14 @@ func (f *Forward) isAllowedDomain(name string) bool {
+@@ -191,11 +192,14 @@ func (f *Forward) isAllowedDomain(name string) bool {
  		return true
  	}
  
@@ -46,18 +45,3 @@ index 897d9e7e..46badced 100644
  	return true
  }
  
-diff --git a/plugin/forward/setup.go b/plugin/forward/setup.go
-index 73c9cf94..1831b403 100644
---- a/plugin/forward/setup.go
-+++ b/plugin/forward/setup.go
-@@ -132,9 +132,8 @@ func parseBlock(c *caddy.Controller, f *Forward) error {
- 			return c.ArgErr()
- 		}
- 		for i := 0; i < len(ignore); i++ {
--			ignore[i] = plugin.Host(ignore[i]).Normalize()
-+			f.ignored[plugin.Host(ignore[i]).Normalize()] = struct{}{}
- 		}
--		f.ignored = ignore
- 	case "max_fails":
- 		if !c.NextArg() {
- 			return c.ArgErr()

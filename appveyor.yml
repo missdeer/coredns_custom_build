@@ -166,7 +166,8 @@ build_script:
     - go mod init github.com/coredns/fallback
     - cd ..
     - cd coredns
-    - git apply "$APPVEYOR_BUILD_FOLDER/forward-quick-lookup-except.patch"
+    - git apply "$APPVEYOR_BUILD_FOLDER/forward.go.patch"
+    - git apply "$APPVEYOR_BUILD_FOLDER/forward-setup.go.patch"
     - git apply "$APPVEYOR_BUILD_FOLDER/plugin.cfg.patch"
     - sed -i 's|forward:forward|fallback:github.com/coredns/fallback\nforward:forward\nproxy:github.com/coredns/proxy|g' plugin.cfg
     - sed -i 's|hosts:hosts|ads:github.com/c-mueller/ads\nhosts:hosts|g' plugin.cfg
