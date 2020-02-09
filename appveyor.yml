@@ -168,7 +168,6 @@ build_script:
     - cd coredns
     - git apply "$APPVEYOR_BUILD_FOLDER/forward.go.patch"
     - git apply "$APPVEYOR_BUILD_FOLDER/forward-setup.go.patch"
-    - git apply "$APPVEYOR_BUILD_FOLDER/plugin.cfg.patch"
     - sed -i 's|forward:forward|fallback:github.com/coredns/fallback\nforward:forward\nproxy:github.com/coredns/proxy|g' plugin.cfg
     - sed -i 's|hosts:hosts|ads:github.com/c-mueller/ads\nhosts:hosts|g' plugin.cfg
     - sed -i 's|cache:cache|cache:cache\nredisc:github.com/miekg/redis|g' plugin.cfg
@@ -176,6 +175,8 @@ build_script:
     - echo "replace (" >> go.mod
     - echo "    github.com/coredns/fallback => ../fallback" >> go.mod
     - echo ")" >> go.mod
+    - sed -i '/azure/d' plugin.cfg
+    - sed -i '/route53/d' plugin.cfg
     - env GOOS=linux GOARCH=amd64 make -j 2
     - echo "==============================================="
     - ./coredns -plugins
