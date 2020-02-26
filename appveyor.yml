@@ -144,7 +144,7 @@ clone_depth: 1
 
 # scripts that run after cloning repository
 install:
-    - export GOVERSION=1.13.7
+    - export GOVERSION=1.14
     - wget "https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz"
     - tar xzf "go$GOVERSION.linux-amd64.tar.gz"
     - export GOROOT=$(pwd)/go
