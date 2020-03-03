@@ -8,6 +8,23 @@ branches:
 
 environment:
     matrix:
+        - GOOS: android
+          GOARCH: arm
+          GOARM: 7
+          PREFIX: android-arm
+          SUFFIX: 
+        - GOOS: android
+          GOARCH: arm64
+          PREFIX: android-aarch64
+          SUFFIX: 
+        - GOOS: android
+          GOARCH: 386
+          PREFIX: android-386
+          SUFFIX: 
+        - GOOS: android
+          GOARCH: amd64
+          PREFIX: android-amd64
+          SUFFIX: 
         - GOOS: windows
           GOARCH: amd64
           PREFIX: windows-amd64
@@ -149,6 +166,27 @@ install:
     - tar xzf "go$GOVERSION.linux-amd64.tar.gz"
     - export GOROOT=$(pwd)/go
     - export PATH=$(pwd)/go/bin:$PATH
+    - export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-${NDK_VERSION}
+    - if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi
+    - pushd $APPVEYOR_BUILD_FOLDER/.android
+    - export NDK_VERSION=r20b
+    - export ARCH=`uname -m`
+    - wget -q http://dl.google.com/android/repository/android-ndk-${NDK_VERSION}-linux-${ARCH}.zip -O android-ndk-${NDK_VERSION}-linux-${ARCH}.zip
+    - unzip -q android-ndk-${NDK_VERSION}-linux-${ARCH}.zip
+    - popd
+    - export ANDROID_ARM_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi29-clang
+    - export ANDROID_ARM_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/arm-linux-androideabi-strip
+    - export ANDROID_X86_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android29-clang
+    - export ANDROID_X86_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android-strip
+    - export ANDROID_AARCH64_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang
+    - export ANDROID_AARCH64_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android-strip
+    - export ANDROID_X64_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android29-clang
+    - export ANDROID_X64_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android-strip
+    - if [ "%GOOS%" EQU "android" -a %GOARCH% EQU "arm" ]; then export CC=$ANDROID_ARM_CC; fi
+    - if [ "%GOOS%" EQU "android" -a %GOARCH% EQU "arm64" ]; then export CC=$ANDROID_AARCH64_CC; fi
+    - if [ "%GOOS%" EQU "android" -a %GOARCH% EQU "386" ]; then export CC=$ANDROID_X86_CC; fi
+    - if [ "%GOOS%" EQU "android" -a %GOARCH% EQU "amd64" ]; then export CC=$ANDROID_X64_CC; fi
+    - export PATH=${ANDROID_NDK_HOME}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}
     - export GO111MODULE=on
     - export GOPROXY=direct
     - git clone --depth=1 https://github.com/coredns/coredns.git
