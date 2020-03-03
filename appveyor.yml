@@ -10,19 +10,23 @@ environment:
     matrix:
         - GOOS: android
           GOARCH: arm
+          CGO_ENABLED: 1
           GOARM: 7
           PREFIX: android-arm
           SUFFIX: 
         - GOOS: android
           GOARCH: arm64
+          CGO_ENABLED: 1
           PREFIX: android-aarch64
           SUFFIX: 
         - GOOS: android
           GOARCH: 386
+          CGO_ENABLED: 1
           PREFIX: android-386
           SUFFIX: 
         - GOOS: android
           GOARCH: amd64
+          CGO_ENABLED: 1
           PREFIX: android-amd64
           SUFFIX: 
         - GOOS: windows
