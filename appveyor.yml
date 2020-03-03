@@ -175,17 +175,21 @@ install:
     - unzip -q android-ndk-${NDK_VERSION}-linux-${ARCH}.zip
     - popd
     - export ANDROID_ARM_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi29-clang
+    - export ANDROID_ARM_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi29-clang++
     - export ANDROID_ARM_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/arm-linux-androideabi-strip
     - export ANDROID_X86_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android29-clang
+    - export ANDROID_X86_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android29-clang++
     - export ANDROID_X86_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android-strip
     - export ANDROID_AARCH64_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang
+    - export ANDROID_AARCH64_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang++
     - export ANDROID_AARCH64_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android-strip
     - export ANDROID_X64_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android29-clang
+    - export ANDROID_X64_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android29-clang++
     - export ANDROID_X64_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android-strip
-    - if [ "%GOOS%" = "android" -a "%GOARCH%" = "arm" ]; then export CC=$ANDROID_ARM_CC; fi
-    - if [ "%GOOS%" = "android" -a "%GOARCH%" = "arm64" ]; then export CC=$ANDROID_AARCH64_CC; fi
-    - if [ "%GOOS%" = "android" -a "%GOARCH%" = "386" ]; then export CC=$ANDROID_X86_CC; fi
-    - if [ "%GOOS%" = "android" -a "%GOARCH%" = "amd64" ]; then export CC=$ANDROID_X64_CC; fi
+    - if [ "$GOOS" = "android" -a "$GOARCH" = "arm" ]; then export CC=$ANDROID_ARM_CC; CXX=$ANDROID_ARM_CXX; fi
+    - if [ "$GOOS" = "android" -a "$GOARCH" = "arm64" ]; then export CC=$ANDROID_AARCH64_CC; CXX=$ANDROID_AARCH64_CXX; fi
+    - if [ "$GOOS" = "android" -a "$GOARCH" = "386" ]; then export CC=$ANDROID_X86_CC; CXX=$ANDROID_X86_CXX; fi
+    - if [ "$GOOS" = "android" -a "$GOARCH" = "amd64" ]; then export CC=$ANDROID_X64_CC; CXX=$ANDROID_X64_CXX; fi
     - export PATH=${ANDROID_NDK_HOME}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}
     - export GO111MODULE=on
     - export GOPROXY=direct
