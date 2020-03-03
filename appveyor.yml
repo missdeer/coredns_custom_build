@@ -228,7 +228,7 @@ build_script:
     - echo "==============================================="
     - ./coredns -plugins
     - echo "==============================================="
-    - make -j 2
+    - if [ "$GOOS" = "android" ]; then env CGO_ENABLED=1 make -j 2; else make -j 2; fi
     - cd ..
 
 # scripts that run after build
