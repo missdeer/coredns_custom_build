@@ -29,3 +29,4 @@ Check [bash script](https://gist.github.com/missdeer/5c7c82b5b67f8afb41cfd43d51b
 
 1. [增强版CoreDNS，上网更科学](https://blog.minidump.info/2019/12/enhanced-coredns/)
 2. [CoreDNS搭建无污染DNS](https://blog.minidump.info/2019/07/coredns-no-dns-poisoning/)
+3. [推荐一个大陆用户使用的去广告列表，效果相当好](https://github.com/privacy-protection-tools/anti-AD)
