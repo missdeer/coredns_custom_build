@@ -1,5 +1,5 @@
 diff --git a/plugin/forward/forward.go b/plugin/forward/forward.go
-index f6dd939e..b824171e 100644
+index 20a3fcf3..e7f86f1b 100644
 --- a/plugin/forward/forward.go
 +++ b/plugin/forward/forward.go
 @@ -8,6 +8,7 @@ import (
@@ -23,8 +23,8 @@ index f6dd939e..b824171e 100644
  
  // New returns a new Forward.
  func New() *Forward {
--	f := &Forward{maxfails: 2, tlsConfig: new(tls.Config), expire: defaultExpire, p: new(policy.Random), from: ".", hcInterval: hcInterval}
-+	f := &Forward{maxfails: 2, tlsConfig: new(tls.Config), expire: defaultExpire, p: new(policy.Random), from: ".", hcInterval: hcInterval, ignored: make(map[string]struct{})}
+-	f := &Forward{maxfails: 2, tlsConfig: new(tls.Config), expire: defaultExpire, p: new(policy.Random), from: ".", hcInterval: hcInterval, opts: options{forceTCP: false, preferUDP: false, hcRecursionDesired: true}}
++	f := &Forward{maxfails: 2, tlsConfig: new(tls.Config), expire: defaultExpire, p: new(policy.Random), from: ".", hcInterval: hcInterval, opts: options{forceTCP: false, preferUDP: false, hcRecursionDesired: true}, ignored: make(map[string]struct{})}
  	return f
  }
  
