@@ -33,6 +33,11 @@ Check [bash script](https://gist.github.com/missdeer/5c7c82b5b67f8afb41cfd43d51b
 
 # Donate
 
-​             微信扫一扫                              支付宝扫一扫
+ 微信扫一扫
 
-![微信扫一扫](https://cdn.jsdelivr.net/gh/missdeer/blog@gh-pages/assets/images/wepay.jpg)       ![支付宝扫一扫](https://cdn.jsdelivr.net/gh/missdeer/blog@gh-pages/assets/images/alipay.jpg)
+![微信扫一扫](https://cdn.jsdelivr.net/gh/missdeer/blog@gh-pages/assets/images/wepay.jpg) 
+
+ 支付宝扫一扫
+
+![支付宝扫一扫](https://cdn.jsdelivr.net/gh/missdeer/blog@gh-pages/assets/images/alipay.jpg)
+
