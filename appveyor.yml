@@ -224,7 +224,7 @@ build_script:
     - echo ")" >> go.mod
     - sed -i '/azure/d' plugin.cfg
     - sed -i '/route53/d' plugin.cfg
-    - env GOOS=linux GOARCH=amd64 make -j 2
+    - env GOOS=linux GOARCH=amd64 make
     - echo "==============================================="
     - ./coredns -plugins
     - echo "==============================================="
@@ -236,9 +236,11 @@ after_build:
     - mkdir -p "distrib/coredns-$PREFIX" 
     - cp "$APPVEYOR_BUILD_FOLDER/coredns/coredns" "distrib/coredns-$PREFIX/coredns$SUFFIX"
     - cp "$APPVEYOR_BUILD_FOLDER/coredns/coredns" "distrib/coredns$SUFFIX"
+    - if [ "$GOOS" = "windows" ]; then cp "$APPVEYOR_BUILD_FOLDER/coredns.exe.manifest" "distrib/coredns-$PREFIX/coredns.exe.manifest"; fi
     - cd distrib
-    - curl -s -L git.io/corefile | bash
-    - 7z a "coredns-$PREFIX.7z" "coredns-$PREFIX" Corefile
+    - curl -sSL git.io/corefile | bash
+    - mv Corefile "coredns-$PREFIX/Corefile"
+    - 7z a "coredns-$PREFIX.7z" "coredns-$PREFIX" 
     - 7z a coredns.7z "coredns$SUFFIX"
     - md5sum "coredns$SUFFIX"
     - sha1sum "coredns$SUFFIX"
