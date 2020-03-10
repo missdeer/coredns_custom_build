@@ -215,7 +215,7 @@ build_script:
     - cd coredns
     - git apply "$APPVEYOR_BUILD_FOLDER/forward.go.patch"
     - git apply "$APPVEYOR_BUILD_FOLDER/forward-setup.go.patch"
-    - sed -i 's|forward:forward|fallback:github.com/coredns/fallback\nforward:forward\nproxy:github.com/coredns/proxy\nproxard:github.com/missdeer/proxward|g' plugin.cfg
+    - sed -i 's|forward:forward|fallback:github.com/coredns/fallback\nforward:forward\nproxy:github.com/coredns/proxy\nproxard:github.com/missdeer/proxard|g' plugin.cfg
     - sed -i 's|hosts:hosts|ads:github.com/c-mueller/ads\nhosts:hosts|g' plugin.cfg
     - sed -i 's|cache:cache|cache:cache\nredisc:github.com/miekg/redis|g' plugin.cfg
     - sed -i 's|rewrite:rewrite|rewrite:rewrite\nbogus:github.com/missdeer/bogus\nipset:github.com/missdeer/ipset|g' plugin.cfg
