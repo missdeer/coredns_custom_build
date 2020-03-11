@@ -240,23 +240,23 @@ after_build:
     - cd distrib
     - curl -sSL git.io/corefile | bash
     - mv Corefile "coredns-$PREFIX/Corefile"
-    - 7z a "coredns-$PREFIX.7z" "coredns-$PREFIX" 
-    - 7z a coredns.7z "coredns$SUFFIX"
+    - 7z a "coredns-$PREFIX.zip" "coredns-$PREFIX" 
+    - 7z a coredns.zip "coredns$SUFFIX"
     - md5sum "coredns$SUFFIX"
     - sha1sum "coredns$SUFFIX"
     - sha224sum "coredns$SUFFIX"
     - sha256sum "coredns$SUFFIX"
     - sha384sum "coredns$SUFFIX"
     - sha512sum "coredns$SUFFIX"
-    - md5sum coredns.7z
-    - sha1sum coredns.7z
-    - sha224sum coredns.7z
-    - sha256sum coredns.7z
-    - sha384sum coredns.7z
-    - sha512sum coredns.7z
+    - md5sum coredns.zip
+    - sha1sum coredns.zip
+    - sha224sum coredns.zip
+    - sha256sum coredns.zip
+    - sha384sum coredns.zip
+    - sha512sum coredns.zip
 
 artifacts:
-    - path: distrib/coredns-$PREFIX.7z
+    - path: distrib/coredns-$PREFIX.zip
       name: full_package
-    - path: distrib/coredns.7z
+    - path: distrib/coredns.zip
       name: exe_only
