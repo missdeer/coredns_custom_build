@@ -240,8 +240,8 @@ after_build:
     - cd distrib
     - curl -sSL git.io/corefile | bash
     - mv Corefile "coredns-$PREFIX/Corefile"
-    - 7z a "coredns-$PREFIX.zip" "coredns-$PREFIX" 
-    - 7z a coredns.zip "coredns$SUFFIX"
+    - zip "coredns-$PREFIX.zip" "coredns-$PREFIX" 
+    - zip coredns.zip "coredns$SUFFIX"
     - md5sum "coredns$SUFFIX"
     - sha1sum "coredns$SUFFIX"
     - sha224sum "coredns$SUFFIX"
