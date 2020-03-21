@@ -23,13 +23,22 @@ Download from [Appveyor artifacts](https://ci.appveyor.com/project/missdeer/core
 
 # Configuration
 
+## GUI Configuration tool for GUI environment
+
+[CoreDNS Home](https://github.com/missdeer/corednshome)  screenshot:
+
+![main window](https://raw.githubusercontent.com/missdeer/corednshome/master/screenshots/mainwindow.png)
+
+## Shell script for UNIX-like environment
+
 Check [bash script](https://gist.github.com/missdeer/5c7c82b5b67f8afb41cfd43d51b82c2d) for generating configuration file. 
 
 # More Information
 
 1. [增强版CoreDNS，上网更科学](https://blog.minidump.info/2019/12/enhanced-coredns/)
 2. [CoreDNS搭建无污染DNS](https://blog.minidump.info/2019/07/coredns-no-dns-poisoning/)
-3. [推荐一个大陆用户使用的去广告列表，效果相当好](https://github.com/privacy-protection-tools/anti-AD)
+3. [使用Prometheus观察CoreDNS运行状况](https://blog.minidump.info/2020/03/prometheus-for-coredns/)
+4. [推荐一个大陆用户使用的去广告列表，效果相当好](https://github.com/privacy-protection-tools/anti-AD)
 
 # Donate
 
