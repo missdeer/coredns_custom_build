@@ -42,5 +42,6 @@ Check [bash script](https://gist.github.com/missdeer/5c7c82b5b67f8afb41cfd43d51b
 
 # Donate
 
-![微信扫一扫](https://raw.githubusercontent.com/missdeer/coredns_custom_build/master/wepay.jpg)  ![支付宝扫一扫](https://raw.githubusercontent.com/missdeer/coredns_custom_build/master/alipay.jpg)
+![微信扫一扫](https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/wepay.jpg)  ![支付宝扫一扫](https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/alipay.jpg)
 
+[![paypal donate](https://raw.githubusercontent.com/missdeer/corednshome/master/paypal-donate.png)](https://www.paypal.me/dfordsoft/)
