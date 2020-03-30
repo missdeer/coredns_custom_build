@@ -39,6 +39,7 @@ environment:
           SUFFIX: 
         - GOOS: linux
           GOARCH: amd64
+          CGO_ENABLED: 0
           PREFIX: linux-amd64
           SUFFIX: 
         - GOOS: freebsd
@@ -67,6 +68,7 @@ environment:
           SUFFIX: .exe
         - GOOS: linux
           GOARCH: 386
+          CGO_ENABLED: 0
           PREFIX: linux-386
           SUFFIX: 
         - GOOS: freebsd
@@ -166,7 +168,7 @@ clone_depth: 1
 # scripts that run after cloning repository
 install:
     - export GOVERSION=1.14.1
-    - export NDK_VERSION=r20b
+    - export NDK_VERSION=r21
     - export ARCH=`uname -m`
     - wget "https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz"
     - tar xzf "go$GOVERSION.linux-amd64.tar.gz"
