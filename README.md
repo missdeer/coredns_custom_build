@@ -19,7 +19,7 @@
 
 # Download Prebuilt Binaries
 
-Download from [Appveyor artifacts](https://ci.appveyor.com/project/missdeer/coredns-custom-build).
+All prebuilt binaries are build by [Appveyor service](https://ci.appveyor.com/project/missdeer/coredns-custom-build), you may choose the right binary for your platform from the list shown below:
 
 | OS           | Arch    | Option     | Link                                                                |
 |--------------|---------|--------    |---------------------------------------------------------------------|
