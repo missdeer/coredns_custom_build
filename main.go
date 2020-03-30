@@ -64,6 +64,12 @@ func main() {
 			c.AbortWithStatus(404)
 		}
 	})
+	r.GET("/refresh", func(ctx *gin.Context){
+		a.UpdateLinkMap()
+	})
+	r.POST("/refresh", func(ctx *gin.Context){
+		a.UpdateLinkMap()
+	})
 
 	bind := os.Getenv("BIND")
 	if bind == "" {
