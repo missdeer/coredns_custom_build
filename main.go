@@ -64,11 +64,13 @@ func main() {
 			c.AbortWithStatus(404)
 		}
 	})
-	r.GET("/refresh", func(ctx *gin.Context){
+	r.GET("/refresh", func(c *gin.Context) {
 		a.UpdateLinkMap()
+		c.JSON(200, gin.H{"result": "OK"})
 	})
-	r.POST("/refresh", func(ctx *gin.Context){
+	r.POST("/refresh", func(c *gin.Context) {
 		a.UpdateLinkMap()
+		c.JSON(200, gin.H{"result": "OK"})
 	})
 
 	bind := os.Getenv("BIND")
