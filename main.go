@@ -89,7 +89,7 @@ func main() {
 		}
 	}
 
-	updateLinkMap()
+	go updateLinkMap()
 
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")
