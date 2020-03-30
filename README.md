@@ -28,9 +28,9 @@ Download from [Appveyor artifacts](https://ci.appveyor.com/project/missdeer/core
 | macOS        | x86_64  |            | https://coredns.minidump.info/coredns-darwin-amd64.zip              |
 | Linux        | x86     |            | https://coredns.minidump.info/coredns-linux-386.zip                 |
 | Linux        | x86_64  |            | https://coredns.minidump.info/coredns-linux-amd64.zip               |
-| Linux        | arm     |  5         | https://coredns.minidump.info/coredns-linux-arm5.zip                |
-| Linux        | arm     |  6         | https://coredns.minidump.info/coredns-linux-arm6.zip                |
-| Linux        | arm     |  7         | https://coredns.minidump.info/coredns-linux-arm7.zip                |
+| Linux        | arm     |  5         | https://coredns.minidump.info/coredns-linux-armv5.zip               |
+| Linux        | arm     |  6         | https://coredns.minidump.info/coredns-linux-armv6.zip               |
+| Linux        | arm     |  7         | https://coredns.minidump.info/coredns-linux-armv7.zip               |
 | Linux        | arm64   |            | https://coredns.minidump.info/coredns-linux-arm64.zip               |
 | Linux        | ppc64   |            | https://coredns.minidump.info/coredns-linux-ppc64.zip               |
 | Linux        | ppc64le |            | https://coredns.minidump.info/coredns-linux-ppc64le.zip             |
