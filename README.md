@@ -21,6 +21,44 @@
 
 Download from [Appveyor artifacts](https://ci.appveyor.com/project/missdeer/coredns-custom-build).
 
+| OS           | Arch    | Option     | Link                                                                |
+|--------------|---------|--------    |---------------------------------------------------------------------|
+| Windows      | x86_64  |            | https://coredns.minidump.info/coredns-windows-amd64.zip             |
+| Windows      | x86     |            | https://coredns.minidump.info/coredns-windows-386.zip               |
+| macOS        | x86_64  |            | https://coredns.minidump.info/coredns-darwin-amd64.zip              |
+| Linux        | x86     |            | https://coredns.minidump.info/coredns-linux-386.zip                 |
+| Linux        | x86_64  |            | https://coredns.minidump.info/coredns-linux-amd64.zip               |
+| Linux        | arm     |  5         | https://coredns.minidump.info/coredns-linux-arm5.zip                |
+| Linux        | arm     |  6         | https://coredns.minidump.info/coredns-linux-arm6.zip                |
+| Linux        | arm     |  7         | https://coredns.minidump.info/coredns-linux-arm7.zip                |
+| Linux        | arm64   |            | https://coredns.minidump.info/coredns-linux-arm64.zip               |
+| Linux        | ppc64   |            | https://coredns.minidump.info/coredns-linux-ppc64.zip               |
+| Linux        | ppc64le |            | https://coredns.minidump.info/coredns-linux-ppc64le.zip             |
+| Linux        | mips64  |  hardfloat | https://coredns.minidump.info/coredns-linux-mips64-hardfloat.zip    |
+| Linux        | mips64  |  softfloat | https://coredns.minidump.info/coredns-linux-mips64-softfloat.zip    |
+| Linux        | mips64le|  hardfloat | https://coredns.minidump.info/coredns-linux-mips64le-hardfloat.zip  |
+| Linux        | mips64le|  softfloat | https://coredns.minidump.info/coredns-linux-mips64le-softfloat.zip  |
+| Linux        | mips    |  hardfloat | https://coredns.minidump.info/coredns-linux-mips-hardfloat.zip      |
+| Linux        | mips    |  softfloat | https://coredns.minidump.info/coredns-linux-mips-softfloat.zip      |
+| Linux        | mipsle  |  hardfloat | https://coredns.minidump.info/coredns-linux-mipsle-hardfloat.zip    |
+| Linux        | mipsle  |  softfloat | https://coredns.minidump.info/coredns-linux-mipsle-softfloat.zip    |
+| Linux        | s390x   |            | https://coredns.minidump.info/coredns-linux-s390x.zip               |
+| FreeBSD      | x86_64  |            | https://coredns.minidump.info/coredns-freebsd-amd64.zip             |
+| FreeBSD      | x86     |            | https://coredns.minidump.info/coredns-freebsd-386.zip               |
+| FreeBSD      | arm     |            | https://coredns.minidump.info/coredns-freebsd-arm.zip               |
+| NetBSD       | x86_64  |            | https://coredns.minidump.info/coredns-netbsd-amd64.zip              |
+| NetBSD       | x86     |            | https://coredns.minidump.info/coredns-netbsd-386.zip                |
+| NetBSD       | arm     |            | https://coredns.minidump.info/coredns-netbsd-arm.zip                |
+| OpenBSD      | x86_64  |            | https://coredns.minidump.info/coredns-openbsd-amd64.zip             |
+| OpenBSD      | x86     |            | https://coredns.minidump.info/coredns-openbsd-386.zip               |
+| DragonflyBSD | x86_64  |            | https://coredns.minidump.info/coredns-dragonfly-amd64.zip           |
+| Solaris      | x86_64  |            | https://coredns.minidump.info/coredns-solaris-amd64.zip             |
+| Android      | x86_64  |            | https://coredns.minidump.info/coredns-android-amd64.zip             |
+| Android      | x86     |            | https://coredns.minidump.info/coredns-android-386.zip               |
+| Android      | arm     |            | https://coredns.minidump.info/coredns-android-arm.zip               |
+| Android      | arm64   |            | https://coredns.minidump.info/coredns-android-aarch64.zip           |
+
+
 # Configuration
 
 ## GUI Configuration tool for GUI environment
