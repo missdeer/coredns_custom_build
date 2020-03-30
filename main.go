@@ -55,29 +55,51 @@ func handler(c *gin.Context) {
 	baseName := filepath.Base(c.Param("baseName"))
 	targetLink, ok := linkMap[baseName]
 	if ok && targetLink != "" {
-		log.Println(targetLink)
 		c.HTML(http.StatusOK, "index.tmpl", gin.H{
 			"targetLink": targetLink,
 		})
 	} else {
-		log.Println(baseName, targetLink, ok)
 		c.AbortWithStatus(http.StatusNotFound)
 	}
 }
 
 func main() {
-	a := &Appveyor{}
-	a.UpdateLinkMap()
+	redis := os.Getenv("REDIS")
+	if redis == "" {
+		redis = "127.0.0.1:6379"
+	}
+	rc := RedisInit(redis)
+	if rc == nil {
+		return
+	}
+
+	for k := range linkMap {
+		l, e := rc.GetString(k)
+		if e == nil {
+			linkMap[k] = l
+		}
+	}
+
+	updateLinkMap := func() {
+		a := &Appveyor{}
+		a.UpdateLinkMap()
+
+		for k, v := range linkMap {
+			rc.Put(k, v)
+		}
+	}
+
+	updateLinkMap()
 
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")
 	r.GET("/dl/*baseName", handler)
 	r.GET("/refresh", func(c *gin.Context) {
-		a.UpdateLinkMap()
+		updateLinkMap()
 		c.JSON(200, gin.H{"result": "OK"})
 	})
 	r.POST("/refresh", func(c *gin.Context) {
-		a.UpdateLinkMap()
+		updateLinkMap()
 		c.JSON(200, gin.H{"result": "OK"})
 	})
 
