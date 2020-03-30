@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <title>Download CoreDNS custom build binary</title>
+      <!-- Bootstrap core CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha256-L/W5Wfqfa0sdBNIKN9cG6QA5F2qx4qICmU2VgLruv9Y=" crossorigin="anonymous">
+      <!-- Favicons -->
+      <link rel="icon" href="https://cdn.jsdelivr.net/gh/missdeer/missdeer.github.io/images/favicon.ico" sizes="32x32" type="image/png">
+      <link rel="icon" href="https://cdn.jsdelivr.net/gh/missdeer/missdeer.github.io/images/favicon.ico" sizes="16x16" type="image/png">
+      <link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/missdeer/missdeer.github.io/images/favicon.ico" color="#563d7c">
+      <link rel="icon" href="https://cdn.jsdelivr.net/gh/missdeer/missdeer.github.io/images/favicon.ico">
+      <meta name="theme-color" content="#563d7c">
+      <style>
+         .bd-placeholder-img {
+         font-size: 1.125rem;
+         text-anchor: middle;
+         -webkit-user-select: none;
+         -moz-user-select: none;
+         -ms-user-select: none;
+         user-select: none;
+         }
+         @media (min-width: 768px) {
+         .bd-placeholder-img-lg {
+         font-size: 3.5rem;
+         }
+         }
+      </style>
+      <script>
+         function onLoad() {
+             var a = document.createElement('A');
+             a.href = {{ .targetLink }};
+             a.download = {{ .targetLink }}.substr({{ .targetLink }}.lastIndexOf('/') + 1);
+             document.body.appendChild(a);
+             a.click();
+             document.body.removeChild(a);
+         }
+      </script>
+   </head>
+   <body onload="onLoad()">
+      <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+         <h5 class="my-0 mr-md-auto font-weight-normal">CoreDNS Custom Build Binary</h5>
+         <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="https://github.com/missdeer/coredns_custom_build">Source</a>
+            <a class="p-2 text-dark" href="https://ci.appveyor.com/project/missdeer/coredns-custom-build">Artifacts</a>
+            <a class="p-2 text-dark" href="https://ci.appveyor.com/project/missdeer/coredns-custom-build/history">History</a>
+         </nav>
+      </div>
+      <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+         <h1 class="display-4">Downloading...</h1>
+         <p class="lead">File downloading should be started, if it's not, please click <a id="downloadlink" href="{{ .targetLink }}">here</a>.</p>
+      </div>
+      <div class="container">
+         <div class="card-deck mb-3 text-center">
+            <div class="card mb-4 shadow-sm">
+               <div class="card-header">
+                  <h4 class="my-0 font-weight-normal">Donate via Wechat</h4>
+               </div>
+               <div class="card-body">
+                  <img src="https://cdn.jsdelivr.net/gh/missdeer/corednshome@master/src/res/wepay.jpg" width="300">
+               </div>
+            </div>
+            <div class="card mb-4 shadow-sm">
+               <div class="card-header">
+                  <h4 class="my-0 font-weight-normal">Donate via Alipay</h4>
+               </div>
+               <div class="card-body">
+                  <img src="https://cdn.jsdelivr.net/gh/missdeer/corednshome@master/src/res/alipay.jpg" width="300">
+               </div>
+            </div>
+            <div class="card mb-4 shadow-sm">
+               <div class="card-header">
+                  <h4 class="my-0 font-weight-normal">Donate via Paypal</h4>
+               </div>
+               <div class="card-body">
+                  <a target="_blank" href="https://www.paypal.me/dfordsoft/"><img src="https://cdn.jsdelivr.net/gh/missdeer/corednshome@master/paypal-donate.png" width="300"></a>
+               </div>
+            </div>
+         </div>
+         <footer class="pt-4 my-md-5 pt-md-5 border-top">
+            <div class="row">
+               <div class="col-12 col-md">
+                  <img class="mb-2" src="https://cdn.jsdelivr.net/gh/missdeer/missdeer.github.io/images/favicon.ico" alt="" width="24" height="24">
+                  <small class="d-block mb-3 text-muted">&copy; 2019-2020</small>
+               </div>
+               <div class="col-6 col-md">
+                  <h5>Features</h5>
+                  <ul class="list-unstyled text-small">
+                     <li><a class="text-muted" href="https://coredns.io">Offical CoreDNS</a></li>
+                     <li><a class="text-muted" href="https://github.com/missdeer/corednshome">GUI configuration tool</a></li>
+                     <li><a class="text-muted" href="https://gist.github.com/missdeer/5c7c82b5b67f8afb41cfd43d51b82c2d">Shell script configuration</a></li>
+                  </ul>
+               </div>
+               <div class="col-6 col-md">
+                  <h5>Resources</h5>
+                  <ul class="list-unstyled text-small">
+                     <li><a class="text-muted" href="https://blog.minidump.info/2019/07/coredns-no-dns-poisoning/">CoreDNS No DNS Poisoning</a></li>
+                     <li><a class="text-muted" href="https://blog.minidump.info/2019/12/enhanced-coredns/">Enhanced CoreDNS</a></li>
+                     <li><a class="text-muted" href="https://blog.minidump.info/2020/03/prometheus-for-coredns/">Prometheus for CoreDNS</a></li>
+                  </ul>
+               </div>
+               <div class="col-6 col-md">
+                  <h5>About</h5>
+                  <ul class="list-unstyled text-small">
+                     <li><a class="text-muted" href="https://minidump.info">Contact Me</a></li>
+                     <li><a class="text-muted" href="https://blog.minidump.info">Blog</a></li>
+                  </ul>
+               </div>
+            </div>
+         </footer>
+      </div>
+   </body>
+</html>
+

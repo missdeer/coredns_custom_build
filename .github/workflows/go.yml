@@ -18,22 +18,22 @@ jobs:
 
     - name: Build
       run: |
-        env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o linux-amd64/coredns_dl -ldflags="-s -w" .
-        env CGO_ENABLED=0 GOOS=linux GOARCH=386 go build -o linux-386/coredns_dl -ldflags="-s -w" .
-        env CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=5 go build -o linux-arm-5/coredns_dl -ldflags="-s -w" .
-        env CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=6 go build -o linux-arm-6/coredns_dl -ldflags="-s -w" .
-        env CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build -o linux-arm-7/coredns_dl -ldflags="-s -w" .
-        env CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o linux-arm64/coredns_dl -ldflags="-s -w" .
-        env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o darwin-amd64/coredns_dl -ldflags="-s -w" .
-        env CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o windows-amd64/coredns_dl.exe -ldflags="-s -w" .
-        env CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -o windows-386/coredns_dl.exe -ldflags="-s -w" .
-        env CGO_ENABLED=0 GOOS=freebsd GOARCH=amd64 go build -o freebsd-amd64/coredns_dl -ldflags="-s -w" .
-        env CGO_ENABLED=0 GOOS=freebsd GOARCH=386 go build -o freebsd-386/coredns_dl -ldflags="-s -w" .
-        env CGO_ENABLED=0 GOOS=openbsd GOARCH=amd64 go build -o openbsd-amd64/coredns_dl -ldflags="-s -w" .
-        env CGO_ENABLED=0 GOOS=openbsd GOARCH=386 go build -o openbsd-386/coredns_dl -ldflags="-s -w" .
-        env CGO_ENABLED=0 GOOS=netbsd GOARCH=amd64 go build -o netbsd-amd64/coredns_dl -ldflags="-s -w" .
-        env CGO_ENABLED=0 GOOS=netbsd GOARCH=386 go build -o netbsd-386/coredns_dl -ldflags="-s -w" .
-        env CGO_ENABLED=0 GOOS=dragonfly GOARCH=amd64 go build -o dragonfly-amd64/coredns_dl -ldflags="-s -w" .
+        env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o linux-amd64/coredns_dl -ldflags="-s -w" . && cp -r templates linux-amd64/
+        env CGO_ENABLED=0 GOOS=linux GOARCH=386 go build -o linux-386/coredns_dl -ldflags="-s -w" . && cp -r templates linux-386/
+        env CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=5 go build -o linux-arm-5/coredns_dl -ldflags="-s -w" . && cp -r templates linux-arm-5/
+        env CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=6 go build -o linux-arm-6/coredns_dl -ldflags="-s -w" . && cp -r templates linux-arm-6/
+        env CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build -o linux-arm-7/coredns_dl -ldflags="-s -w" . && cp -r templates linux-arm-7/
+        env CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o linux-arm64/coredns_dl -ldflags="-s -w" . && cp -r templates linux-arm64/
+        env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o darwin-amd64/coredns_dl -ldflags="-s -w" . && cp -r templates darwin-amd64/
+        env CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o windows-amd64/coredns_dl.exe -ldflags="-s -w" . && cp -r templates windows-amd64/
+        env CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -o windows-386/coredns_dl.exe -ldflags="-s -w" . && cp -r templates windows-386/
+        env CGO_ENABLED=0 GOOS=freebsd GOARCH=amd64 go build -o freebsd-amd64/coredns_dl -ldflags="-s -w" . && cp -r templates freebsd-amd64/
+        env CGO_ENABLED=0 GOOS=freebsd GOARCH=386 go build -o freebsd-386/coredns_dl -ldflags="-s -w" . && cp -r templates freebsd-386/
+        env CGO_ENABLED=0 GOOS=openbsd GOARCH=amd64 go build -o openbsd-amd64/coredns_dl -ldflags="-s -w" . && cp -r templates openbsd-amd64/
+        env CGO_ENABLED=0 GOOS=openbsd GOARCH=386 go build -o openbsd-386/coredns_dl -ldflags="-s -w" . && cp -r templates openbsd-386/
+        env CGO_ENABLED=0 GOOS=netbsd GOARCH=amd64 go build -o netbsd-amd64/coredns_dl -ldflags="-s -w" . && cp -r templates netbsd-amd64/
+        env CGO_ENABLED=0 GOOS=netbsd GOARCH=386 go build -o netbsd-386/coredns_dl -ldflags="-s -w" . && cp -r templates netbsd-386/
+        env CGO_ENABLED=0 GOOS=dragonfly GOARCH=amd64 go build -o dragonfly-amd64/coredns_dl -ldflags="-s -w" . && cp -r templates dragonfly-amd64/
       
     - name: Upload artifact coredns_dl-linux-amd64
       uses: actions/upload-artifact@v1.0.0

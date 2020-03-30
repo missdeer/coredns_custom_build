@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/http"
 	"os"
 	"path/filepath"
 
@@ -50,20 +51,27 @@ var (
 	}
 )
 
+func handler(c *gin.Context) {
+	baseName := filepath.Base(c.Param("baseName"))
+	targetLink, ok := linkMap[baseName]
+	if ok && targetLink != "" {
+		log.Println(targetLink)
+		c.HTML(http.StatusOK, "index.tmpl", gin.H{
+			"targetLink": targetLink,
+		})
+	} else {
+		log.Println(baseName, targetLink, ok)
+		c.AbortWithStatus(http.StatusNotFound)
+	}
+}
+
 func main() {
 	a := &Appveyor{}
 	a.UpdateLinkMap()
 
 	r := gin.Default()
-	r.GET("/*baseName", func(c *gin.Context) {
-		baseName := filepath.Base(c.Param("baseName"))
-		targetLink, ok := linkMap[baseName]
-		if ok && targetLink != "" {
-			c.Redirect(302, targetLink)
-		} else {
-			c.AbortWithStatus(404)
-		}
-	})
+	r.LoadHTMLGlob("templates/*")
+	r.GET("/dl/*baseName", handler)
 	r.GET("/refresh", func(c *gin.Context) {
 		a.UpdateLinkMap()
 		c.JSON(200, gin.H{"result": "OK"})
