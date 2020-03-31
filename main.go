@@ -6,15 +6,18 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync/atomic"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
 var (
-	username = `missdeer`
-	project  = `coredns-custom-build`
-	token    = ``
-	linkMap  = map[string]string{
+	lastRefreshTimeStamp int64
+	username             = `missdeer`
+	project              = `coredns-custom-build`
+	token                = ``
+	linkMap              = map[string]string{
 		"coredns-windows-amd64.zip":            "",
 		"coredns-windows-386.zip":              "",
 		"coredns-darwin-amd64.zip":             "",
@@ -89,6 +92,11 @@ func main() {
 	}
 
 	updateLinkMap := func() {
+		now := time.Now().Unix()
+		if atomic.LoadInt64(&lastRefreshTimeStamp)+3600 > now {
+			return
+		}
+		atomic.StoreInt64(&lastRefreshTimeStamp, now)
 		a := &Appveyor{}
 		a.UpdateLinkMap()
 
