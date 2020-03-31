@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -54,13 +55,20 @@ var (
 func handler(c *gin.Context) {
 	baseName := filepath.Base(c.Param("baseName"))
 	targetLink, ok := linkMap[baseName]
-	if ok && targetLink != "" {
-		c.HTML(http.StatusOK, "index.tmpl", gin.H{
+	if !ok || targetLink == "" {
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
+	acceptLang := c.GetHeader("Accept-Language")
+	if strings.Contains(acceptLang, "zh") {
+		c.HTML(http.StatusOK, "index.zh.tmpl", gin.H{
 			"targetLink": targetLink,
 		})
-	} else {
-		c.AbortWithStatus(http.StatusNotFound)
+		return
 	}
+	c.HTML(http.StatusOK, "index.en.tmpl", gin.H{
+		"targetLink": targetLink,
+	})
 }
 
 func main() {
