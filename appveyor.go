@@ -138,9 +138,7 @@ func (av *Appveyor) UpdateLinkMap() {
 		}
 		for _, artifact := range artifacts {
 			baseName := filepath.Base(artifact.FileName)
-			if _, ok := linkMap[baseName]; ok {
-				linkMap[baseName] = fmt.Sprintf("https://ci.appveyor.com/api/buildjobs/%s/artifacts/%s", job.JobID, artifact.FileName)
-			}
+			rc.Put(baseName, fmt.Sprintf("https://ci.appveyor.com/api/buildjobs/%s/artifacts/%s", job.JobID, artifact.FileName))
 		}
 	}
 }

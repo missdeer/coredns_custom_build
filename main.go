@@ -14,51 +14,17 @@ import (
 
 var (
 	lastRefreshTimeStamp int64
+	rc                   *RedisCache
 	username             = `missdeer`
 	project              = `coredns-custom-build`
 	token                = ``
-	linkMap              = map[string]string{
-		"coredns-windows-amd64.zip":            "",
-		"coredns-windows-386.zip":              "",
-		"coredns-darwin-amd64.zip":             "",
-		"coredns-linux-386.zip":                "",
-		"coredns-linux-amd64.zip":              "",
-		"coredns-linux-armv5.zip":              "",
-		"coredns-linux-armv6.zip":              "",
-		"coredns-linux-armv7.zip":              "",
-		"coredns-linux-arm64.zip":              "",
-		"coredns-linux-ppc64.zip":              "",
-		"coredns-linux-ppc64le.zip":            "",
-		"coredns-linux-mips64-hardfloat.zip":   "",
-		"coredns-linux-mips64-softfloat.zip":   "",
-		"coredns-linux-mips64le-hardfloat.zip": "",
-		"coredns-linux-mips64le-softfloat.zip": "",
-		"coredns-linux-mips-hardfloat.zip":     "",
-		"coredns-linux-mips-softfloat.zip":     "",
-		"coredns-linux-mipsle-hardfloat.zip":   "",
-		"coredns-linux-mipsle-softfloat.zip":   "",
-		"coredns-linux-s390x.zip":              "",
-		"coredns-freebsd-amd64.zip":            "",
-		"coredns-freebsd-386.zip":              "",
-		"coredns-freebsd-arm.zip":              "",
-		"coredns-netbsd-amd64.zip":             "",
-		"coredns-netbsd-386.zip":               "",
-		"coredns-netbsd-arm.zip":               "",
-		"coredns-openbsd-amd64.zip":            "",
-		"coredns-openbsd-386.zip":              "",
-		"coredns-dragonfly-amd64.zip":          "",
-		"coredns-solaris-amd64.zip":            "",
-		"coredns-android-amd64.zip":            "",
-		"coredns-android-386.zip":              "",
-		"coredns-android-arm.zip":              "",
-		"coredns-android-aarch64.zip":          "",
-	}
 )
 
 func handler(c *gin.Context) {
 	baseName := filepath.Base(c.Param("baseName"))
-	targetLink, ok := linkMap[baseName]
-	if !ok || targetLink == "" {
+
+	targetLink, err := rc.GetString(baseName)
+	if err != nil || targetLink == "" {
 		c.AbortWithStatus(http.StatusNotFound)
 		return
 	}
@@ -79,16 +45,9 @@ func main() {
 	if redis == "" {
 		redis = "127.0.0.1:6379"
 	}
-	rc := RedisInit(redis)
-	if rc == nil {
-		return
-	}
 
-	for k := range linkMap {
-		l, e := rc.GetString(k)
-		if e == nil {
-			linkMap[k] = l
-		}
+	if rc = RedisInit(redis); rc == nil {
+		return
 	}
 
 	updateLinkMap := func() {
@@ -99,16 +58,15 @@ func main() {
 		atomic.StoreInt64(&lastRefreshTimeStamp, now)
 		a := &Appveyor{}
 		a.UpdateLinkMap()
-
-		for k, v := range linkMap {
-			rc.Put(k, v)
-		}
 	}
 
 	go updateLinkMap()
 
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")
+	r.GET("/", func(c *gin.Context) {
+		c.Redirect(http.StatusFound, "https://github.com/missdeer/coredns_custom_build")
+	})
 	r.GET("/dl/*baseName", handler)
 	r.GET("/refresh", func(c *gin.Context) {
 		updateLinkMap()
