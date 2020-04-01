@@ -12,6 +12,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const (
+	refreshMinInterval = 120
+)
+
 var (
 	lastRefreshTimeStamp int64
 	rc                   *RedisCache
@@ -52,7 +56,7 @@ func main() {
 
 	updateLinkMap := func() {
 		now := time.Now().Unix()
-		if atomic.LoadInt64(&lastRefreshTimeStamp)+3600 > now {
+		if atomic.LoadInt64(&lastRefreshTimeStamp)+refreshMinInterval > now {
 			return
 		}
 		atomic.StoreInt64(&lastRefreshTimeStamp, now)
