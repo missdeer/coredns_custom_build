@@ -32,6 +32,12 @@ func handler(c *gin.Context) {
 		c.AbortWithStatus(http.StatusNotFound)
 		return
 	}
+	userAgent := c.GetHeader("User-Agent")
+	if userAgent == "CoreDNSHome" {
+		c.Redirect(http.StatusFound, targetLink)
+		return
+	}
+
 	acceptLang := c.GetHeader("Accept-Language")
 	if strings.Contains(acceptLang, "zh") {
 		c.HTML(http.StatusOK, "index.zh.tmpl", gin.H{
