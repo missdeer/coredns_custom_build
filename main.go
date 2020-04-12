@@ -74,7 +74,7 @@ func main() {
 
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")
-	r.GET("/", func(c *gin.Context) {
+	r.NoRoute(func(c *gin.Context) {
 		c.Redirect(http.StatusFound, "https://github.com/missdeer/coredns_custom_build")
 	})
 	r.GET("/dl/*baseName", handler)
