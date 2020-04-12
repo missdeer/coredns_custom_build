@@ -34,6 +34,7 @@ jobs:
         env CGO_ENABLED=0 GOOS=netbsd GOARCH=amd64 go build -o netbsd-amd64/coredns_dl -ldflags="-s -w" . && cp -r templates netbsd-amd64/
         env CGO_ENABLED=0 GOOS=netbsd GOARCH=386 go build -o netbsd-386/coredns_dl -ldflags="-s -w" . && cp -r templates netbsd-386/
         env CGO_ENABLED=0 GOOS=dragonfly GOARCH=amd64 go build -o dragonfly-amd64/coredns_dl -ldflags="-s -w" . && cp -r templates dragonfly-amd64/
+        env GOPATH=$PWD/gopath go get -u github.com/missdeer/cicdutil
       
     - name: Upload artifact coredns_dl-linux-amd64
       uses: actions/upload-artifact@v1.0.0
@@ -162,3 +163,7 @@ jobs:
         name: coredns_dl-windows-386
         # Directory containing files to upload
         path: windows-386
+
+    - name: Remove old artifacts
+      run: |
+        gopath/bin/cicdutil -p github -u missdeer -t ${{ secrets.GH_TOKEN }} -r coredns_custom_build -k 0 -a delete
