@@ -196,7 +196,7 @@ install:
     - if [ "$GOOS" = "android" -a "$GOARCH" = "arm64" ]; then export CC=$ANDROID_AARCH64_CC; CXX=$ANDROID_AARCH64_CXX; fi
     - if [ "$GOOS" = "android" -a "$GOARCH" = "386" ]; then export CC=$ANDROID_X86_CC; CXX=$ANDROID_X86_CXX; fi
     - if [ "$GOOS" = "android" -a "$GOARCH" = "amd64" ]; then export CC=$ANDROID_X64_CC; CXX=$ANDROID_X64_CXX; fi
-    - if [ "$GOOS" = "android" ]; export PATH=$ANDROID_NDK_HOME:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}; fi
+    - if [ "$GOOS" = "android" ]; then export PATH=$ANDROID_NDK_HOME:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}; fi
     - export GO111MODULE=on
     - export GOPROXY=direct
     - git clone --depth=1 https://github.com/coredns/coredns.git
