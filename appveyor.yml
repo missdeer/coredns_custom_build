@@ -174,8 +174,7 @@ install:
     - export PATH=$(pwd)/go/bin:$PATH
     - if [ "$GOOS" = "android" ]; then export NDK_VERSION=r21; fi
     - if [ "$GOOS" = "android" ]; then export ARCH=`uname -m`; fi
-    - if [ "$GOOS" = "android" ]; then export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-$NDK_VERSION; fi
-    - if [ "$GOOS" = "android" ]; then if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi
+    - if [ "$GOOS" = "android" ]; then export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-$NDK_VERSION; if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi; fi
     - if [ "$GOOS" = "android" ]; then pushd $APPVEYOR_BUILD_FOLDER/.android; fi
     - if [ "$GOOS" = "android" ]; then wget http://dl.google.com/android/repository/android-ndk-$NDK_VERSION-linux-$ARCH.zip -O android-ndk-$NDK_VERSION-linux-$ARCH.zip; fi
     - if [ "$GOOS" = "android" ]; then unzip -q android-ndk-$NDK_VERSION-linux-$ARCH.zip; fi
