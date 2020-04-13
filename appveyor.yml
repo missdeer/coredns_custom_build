@@ -168,36 +168,36 @@ clone_depth: 1
 # scripts that run after cloning repository
 install:
     - export GOVERSION=1.14.1
-    - export NDK_VERSION=r21
-    - export ARCH=`uname -m`
     - wget "https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz"
     - tar xzf "go$GOVERSION.linux-amd64.tar.gz"
     - export GOROOT=$(pwd)/go
     - export PATH=$(pwd)/go/bin:$PATH
-    - export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-$NDK_VERSION
-    - if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi
-    - pushd $APPVEYOR_BUILD_FOLDER/.android
-    - wget http://dl.google.com/android/repository/android-ndk-$NDK_VERSION-linux-$ARCH.zip -O android-ndk-$NDK_VERSION-linux-$ARCH.zip
-    - unzip -q android-ndk-$NDK_VERSION-linux-$ARCH.zip
-    - ls -l
-    - popd
-    - export ANDROID_ARM_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi29-clang
-    - export ANDROID_ARM_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi29-clang++
-    - export ANDROID_ARM_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/arm-linux-androideabi-strip
-    - export ANDROID_X86_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android29-clang
-    - export ANDROID_X86_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android29-clang++
-    - export ANDROID_X86_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android-strip
-    - export ANDROID_AARCH64_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang
-    - export ANDROID_AARCH64_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang++
-    - export ANDROID_AARCH64_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android-strip
-    - export ANDROID_X64_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android29-clang
-    - export ANDROID_X64_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android29-clang++
-    - export ANDROID_X64_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android-strip
+    - if [ "$GOOS" = "android" ]; then export NDK_VERSION=r21; fi
+    - if [ "$GOOS" = "android" ]; then export ARCH=`uname -m`; fi
+    - if [ "$GOOS" = "android" ]; then export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-$NDK_VERSION; fi
+    - if [ "$GOOS" = "android" ]; then if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi
+    - if [ "$GOOS" = "android" ]; then pushd $APPVEYOR_BUILD_FOLDER/.android; fi
+    - if [ "$GOOS" = "android" ]; then wget http://dl.google.com/android/repository/android-ndk-$NDK_VERSION-linux-$ARCH.zip -O android-ndk-$NDK_VERSION-linux-$ARCH.zip; fi
+    - if [ "$GOOS" = "android" ]; then unzip -q android-ndk-$NDK_VERSION-linux-$ARCH.zip; fi
+    - if [ "$GOOS" = "android" ]; then ls -l; fi
+    - if [ "$GOOS" = "android" ]; then popd; fi
+    - if [ "$GOOS" = "android" ]; then export ANDROID_ARM_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi29-clang; fi
+    - if [ "$GOOS" = "android" ]; then export ANDROID_ARM_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi29-clang++; fi
+    - if [ "$GOOS" = "android" ]; then export ANDROID_ARM_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/arm-linux-androideabi-strip; fi
+    - if [ "$GOOS" = "android" ]; then export ANDROID_X86_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android29-clang; fi
+    - if [ "$GOOS" = "android" ]; then export ANDROID_X86_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android29-clang++; fi
+    - if [ "$GOOS" = "android" ]; then export ANDROID_X86_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android-strip; fi
+    - if [ "$GOOS" = "android" ]; then export ANDROID_AARCH64_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang; fi
+    - if [ "$GOOS" = "android" ]; then export ANDROID_AARCH64_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang++; fi
+    - if [ "$GOOS" = "android" ]; then export ANDROID_AARCH64_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android-strip; fi
+    - if [ "$GOOS" = "android" ]; then export ANDROID_X64_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android29-clang; fi
+    - if [ "$GOOS" = "android" ]; then export ANDROID_X64_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android29-clang++; fi
+    - if [ "$GOOS" = "android" ]; then export ANDROID_X64_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android-strip; fi
     - if [ "$GOOS" = "android" -a "$GOARCH" = "arm" ]; then export CC=$ANDROID_ARM_CC; CXX=$ANDROID_ARM_CXX; fi
     - if [ "$GOOS" = "android" -a "$GOARCH" = "arm64" ]; then export CC=$ANDROID_AARCH64_CC; CXX=$ANDROID_AARCH64_CXX; fi
     - if [ "$GOOS" = "android" -a "$GOARCH" = "386" ]; then export CC=$ANDROID_X86_CC; CXX=$ANDROID_X86_CXX; fi
     - if [ "$GOOS" = "android" -a "$GOARCH" = "amd64" ]; then export CC=$ANDROID_X64_CC; CXX=$ANDROID_X64_CXX; fi
-    - export PATH=$ANDROID_NDK_HOME:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}
+    - if [ "$GOOS" = "android" ]; export PATH=$ANDROID_NDK_HOME:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}; fi
     - export GO111MODULE=on
     - export GOPROXY=direct
     - git clone --depth=1 https://github.com/coredns/coredns.git
