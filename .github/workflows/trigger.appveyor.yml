@@ -1,0 +1,34 @@
+name: trigger appveyor 
+
+on: 
+  schedule:
+    - cron:  '0 20 * * *'
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Trigger Appveyor
+        run: |
+          rm -f trigger
+          bash -c "date > trigger"
+      -
+        name: Set up Git
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          git config user.name "auto-trigger-appveyor[bot]"
+          git config user.email "auto-trigger-appveyor[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+      -
+        name: Commit and push changes
+        run: |
+          git add .
+          if output=$(git status --porcelain) && [ ! -z "$output" ]; then
+            git commit -m 'auto trigger appveyor'
+            git push
+          fi
