@@ -1,5 +1,17 @@
 name: Go
-on: [push]
+
+on: 
+  push:
+    branches:
+      - 'master'
+    paths:
+      - '.github/workflows/go.yml'
+      - 'go.mod'
+      - 'go.sum'
+      - 'appveyor.go'
+      - 'main.go'
+      - 'redis.go'
+
 jobs:
 
   build:
