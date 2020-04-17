@@ -2,7 +2,7 @@ name: trigger appveyor
 
 on: 
   schedule:
-    - cron:  '0 20 * * *'
+    - cron:  '0 16 * * *'
 
 jobs:
   fix:
@@ -29,6 +29,6 @@ jobs:
         run: |
           git add .
           if output=$(git status --porcelain) && [ ! -z "$output" ]; then
-            git commit -m 'auto trigger appveyor'
+            git commit -m "auto trigger appveyor at $(date)"
             git push
           fi
