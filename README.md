@@ -16,6 +16,7 @@
 2. [bogus](https://github.com/missdeer/bogus)
 3. [ipset](https://github.com/missdeer/ipset)
 4. [redisc](https://github.com/miekg/redis)
+5. [dnsredir](https://github.com/leiless/dnsredir)
 
 # Download Prebuilt Binaries
 
