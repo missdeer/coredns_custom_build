@@ -27,149 +27,149 @@ jobs:
 
     - name: Build
       run: |
-        env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o linux-amd64/coredns_dl -ldflags="-s -w" . && cp -r templates linux-amd64/
-        env CGO_ENABLED=0 GOOS=linux GOARCH=386 go build -o linux-386/coredns_dl -ldflags="-s -w" . && cp -r templates linux-386/
-        env CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=5 go build -o linux-arm-5/coredns_dl -ldflags="-s -w" . && cp -r templates linux-arm-5/
-        env CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=6 go build -o linux-arm-6/coredns_dl -ldflags="-s -w" . && cp -r templates linux-arm-6/
-        env CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build -o linux-arm-7/coredns_dl -ldflags="-s -w" . && cp -r templates linux-arm-7/
-        env CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o linux-arm64/coredns_dl -ldflags="-s -w" . && cp -r templates linux-arm64/
-        env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o darwin-amd64/coredns_dl -ldflags="-s -w" . && cp -r templates darwin-amd64/
-        env CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o windows-amd64/coredns_dl.exe -ldflags="-s -w" . && cp -r templates windows-amd64/
-        env CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -o windows-386/coredns_dl.exe -ldflags="-s -w" . && cp -r templates windows-386/
-        env CGO_ENABLED=0 GOOS=freebsd GOARCH=amd64 go build -o freebsd-amd64/coredns_dl -ldflags="-s -w" . && cp -r templates freebsd-amd64/
-        env CGO_ENABLED=0 GOOS=freebsd GOARCH=386 go build -o freebsd-386/coredns_dl -ldflags="-s -w" . && cp -r templates freebsd-386/
-        env CGO_ENABLED=0 GOOS=openbsd GOARCH=amd64 go build -o openbsd-amd64/coredns_dl -ldflags="-s -w" . && cp -r templates openbsd-amd64/
-        env CGO_ENABLED=0 GOOS=openbsd GOARCH=386 go build -o openbsd-386/coredns_dl -ldflags="-s -w" . && cp -r templates openbsd-386/
-        env CGO_ENABLED=0 GOOS=netbsd GOARCH=amd64 go build -o netbsd-amd64/coredns_dl -ldflags="-s -w" . && cp -r templates netbsd-amd64/
-        env CGO_ENABLED=0 GOOS=netbsd GOARCH=386 go build -o netbsd-386/coredns_dl -ldflags="-s -w" . && cp -r templates netbsd-386/
-        env CGO_ENABLED=0 GOOS=dragonfly GOARCH=amd64 go build -o dragonfly-amd64/coredns_dl -ldflags="-s -w" . && cp -r templates dragonfly-amd64/
+        env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o linux-amd64/dlredirector -ldflags="-s -w" . && cp -r templates linux-amd64/
+        env CGO_ENABLED=0 GOOS=linux GOARCH=386 go build -o linux-386/dlredirector -ldflags="-s -w" . && cp -r templates linux-386/
+        env CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=5 go build -o linux-arm-5/dlredirector -ldflags="-s -w" . && cp -r templates linux-arm-5/
+        env CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=6 go build -o linux-arm-6/dlredirector -ldflags="-s -w" . && cp -r templates linux-arm-6/
+        env CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build -o linux-arm-7/dlredirector -ldflags="-s -w" . && cp -r templates linux-arm-7/
+        env CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o linux-arm64/dlredirector -ldflags="-s -w" . && cp -r templates linux-arm64/
+        env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o darwin-amd64/dlredirector -ldflags="-s -w" . && cp -r templates darwin-amd64/
+        env CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o windows-amd64/dlredirector.exe -ldflags="-s -w" . && cp -r templates windows-amd64/
+        env CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -o windows-386/dlredirector.exe -ldflags="-s -w" . && cp -r templates windows-386/
+        env CGO_ENABLED=0 GOOS=freebsd GOARCH=amd64 go build -o freebsd-amd64/dlredirector -ldflags="-s -w" . && cp -r templates freebsd-amd64/
+        env CGO_ENABLED=0 GOOS=freebsd GOARCH=386 go build -o freebsd-386/dlredirector -ldflags="-s -w" . && cp -r templates freebsd-386/
+        env CGO_ENABLED=0 GOOS=openbsd GOARCH=amd64 go build -o openbsd-amd64/dlredirector -ldflags="-s -w" . && cp -r templates openbsd-amd64/
+        env CGO_ENABLED=0 GOOS=openbsd GOARCH=386 go build -o openbsd-386/dlredirector -ldflags="-s -w" . && cp -r templates openbsd-386/
+        env CGO_ENABLED=0 GOOS=netbsd GOARCH=amd64 go build -o netbsd-amd64/dlredirector -ldflags="-s -w" . && cp -r templates netbsd-amd64/
+        env CGO_ENABLED=0 GOOS=netbsd GOARCH=386 go build -o netbsd-386/dlredirector -ldflags="-s -w" . && cp -r templates netbsd-386/
+        env CGO_ENABLED=0 GOOS=dragonfly GOARCH=amd64 go build -o dragonfly-amd64/dlredirector -ldflags="-s -w" . && cp -r templates dragonfly-amd64/
         env GOPATH=$PWD/gopath go get -u github.com/missdeer/cicdutil
       
-    - name: Upload artifact coredns_dl-linux-amd64
+    - name: Upload artifact dlredirector-linux-amd64
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: coredns_dl-linux-amd64
+        name: dlredirector-linux-amd64
         # Directory containing files to upload
         path: linux-amd64
 
-    - name: Upload artifact coredns_dl-linux-386
+    - name: Upload artifact dlredirector-linux-386
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: coredns_dl-linux-386
+        name: dlredirector-linux-386
         # Directory containing files to upload
         path: linux-386
 
-    - name: Upload artifact coredns_dl-linux-arm-5
+    - name: Upload artifact dlredirector-linux-arm-5
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: coredns_dl-linux-arm-5
+        name: dlredirector-linux-arm-5
         # Directory containing files to upload
         path: linux-arm-5
 
-    - name: Upload artifact coredns_dl-linux-arm-6
+    - name: Upload artifact dlredirector-linux-arm-6
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: coredns_dl-linux-arm-6
+        name: dlredirector-linux-arm-6
         # Directory containing files to upload
         path: linux-arm-6
 
-    - name: Upload artifact coredns_dl-linux-arm-7
+    - name: Upload artifact dlredirector-linux-arm-7
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: coredns_dl-linux-arm-7
+        name: dlredirector-linux-arm-7
         # Directory containing files to upload
         path: linux-arm-7
 
-    - name: Upload artifact coredns_dl-linux-arm64
+    - name: Upload artifact dlredirector-linux-arm64
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: coredns_dl-linux-arm64
+        name: dlredirector-linux-arm64
         # Directory containing files to upload
         path: linux-arm64
 
-    - name: Upload artifact coredns_dl-darwin-amd64
+    - name: Upload artifact dlredirector-darwin-amd64
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: coredns_dl-darwin-amd64
+        name: dlredirector-darwin-amd64
         # Directory containing files to upload
         path: darwin-amd64
 
-    - name: Upload artifact coredns_dl-dragonfly-amd64
+    - name: Upload artifact dlredirector-dragonfly-amd64
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: coredns_dl-dragonfly-amd64
+        name: dlredirector-dragonfly-amd64
         # Directory containing files to upload
         path: dragonfly-amd64
 
-    - name: Upload artifact coredns_dl-openbsd-amd64
+    - name: Upload artifact dlredirector-openbsd-amd64
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: coredns_dl-openbsd-amd64
+        name: dlredirector-openbsd-amd64
         # Directory containing files to upload
         path: openbsd-amd64
 
-    - name: Upload artifact coredns_dl-openbsd-386
+    - name: Upload artifact dlredirector-openbsd-386
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: coredns_dl-openbsd-386
+        name: dlredirector-openbsd-386
         # Directory containing files to upload
         path: openbsd-386
 
-    - name: Upload artifact coredns_dl-netbsd-amd64
+    - name: Upload artifact dlredirector-netbsd-amd64
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: coredns_dl-netbsd-amd64
+        name: dlredirector-netbsd-amd64
         # Directory containing files to upload
         path: netbsd-amd64
 
-    - name: Upload artifact coredns_dl-netbsd-386
+    - name: Upload artifact dlredirector-netbsd-386
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: coredns_dl-netbsd-386
+        name: dlredirector-netbsd-386
         # Directory containing files to upload
         path: netbsd-386
 
-    - name: Upload artifact coredns_dl-freebsd-amd64
+    - name: Upload artifact dlredirector-freebsd-amd64
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: coredns_dl-freebsd-amd64
+        name: dlredirector-freebsd-amd64
         # Directory containing files to upload
         path: freebsd-amd64
 
-    - name: Upload artifact coredns_dl-freebsd-386
+    - name: Upload artifact dlredirector-freebsd-386
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: coredns_dl-freebsd-386
+        name: dlredirector-freebsd-386
         # Directory containing files to upload
         path: freebsd-386
 
-    - name: Upload artifact coredns_dl-windows-amd64
+    - name: Upload artifact dlredirector-windows-amd64
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: coredns_dl-windows-amd64
+        name: dlredirector-windows-amd64
         # Directory containing files to upload
         path: windows-amd64
 
-    - name: Upload artifact coredns_dl-windows-386
+    - name: Upload artifact dlredirector-windows-386
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: coredns_dl-windows-386
+        name: dlredirector-windows-386
         # Directory containing files to upload
         path: windows-386
 
