@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 	"os"
@@ -68,23 +69,39 @@ func handler(c *gin.Context) {
 	})
 }
 
-func updateLinkMap() {
+func updateLinkMap(slug string) {
 	now := time.Now().Unix()
 	if atomic.LoadInt64(&lastRefreshTimeStamp)+refreshMinInterval > now {
 		return
 	}
 	atomic.StoreInt64(&lastRefreshTimeStamp, now)
 	for _, a := range avs {
-		a.UpdateLinkMap()
+		if a.Project == slug || slug == "" {
+			a.UpdateLinkMap()
+		}
 	}
+}
+
+func updateLinkMapHandler(c *gin.Context) {
+	slug := c.Query("project")
+	if slug == "" {
+		if b, e := c.GetRawData(); e == nil {
+			var m map[string]string
+			if e = json.Unmarshal(b, &m); e == nil {
+				if p, ok := m["project"]; ok {
+					slug = p
+				}
+			}
+		}
+	}
+	updateLinkMap(slug)
+	c.JSON(200, gin.H{"result": "OK"})
 }
 
 func main() {
 	flag.StringVarP(&username, "username", "u", "missdeer", "appveyor username")
 	flag.StringVarP(&project, "project", "p", "coredns-custom-build", "appveyor project slug, can be multiple project names separated by semicolon")
 	flag.Parse()
-
-	projects = strings.Split(project, ";")
 
 	redis := os.Getenv("REDIS")
 	if redis == "" {
@@ -95,11 +112,11 @@ func main() {
 		return
 	}
 
+	projects = strings.Split(project, ";")
 	for _, p := range projects {
 		avs = append(avs, &Appveyor{Username: username, Project: p})
 	}
-
-	go updateLinkMap()
+	go updateLinkMap("")
 
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")
@@ -107,14 +124,8 @@ func main() {
 		c.Redirect(http.StatusFound, "https://github.com/missdeer/coredns_custom_build")
 	})
 	r.GET("/dl/*baseName", handler)
-	r.GET("/refresh", func(c *gin.Context) {
-		updateLinkMap()
-		c.JSON(200, gin.H{"result": "OK"})
-	})
-	r.POST("/refresh", func(c *gin.Context) {
-		updateLinkMap()
-		c.JSON(200, gin.H{"result": "OK"})
-	})
+	r.GET("/refresh", updateLinkMapHandler)
+	r.POST("/refresh", updateLinkMapHandler)
 
 	bind := os.Getenv("BIND")
 	if bind == "" {
