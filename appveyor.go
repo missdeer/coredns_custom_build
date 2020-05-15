@@ -11,6 +11,8 @@ import (
 )
 
 type Appveyor struct {
+	Username string
+	Project  string
 }
 
 type AppveyorBuild struct {
@@ -45,7 +47,7 @@ type AppveyorArtifact struct {
 }
 
 func (av *Appveyor) list() ([]byte, error) {
-	u := fmt.Sprintf(`https://ci.appveyor.com/api/projects/%s/%s`, username, project)
+	u := fmt.Sprintf(`https://ci.appveyor.com/api/projects/%s/%s`, av.Username, av.Project)
 	client := &http.Client{}
 
 	req, err := http.NewRequest("GET", u, nil)
@@ -66,7 +68,7 @@ func (av *Appveyor) list() ([]byte, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-		log.Println("artifacts list response not 200:", resp.Status)
+		log.Println("artifacts list response not 200:", resp.Status, u)
 		return nil, fmt.Errorf("artifacts list response not 200:", resp.Status)
 	}
 
@@ -84,7 +86,7 @@ func (av *Appveyor) getJobArtifacts(jobID string) ([]byte, error) {
 
 	req, err := http.NewRequest("GET", u, nil)
 	if err != nil {
-		log.Println("Could not parse artifacts list request:", err)
+		log.Println("Could not parse job request:", err)
 		return nil, err
 	}
 	req.Header = http.Header{
@@ -94,19 +96,19 @@ func (av *Appveyor) getJobArtifacts(jobID string) ([]byte, error) {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Println("Could not send artifacts list request:", err)
+		log.Println("Could not send job request:", err)
 		return nil, err
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-		log.Println("artifacts list response not 200:", resp.Status)
-		return nil, fmt.Errorf("artifacts list response not 200:", resp.Status)
+		log.Println("job response not 200:", resp.Status)
+		return nil, fmt.Errorf("job response not 200:", resp.Status)
 	}
 
 	c, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Println("reading artifacts list failed", err)
+		log.Println("reading job failed", err)
 		return nil, err
 	}
 	return c, nil

@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	flag "github.com/spf13/pflag"
 )
 
 const (
@@ -21,6 +22,8 @@ var (
 	rc                   *RedisCache
 	username             = `missdeer`
 	project              = `coredns-custom-build`
+	projects             []string
+	avs                  []*Appveyor
 	token                = ``
 )
 
@@ -38,19 +41,51 @@ func handler(c *gin.Context) {
 		return
 	}
 
+	n := strings.Split(baseName, "-")
+	slug := projects[0]
+	for _, p := range projects {
+		if strings.HasPrefix(p, n[0]) {
+			slug = p
+			break
+		}
+	}
+
 	acceptLang := c.GetHeader("Accept-Language")
 	if strings.Contains(acceptLang, "zh") {
 		c.HTML(http.StatusOK, "index.zh.tmpl", gin.H{
-			"targetLink": targetLink,
+			"targetLink":  targetLink,
+			"username":    username,
+			"projectSlug": slug,
+			"project":     n[0],
 		})
 		return
 	}
 	c.HTML(http.StatusOK, "index.en.tmpl", gin.H{
-		"targetLink": targetLink,
+		"targetLink":  targetLink,
+		"username":    username,
+		"projectSlug": slug,
+		"project":     n[0],
 	})
 }
 
+func updateLinkMap() {
+	now := time.Now().Unix()
+	if atomic.LoadInt64(&lastRefreshTimeStamp)+refreshMinInterval > now {
+		return
+	}
+	atomic.StoreInt64(&lastRefreshTimeStamp, now)
+	for _, a := range avs {
+		a.UpdateLinkMap()
+	}
+}
+
 func main() {
+	flag.StringVarP(&username, "username", "u", "missdeer", "appveyor username")
+	flag.StringVarP(&project, "project", "p", "coredns-custom-build", "appveyor project slug, can be multiple project names separated by semicolon")
+	flag.Parse()
+
+	projects = strings.Split(project, ";")
+
 	redis := os.Getenv("REDIS")
 	if redis == "" {
 		redis = "127.0.0.1:6379"
@@ -60,14 +95,8 @@ func main() {
 		return
 	}
 
-	updateLinkMap := func() {
-		now := time.Now().Unix()
-		if atomic.LoadInt64(&lastRefreshTimeStamp)+refreshMinInterval > now {
-			return
-		}
-		atomic.StoreInt64(&lastRefreshTimeStamp, now)
-		a := &Appveyor{}
-		a.UpdateLinkMap()
+	for _, p := range projects {
+		avs = append(avs, &Appveyor{Username: username, Project: p})
 	}
 
 	go updateLinkMap()

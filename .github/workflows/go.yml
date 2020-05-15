@@ -6,11 +6,8 @@ on:
       - 'master'
     paths:
       - '.github/workflows/go.yml'
-      - 'go.mod'
-      - 'go.sum'
-      - 'appveyor.go'
-      - 'main.go'
-      - 'redis.go'
+      - 'go.*'
+      - '*.go'
 
 jobs:
 
