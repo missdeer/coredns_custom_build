@@ -1,6 +1,6 @@
 image: Ubuntu1804
 
-version: 1.6.9.{build}
+version: 1.7.0.{build}
 
 branches:
     only:
@@ -167,7 +167,7 @@ clone_depth: 1
 
 # scripts that run after cloning repository
 install:
-    - export GOVERSION=1.14.2
+    - export GOVERSION=1.14.4
     - wget "https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz"
     - tar xzf "go$GOVERSION.linux-amd64.tar.gz"
     - export GOROOT=$(pwd)/go
