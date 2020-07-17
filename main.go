@@ -53,7 +53,7 @@ func handler(c *gin.Context) {
 
 	acceptLang := c.GetHeader("Accept-Language")
 	if strings.Contains(acceptLang, "zh") {
-		c.HTML(http.StatusOK, "index.zh.tmpl", gin.H{
+		c.HTML(http.StatusOK, "download.zh.tmpl", gin.H{
 			"targetLink":  targetLink,
 			"username":    username,
 			"projectSlug": slug,
@@ -61,7 +61,7 @@ func handler(c *gin.Context) {
 		})
 		return
 	}
-	c.HTML(http.StatusOK, "index.en.tmpl", gin.H{
+	c.HTML(http.StatusOK, "download.en.tmpl", gin.H{
 		"targetLink":  targetLink,
 		"username":    username,
 		"projectSlug": slug,
@@ -120,9 +120,8 @@ func main() {
 
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")
-	r.NoRoute(func(c *gin.Context) {
-		c.Redirect(http.StatusFound, "https://github.com/missdeer/coredns_custom_build")
-	})
+	r.NoRoute(configurationGenerator)
+	r.POST("/", generateConfiguration)
 	r.GET("/dl/*baseName", handler)
 	r.GET("/refresh", updateLinkMapHandler)
 	r.POST("/refresh", updateLinkMapHandler)

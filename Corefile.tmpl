@@ -1,0 +1,44 @@
+.{{ .Listen }} {
+    {{ if .AdsEnabled }}ads {
+        {{ if .DefaultAdsPolicy }}default-lists{{ else }}strict-default-lists{{ end }}
+        blacklist {{ .AdsBlockList }}
+        whitelist {{ .AdsWhiteList }}
+        log
+        auto-update-interval {{ .AdsUpdateInterval }}
+        {{ if .AdsCacheEnabled }}list-store ads-cache{{ end }}
+    }{{ end }}
+    {{ if .HostsEnabled }}hosts {
+            fallthrough
+    }{{ end }}
+    forward . {{ .AbroadDNSServerList }} {
+        except {{ .ChinaDomainNameList }}
+    }
+    proxy . {{ .ChinaDNSServerList }}
+    {{ if .BogusEnabled }}bogus {{ .BogusIPList }}{{ end }}
+    {{ if .LogEnabled }}log{{ end }}
+    {{ if .TTLCacheEnabled }}cache{{ end }}
+    {{ if .RedisEnabled }}redisc {
+            endpoint {{ .RedisServerAddress }}
+    }{{ end }}
+    {{ if .HealthCheckEnabled }}health{{ end }}
+    {{ if .HotReloadEnabled }}reload{{ end }}
+}
+{{ if .NetflixIPSet }}
+nflxsearch.net, btstatic.com, netflix.ca, netflix.com, netflix.net, nflxext.com, nflximg.com, nflximg.net, nflxso.net, nflxvideo.net, netvigator.com, netflixdnstest0.com, netflixdnstest1.com, netflixdnstest2.com, netflixdnstest3.com, netflixdnstest4.com, netflixdnstest5.com, netflixdnstest6.com, netflixdnstest7.com, netflixdnstest8.com, netflixdnstest9.com {
+    ipset nfroute
+    forward . {{ .AbroadDNSServerList }}
+    {{ if .LogEnabled }}log{{ end }}
+    {{ if .TTLCacheEnabled }}cache{{ end }}
+    {{ if .RedisEnabled }}redisc {
+            endpoint {{ .RedisServerAddress }}
+    }{{ end }}
+}
+{{ end }}
+{{ range .AbroadTLSDNSServerList }}.:{{ .Port }} {
+    bind 127.0.0.1
+    forward . {{ .ServerList }} {
+        tls_servername {{ .TLSServerName }}
+    }
+    cache
+}
+{{ end }}

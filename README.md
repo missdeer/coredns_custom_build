@@ -62,7 +62,13 @@ All prebuilt binaries are build by [Appveyor service](https://ci.appveyor.com/pr
 
 # Configuration
 
-## GUI Configuration tool for GUI environment
+## Web edition GUI configuration generator, strongly recommended
+
+[https://coredns.minidump.info](https://coredns.minidump.info) screenshot
+
+![web configuration generator](https://raw.githubusercontent.com/missdeer/coredns_custom_build/master/screenshots/web-configuration-generator.png)
+
+## Desktop edition GUI Configuration generator
 
 [CoreDNS Home](https://github.com/missdeer/corednshome)  screenshot:
 

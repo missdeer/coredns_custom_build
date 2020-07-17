@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <title>Custom CoreDNS Configuration Generator</title>
+      <!-- Bootstrap core CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha256-L/W5Wfqfa0sdBNIKN9cG6QA5F2qx4qICmU2VgLruv9Y=" crossorigin="anonymous">
+      <!-- Favicons -->
+      <link rel="icon" href="https://cdn.jsdelivr.net/gh/missdeer/missdeer.github.io/images/favicon.ico" sizes="32x32" type="image/png">
+      <link rel="icon" href="https://cdn.jsdelivr.net/gh/missdeer/missdeer.github.io/images/favicon.ico" sizes="16x16" type="image/png">
+      <link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/missdeer/missdeer.github.io/images/favicon.ico" color="#563d7c">
+      <link rel="icon" href="https://cdn.jsdelivr.net/gh/missdeer/missdeer.github.io/images/favicon.ico">
+      <meta name="theme-color" content="#563d7c">
+      <style>
+         body {
+            font-family: "PingFang SC",miui,system-ui,-apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,sans-serif;
+         }
+         .bd-placeholder-img {
+             font-size: 1.125rem;
+             text-anchor: middle;
+             -webkit-user-select: none;
+             -moz-user-select: none;
+             -ms-user-select: none;
+             user-select: none;
+         }
+         @media (min-width: 768px) {
+             .bd-placeholder-img-lg {
+             font-size: 3.5rem;
+             }
+         }
+         .list-group{
+             max-height: 300px;
+             margin-bottom: 10px;
+             overflow-y:scroll;
+             -webkit-overflow-scrolling: touch;
+         }
+      </style>
+      <script>
+         function onLoad() {
+         }
+      </script>
+   </head>
+   <body onload="onLoad()">
+      <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+         <h5 class="my-0 mr-md-auto font-weight-normal">Custom CoreDNS Configuration Generator</h5>
+         <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="https://github.com/missdeer/coredns_custom_build">Source</a>
+            <a class="p-2 text-dark" href="https://ci.appveyor.com/project/{{ .username }}/{{ .projectSlug }}">Artifacts</a>
+            <a class="p-2 text-dark" href="https://ci.appveyor.com/project/{{ .username }}/{{ .projectSlug }}/history">History</a>
+         </nav>
+      </div>
+      <div class="container">
+        <form action="/" method="POST">
+            <label for="chinddnsserverlist">China DNS server list, 1~2 servers is recommended, don't set more than 4 servers</label>
+            <div>
+                <ul class="list-group">
+                {{ range $addr, $comment := .ChinaDNSServerList }}
+                    <li class="list-group-item rounded-0">
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" id="{{$addr}}" name="{{$addr}}" type="checkbox">
+                            <label class="cursor-pointer d-block custom-control-label" for="{{$addr}}">{{$addr}} - {{$comment}}</label>
+                        </div>
+                    </li>
+                {{ end }}
+                </ul>
+            </div>
+
+            <label for="abroaddnsserverlist">Abroad DNS server list, 1~2 servers is recommended, don't set more than 4 servers</label>
+            <div>
+                <ul class="list-group">
+                {{ range $addr, $comment := .AbroadDNSServerList }}
+                    <li class="list-group-item rounded-0">
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" id="{{$addr}}" name="{{$addr}}" type="checkbox">
+                            <label class="cursor-pointer d-block custom-control-label" for="{{$addr}}">{{$addr}} - {{$comment}}</label>
+                        </div>
+                    </li>
+                {{ end }}
+                </ul>
+            </div>
+
+            <label for="chinsdnsservers">Custom China DNS server list, 1~2 servers is recommended, don't set more than 4 servers(useful for CDN friendly)</label>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="For example: 114.114.114.114 223.5.5.5 119.29.29.29, separated by whitespace" id="chinsdnsservers" name="chinsdnsservers">
+            </div>
+
+            <label for="abroaddnsservers">Custom abroad DNS server list, 1~2 servers is recommended, don't set more than 4 servers(get accurate results)</label>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="For example: 8.8.8.8 1.1.1.1, separated by whitespace" id="abroaddnsservers" name="abroaddnsservers">
+            </div>
+
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="googledomains" name="googledomains" checked>
+              <label class="custom-control-label" for="googledomains">Resolve Google domain names by China DNS server</label>
+            </div>
+
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="appledomains" name="appledomains" checked>
+              <label class="custom-control-label" for="appledomains">Resolve Apple domain names by China DNS server</label>
+            </div>
+
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="ads" name="ads" checked>
+              <label class="custom-control-label" for="ads">Enable ads plugin</label>
+            </div>
+
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="adscache" name="adscache" checked>
+              <label class="custom-control-label" for="adscache">Cache ads plugin list</label>
+            </div>
+
+            <label for="adsblocklist">Custom ads block list</label>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="URL list separated by whitespace" id="adsblocklist" name="adsblocklist">
+            </div>
+
+            <label for="adswhitelist">Custom ads white list</label>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="URL list separated by whitespace" id="adswhitelist" name="adswhitelist">
+            </div>
+
+            <!-- Default unchecked -->
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="defaultadspolicy" name="adspolicy" value="defaultadspolicy">
+              <label class="custom-control-label" for="defaultadspolicy">Default ads policy</label>
+            </div>
+
+            <!-- Default checked -->
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="restrictadspolicy" name="adspolicy" value="restrictadspolicy" checked>
+              <label class="custom-control-label" for="restrictadspolicy">Strict ads policy</label>
+            </div>
+
+            <label for="adsupdateinterval">Interval for ads list auto update</label>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="24h,60m etc, valid time units are ns/us(or µs)/ms/s/m/h" id="adsupdateinterval" name="adsupdateinterval">
+            </div>
+
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="healthcheck" name="healthcheck" checked>
+              <label class="custom-control-label" for="healthcheck">Enable health check</label>
+            </div>
+
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="hotreload" name="hotreload" checked>
+              <label class="custom-control-label" for="hotreload">Enable hot reload</label>
+            </div>
+
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="log" name="log" checked>
+              <label class="custom-control-label" for="log">Enable logs</label>
+            </div>
+
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="hosts" name="hosts" checked>
+              <label class="custom-control-label" for="hosts">Enable system hosts file</label>
+            </div>
+
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="ttlcache" name="ttlcache" checked>
+              <label class="custom-control-label" for="ttlcache">Enable TTL based cache</label>
+            </div>
+
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="bogus" name="bogus" checked>
+              <label class="custom-control-label" for="bogus">Enable bogus plugin</label>
+            </div>
+
+            <label for="redis">Redis plugins</label>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="For example: 127.0.0.1:6379, leave blank if not needed" id="redis" name="redis">
+            </div>
+
+            <label for="listen">Listen address</label>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="For example: :53 or 127.0.0.1:53 or 192.168.1.1:53 etc" id="listen" name="listen">
+            </div>
+
+            <div class="input-group mb-3">
+              <input type="hidden" id="_csrf" name="_csrf" value="{{ ._csrf }}">
+              <button class="btn btn-success" type="submit" id="generator" name="generator">Generate configurations</button>
+            </div>
+            <label for="generator">Be notice, you must use it with custom <a href="#download">CoreDNS</a> build.</label>
+        </form>
+
+         <div class="card-deck mb-3 text-center">
+            <div class="card mb-4 shadow-sm">
+               <div class="card-header">
+                  <h4 class="my-0 font-weight-normal">Donate via Wechat</h4>
+               </div>
+               <div class="card-body">
+                  <img src="https://cdn.jsdelivr.net/gh/missdeer/corednshome@master/src/res/wepay.jpg" width="300">
+               </div>
+            </div>
+            <div class="card mb-4 shadow-sm">
+               <div class="card-header">
+                  <h4 class="my-0 font-weight-normal">Donate via Alipay</h4>
+               </div>
+               <div class="card-body">
+                  <img src="https://cdn.jsdelivr.net/gh/missdeer/corednshome@master/src/res/alipay.jpg" width="300">
+               </div>
+            </div>
+            <div class="card mb-4 shadow-sm">
+               <div class="card-header">
+                  <h4 class="my-0 font-weight-normal">Donate via Paypal</h4>
+               </div>
+               <div class="card-body">
+                  <a target="_blank" href="https://www.paypal.me/dfordsoft/"><img src="https://cdn.jsdelivr.net/gh/missdeer/corednshome@master/paypal-donate.png" width="300"></a>
+               </div>
+            </div>
+         </div>
+
+        <label for="download">Download custom <a href="#download">CoreDNS</a> build</label>
+        <table id="download" class="table">
+              <thead>
+                <tr>
+                  <th scope="col" style="width: 15%">OS</th>
+                  <th scope="col" style="width: 15%">Arch</th>
+                  <th scope="col" style="width: 15%">Option</th>
+                  <th scope="col" style="width: 55%">Download Link</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Windows</td>
+                  <td>x86_64</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-windows-amd64.zip">https://coredns.minidump.info/dl/coredns-windows-amd64.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Windows</td>
+                  <td>x86</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-windows-386.zip">https://coredns.minidump.info/dl/coredns-windows-386.zip</a></td>
+                </tr>
+                <tr>
+                  <td>macOS</td>
+                  <td>x86_64</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-darwin-amd64.zip">https://coredns.minidump.info/dl/coredns-darwin-amd64.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>x86_64</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-amd64.zip">https://coredns.minidump.info/dl/coredns-linux-amd64.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>x86</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-386.zip">https://coredns.minidump.info/dl/coredns-linux-386.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>Aarch64</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-arm64.zip">https://coredns.minidump.info/dl/coredns-linux-arm64.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>ARM</td>
+                  <td>5</td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-armv5.zip">https://coredns.minidump.info/dl/coredns-linux-armv5.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>ARM</td>
+                  <td>6</td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-armv6.zip">https://coredns.minidump.info/dl/coredns-linux-armv6.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>ARM</td>
+                  <td>7</td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-armv7.zip">https://coredns.minidump.info/dl/coredns-linux-armv7.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>ppc64</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-ppc64.zip">https://coredns.minidump.info/dl/coredns-linux-ppc64.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>ppc64le</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-ppc64le.zip">https://coredns.minidump.info/dl/coredns-linux-ppc64le.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>mips64</td>
+                  <td>hardfloat</td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-mips64-hardfloat.zip">https://coredns.minidump.info/dl/coredns-linux-mips64-hardfloat.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>mips64</td>
+                  <td>softfloat</td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-mips64-softfloat.zip">https://coredns.minidump.info/dl/coredns-linux-mips64-softfloat.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>mips64le</td>
+                  <td>hardfloat</td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-mips64le-hardfloat.zip">https://coredns.minidump.info/dl/coredns-linux-mips64le-hardfloat.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>mips64le</td>
+                  <td>softfloat</td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-mips64le-softfloat.zip">https://coredns.minidump.info/dl/coredns-linux-mips64le-softfloat.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>mips</td>
+                  <td>hardfloat</td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-mips-hardfloat.zip">https://coredns.minidump.info/dl/coredns-linux-mips-hardfloat.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>mips</td>
+                  <td>softfloat</td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-mips-softfloat.zip">https://coredns.minidump.info/dl/coredns-linux-mips-softfloat.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>mipsle</td>
+                  <td>hardfloat</td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-mipsle-hardfloat.zip">https://coredns.minidump.info/dl/coredns-linux-mipsle-hardfloat.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>mipsle</td>
+                  <td>softfloat</td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-mipsle-softfloat.zip">https://coredns.minidump.info/dl/coredns-linux-mipsle-softfloat.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux</td>
+                  <td>s390x</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-linux-s390x.zip">https://coredns.minidump.info/dl/coredns-linux-s390x.zip</a></td>
+                </tr>
+                <tr>
+                  <td>FreeBSD</td>
+                  <td>x86_64</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-freebsd-amd64.zip">https://coredns.minidump.info/dl/coredns-freebsd-amd64.zip</a></td>
+                </tr>
+                <tr>
+                  <td>FreeBSD</td>
+                  <td>x86</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-freebsd-386.zip">https://coredns.minidump.info/dl/coredns-freebsd-386.zip</a></td>
+                </tr>
+                <tr>
+                  <td>FreeBSD</td>
+                  <td>ARM</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-freebsd-arm.zip">https://coredns.minidump.info/dl/coredns-freebsd-arm.zip</a></td>
+                </tr>
+                <tr>
+                  <td>NetBSD</td>
+                  <td>x86_64</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-netbsd-amd64.zip">https://coredns.minidump.info/dl/coredns-netbsd-amd64.zip</a></td>
+                </tr>
+                <tr>
+                  <td>NetBSD</td>
+                  <td>x86</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-netbsd-386.zip">https://coredns.minidump.info/dl/coredns-netbsd-386.zip</a></td>
+                </tr>
+                <tr>
+                  <td>NetBSD</td>
+                  <td>ARM</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-netbsd-arm.zip">https://coredns.minidump.info/dl/coredns-netbsd-arm.zip</a></td>
+                </tr>
+                <tr>
+                  <td>OpenBSD</td>
+                  <td>x86_64</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-openbsd-amd64.zip">https://coredns.minidump.info/dl/coredns-openbsd-amd64.zip</a></td>
+                </tr>
+                <tr>
+                  <td>OpenBSD</td>
+                  <td>x86</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-openbsd-386.zip">https://coredns.minidump.info/dl/coredns-openbsd-386.zip</a></td>
+                </tr>
+                <tr>
+                  <td>DragonflyBSD</td>
+                  <td>x86_64</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-dragonfly-amd64.zip">https://coredns.minidump.info/dl/coredns-dragonfly-amd64.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Solaris</td>
+                  <td>x86_64</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-solaris-amd64.zip">https://coredns.minidump.info/dl/coredns-solaris-amd64.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Android</td>
+                  <td>x86_64</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-android-amd64.zip">https://coredns.minidump.info/dl/coredns-android-amd64.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Android</td>
+                  <td>x86</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-android-386.zip">https://coredns.minidump.info/dl/coredns-android-386.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Android</td>
+                  <td>Aarch64</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-android-arm64.zip">https://coredns.minidump.info/dl/coredns-android-aarch64.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Android</td>
+                  <td>ARM</td>
+                  <td></td>
+                  <td><a href="https://coredns.minidump.info/dl/coredns-android-arm.zip">https://coredns.minidump.info/dl/coredns-android-arm.zip</a></td>
+                </tr>
+              </tbody>
+            </table>
+         <footer class="pt-4 my-md-5 pt-md-5 border-top">
+            <div class="row">
+               <div class="col-12 col-md">
+                  <img class="mb-2" src="https://cdn.jsdelivr.net/gh/missdeer/missdeer.github.io/images/favicon.ico" alt="" width="24" height="24">
+                  <small class="d-block mb-3 text-muted">&copy; 2019-2020</small>
+               </div>
+               <div class="col-6 col-md">
+                  <h5>Features</h5>
+                  <ul class="list-unstyled text-small">
+                     <li><a class="text-muted" href="https://coredns.io">Offical CoreDNS</a></li>
+                     <li><a class="text-muted" href="https://github.com/missdeer/coredns_custom_build">Web GUI configuration generator</a></li>
+                     <li><a class="text-muted" href="https://github.com/missdeer/corednshome">Desktop GUI configuration generator</a></li>
+                     <li><a class="text-muted" href="https://gist.github.com/missdeer/5c7c82b5b67f8afb41cfd43d51b82c2d">Shell script configuration</a></li>
+                  </ul>
+               </div>
+               <div class="col-6 col-md">
+                  <h5>Resources</h5>
+                  <ul class="list-unstyled text-small">
+                     <li><a class="text-muted" href="https://blog.minidump.info/2019/07/coredns-no-dns-poisoning/">CoreDNS No DNS Poisoning</a></li>
+                     <li><a class="text-muted" href="https://blog.minidump.info/2019/12/enhanced-coredns/">Enhanced CoreDNS</a></li>
+                     <li><a class="text-muted" href="https://blog.minidump.info/2020/03/prometheus-for-coredns/">Prometheus for CoreDNS</a></li>
+                  </ul>
+               </div>
+               <div class="col-6 col-md">
+                  <h5>About</h5>
+                  <ul class="list-unstyled text-small">
+                     <li><a class="text-muted" href="https://minidump.info">Contact Me</a></li>
+                     <li><a class="text-muted" href="https://blog.minidump.info">Blog</a></li>
+                  </ul>
+               </div>
+            </div>
+         </footer>
+      </div>
+   </body>
+</html>
+
