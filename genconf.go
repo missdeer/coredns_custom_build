@@ -153,8 +153,8 @@ func generateConfiguration(c *gin.Context) {
 		HotReloadEnabled:       c.PostForm("hotreload") == "on",
 		ChinaDNSServerList:     strings.Replace(strings.Join(chinaDNSServerList, " "), "dns://", "", -1),
 		AbroadDNSServerList:    strings.Replace(strings.Join(abroadNonTLSDNSServerList, " "), "dns://", "", -1),
-		ChinaDomainNameList:    strings.Join(chinaDomainList, " "),
-		BogusIPList:            strings.Join(bogusIPList, " "),
+		ChinaDomainNameList:    getChinaDomainList(c.PostForm("appledomains") == "on", c.PostForm("googledomains") == "on"),
+		BogusIPList:            bogusIPList,
 		NetflixIPSet:           false,
 		AbroadTLSDNSServerList: abroadTLSDNSServerInfoList,
 	}

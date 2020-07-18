@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"strings"
 
 	"github.com/missdeer/golib/fsutil"
 )
@@ -149,38 +150,37 @@ var (
 		"2620:ff:c000:0:1::64:25":        "tls-dns-u.odvr.dns-oarc.net",
 	}
 
-	chinaDomainList []string
-	bogusIPList     []string
+	chinaDomainList           string
+	withAppleDomainList       string
+	withGoogleDomainList      string
+	withAppleGoogleDomainList string
+	bogusIPList               string
 )
 
 const (
-	chinaDomainListURL  = `https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf`
-	bogusIPListURL      = `https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/bogus-nxdomain.china.conf`
-	chinaDomainListFile = `chinaDomain.conf`
-	bogusIPListFile     = `bogus.conf`
+	chinaDomainListURL   = `https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf`
+	appleDomainListURL   = `https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/apple.china.conf`
+	googleDomainListURL  = `https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/google.china.conf`
+	bogusIPListURL       = `https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/bogus-nxdomain.china.conf`
+	chinaDomainListFile  = `chinaDomain.conf`
+	appleDomainListFile  = `apple.conf`
+	googleDomainListFile = `google.conf`
+	bogusIPListFile      = `bogus.conf`
 )
 
 func init() {
 	// load China domain names
-	loadChinaDomainList()
+	chinaDomainList = loadDomainList(chinaDomainListFile, chinaDomainListURL)
+	// load Apple domain names
+	appleDomainList := loadDomainList(appleDomainListFile, appleDomainListURL)
+	// load Google domain names
+	googleDomainList := loadDomainList(googleDomainListFile, googleDomainListURL)
+
+	withAppleGoogleDomainList = strings.Join([]string{chinaDomainList, appleDomainList, googleDomainList}, " ")
+	withAppleDomainList = strings.Join([]string{chinaDomainList, appleDomainList}, " ")
+	withGoogleDomainList = strings.Join([]string{chinaDomainList, googleDomainList}, " ")
 	// load bogus IP list
 	loadBogusIPList()
-}
-
-func loadChinaDomainList() {
-	c, err := getFileContent(chinaDomainListFile, chinaDomainListURL)
-	if err != nil {
-		log.Fatal(err)
-	}
-	scanner := bufio.NewScanner(bytes.NewBuffer(c))
-	scanner.Split(bufio.ScanLines)
-	r := regexp.MustCompile(`^server=\/([^\/]+)\/114\.114\.114\.114$`)
-	for scanner.Scan() {
-		ss := r.FindStringSubmatch(scanner.Text())
-		if len(ss) > 1 {
-			chinaDomainList = append(chinaDomainList, ss[1])
-		}
-	}
 }
 
 func loadBogusIPList() {
@@ -191,12 +191,32 @@ func loadBogusIPList() {
 	scanner := bufio.NewScanner(bytes.NewBuffer(c))
 	scanner.Split(bufio.ScanLines)
 	r := regexp.MustCompile(`^bogus-nxdomain=(.+)$`)
+	var ips []string
 	for scanner.Scan() {
 		ss := r.FindStringSubmatch(scanner.Text())
 		if len(ss) > 1 {
-			bogusIPList = append(bogusIPList, ss[1])
+			ips = append(ips, ss[1])
 		}
 	}
+	bogusIPList = strings.Join(ips, " ")
+}
+
+func loadDomainList(filename string, u string) string {
+	c, err := getFileContent(filename, u)
+	if err != nil {
+		log.Fatal(err)
+	}
+	scanner := bufio.NewScanner(bytes.NewBuffer(c))
+	scanner.Split(bufio.ScanLines)
+	r := regexp.MustCompile(`^server=\/([^\/]+)\/114\.114\.114\.114$`)
+	var domains []string
+	for scanner.Scan() {
+		ss := r.FindStringSubmatch(scanner.Text())
+		if len(ss) > 1 {
+			domains = append(domains, ss[1])
+		}
+	}
+	return strings.Join(domains, " ")
 }
 
 func getFileContent(filename string, u string) ([]byte, error) {
@@ -242,4 +262,17 @@ func getFileContent(filename string, u string) ([]byte, error) {
 		}
 	}
 	return c, nil
+}
+
+func getChinaDomainList(includeApple bool, includeGoogle bool) string {
+	if includeApple && includeGoogle {
+		return withAppleGoogleDomainList
+	}
+	if includeApple {
+		return withAppleDomainList
+	}
+	if includeGoogle {
+		return withGoogleDomainList
+	}
+	return chinaDomainList
 }
