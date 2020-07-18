@@ -7,10 +7,10 @@ branches:
         - master
 
 only_commits:
-  files:
-    - ./*.patch
-    - ./trigger
-    - ./appveyor.yml
+    files:
+        - '**/*.patch'
+        - trigger
+        - appveyor.yml
 
 environment:
     matrix:
