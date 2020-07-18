@@ -27,6 +27,7 @@ jobs:
 
     - name: Build
       run: |
+        cd dlredirector
         env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o linux-amd64/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl linux-amd64/
         env CGO_ENABLED=0 GOOS=linux GOARCH=386 go build -o linux-386/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl linux-386/
         env CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=5 go build -o linux-arm-5/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl linux-arm-5/
@@ -51,7 +52,7 @@ jobs:
         # Artifact name
         name: dlredirector-linux-amd64
         # Directory containing files to upload
-        path: linux-amd64
+        path: dlredirector/linux-amd64
 
     - name: Upload artifact dlredirector-linux-386
       uses: actions/upload-artifact@v1.0.0
@@ -59,7 +60,7 @@ jobs:
         # Artifact name
         name: dlredirector-linux-386
         # Directory containing files to upload
-        path: linux-386
+        path: dlredirector/linux-386
 
     - name: Upload artifact dlredirector-linux-arm-5
       uses: actions/upload-artifact@v1.0.0
@@ -67,7 +68,7 @@ jobs:
         # Artifact name
         name: dlredirector-linux-arm-5
         # Directory containing files to upload
-        path: linux-arm-5
+        path: dlredirector/linux-arm-5
 
     - name: Upload artifact dlredirector-linux-arm-6
       uses: actions/upload-artifact@v1.0.0
@@ -75,7 +76,7 @@ jobs:
         # Artifact name
         name: dlredirector-linux-arm-6
         # Directory containing files to upload
-        path: linux-arm-6
+        path: dlredirector/linux-arm-6
 
     - name: Upload artifact dlredirector-linux-arm-7
       uses: actions/upload-artifact@v1.0.0
@@ -83,7 +84,7 @@ jobs:
         # Artifact name
         name: dlredirector-linux-arm-7
         # Directory containing files to upload
-        path: linux-arm-7
+        path: dlredirector/linux-arm-7
 
     - name: Upload artifact dlredirector-linux-arm64
       uses: actions/upload-artifact@v1.0.0
@@ -91,7 +92,7 @@ jobs:
         # Artifact name
         name: dlredirector-linux-arm64
         # Directory containing files to upload
-        path: linux-arm64
+        path: dlredirector/linux-arm64
 
     - name: Upload artifact dlredirector-darwin-amd64
       uses: actions/upload-artifact@v1.0.0
@@ -99,7 +100,7 @@ jobs:
         # Artifact name
         name: dlredirector-darwin-amd64
         # Directory containing files to upload
-        path: darwin-amd64
+        path: dlredirector/darwin-amd64
 
     - name: Upload artifact dlredirector-dragonfly-amd64
       uses: actions/upload-artifact@v1.0.0
@@ -107,7 +108,7 @@ jobs:
         # Artifact name
         name: dlredirector-dragonfly-amd64
         # Directory containing files to upload
-        path: dragonfly-amd64
+        path: dlredirector/dragonfly-amd64
 
     - name: Upload artifact dlredirector-openbsd-amd64
       uses: actions/upload-artifact@v1.0.0
@@ -115,7 +116,7 @@ jobs:
         # Artifact name
         name: dlredirector-openbsd-amd64
         # Directory containing files to upload
-        path: openbsd-amd64
+        path: dlredirector/openbsd-amd64
 
     - name: Upload artifact dlredirector-openbsd-386
       uses: actions/upload-artifact@v1.0.0
@@ -123,7 +124,7 @@ jobs:
         # Artifact name
         name: dlredirector-openbsd-386
         # Directory containing files to upload
-        path: openbsd-386
+        path: dlredirector/openbsd-386
 
     - name: Upload artifact dlredirector-netbsd-amd64
       uses: actions/upload-artifact@v1.0.0
@@ -131,7 +132,7 @@ jobs:
         # Artifact name
         name: dlredirector-netbsd-amd64
         # Directory containing files to upload
-        path: netbsd-amd64
+        path: dlredirector/netbsd-amd64
 
     - name: Upload artifact dlredirector-netbsd-386
       uses: actions/upload-artifact@v1.0.0
@@ -139,7 +140,7 @@ jobs:
         # Artifact name
         name: dlredirector-netbsd-386
         # Directory containing files to upload
-        path: netbsd-386
+        path: dlredirector/netbsd-386
 
     - name: Upload artifact dlredirector-freebsd-amd64
       uses: actions/upload-artifact@v1.0.0
@@ -147,7 +148,7 @@ jobs:
         # Artifact name
         name: dlredirector-freebsd-amd64
         # Directory containing files to upload
-        path: freebsd-amd64
+        path: dlredirector/freebsd-amd64
 
     - name: Upload artifact dlredirector-freebsd-386
       uses: actions/upload-artifact@v1.0.0
@@ -155,7 +156,7 @@ jobs:
         # Artifact name
         name: dlredirector-freebsd-386
         # Directory containing files to upload
-        path: freebsd-386
+        path: dlredirector/freebsd-386
 
     - name: Upload artifact dlredirector-windows-amd64
       uses: actions/upload-artifact@v1.0.0
@@ -163,7 +164,7 @@ jobs:
         # Artifact name
         name: dlredirector-windows-amd64
         # Directory containing files to upload
-        path: windows-amd64
+        path: dlredirector/windows-amd64
 
     - name: Upload artifact dlredirector-windows-386
       uses: actions/upload-artifact@v1.0.0
@@ -171,7 +172,7 @@ jobs:
         # Artifact name
         name: dlredirector-windows-386
         # Directory containing files to upload
-        path: windows-386
+        path: dlredirector/windows-386
 
     - name: Remove old artifacts
       run: |

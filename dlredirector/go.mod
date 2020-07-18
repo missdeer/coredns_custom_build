@@ -1,4 +1,4 @@
-module github.com/missdeer/coredns_custom_build
+module github.com/missdeer/coredns_custom_build/dlredirector
 
 go 1.14
 
