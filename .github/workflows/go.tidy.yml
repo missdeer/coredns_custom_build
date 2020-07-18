@@ -6,8 +6,7 @@ on:
       - 'master'
     paths:
       - '.github/workflows/go.tidy.yml'
-      - 'go.mod'
-      - 'go.sum'
+      - 'dlredirector/go.*'
 
 jobs:
   fix:
@@ -19,8 +18,10 @@ jobs:
       -
         name: Tidy
         run: |
+          cd dlredirector
           rm -f go.sum
           go mod tidy
+          cd ..
       -
         name: Set up Git
         env:
@@ -32,6 +33,7 @@ jobs:
       -
         name: Commit and push changes
         run: |
+          cd dlredirector
           git add .
           if output=$(git status --porcelain) && [ ! -z "$output" ]; then
             git commit -m 'auto go mod tidy'
