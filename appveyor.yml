@@ -6,6 +6,12 @@ branches:
     only:
         - master
 
+only_commits:
+  files:
+    - *.patch
+    - trigger
+    - appveyor.yml
+
 environment:
     matrix:
         - GOOS: android
