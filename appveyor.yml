@@ -8,9 +8,9 @@ branches:
 
 only_commits:
   files:
-    - *.patch
-    - trigger
-    - appveyor.yml
+    - ./*.patch
+    - ./trigger
+    - ./appveyor.yml
 
 environment:
     matrix:
