@@ -6,17 +6,15 @@
 
 ## official plugins
 
-1. [proxy](https://github.com/coredns/proxy) 
-2. [fallback](https://github.com/coredns/fallback) with some modification for build error
+1. [proxy](https://github.com/missdeer/proxy) 
+2. [fallback](https://github.com/missdeer/fallback) with some modification for build error
 3. [forward](https://github.com/coredns/coredns/tree/master/plugin/forward) with some modification for speed up except list lookup
 
 ## third party plugins
 
-1. [ads](https://github.com/c-mueller/ads) 
-2. [bogus](https://github.com/missdeer/bogus)
-3. [ipset](https://github.com/missdeer/ipset)
-4. [redisc](https://github.com/miekg/redis)
-5. [dnsredir](https://github.com/leiless/dnsredir)
+1. [bogus](https://github.com/missdeer/bogus)
+2. [ipset](https://github.com/missdeer/ipset)
+3. [redisc](https://github.com/missdeer/redis)
 
 # Download Prebuilt Binaries
 

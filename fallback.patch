@@ -7,7 +7,7 @@ index ae660e3..d2618f2 100644
  	"github.com/coredns/coredns/plugin"
  	"github.com/coredns/coredns/plugin/pkg/nonwriter"
 -	"github.com/coredns/coredns/plugin/proxy"
-+	"github.com/coredns/proxy"
++	"github.com/missdeer/proxy"
  
  	"fmt"
  
@@ -20,7 +20,7 @@ index 1c8475a..08eeeb5 100644
  	"github.com/coredns/coredns/core/dnsserver"
  	"github.com/coredns/coredns/plugin"
 -	"github.com/coredns/coredns/plugin/proxy"
-+	"github.com/coredns/proxy"
++	"github.com/missdeer/proxy"
  
 -	"github.com/mholt/caddy"
 +	"github.com/caddyserver/caddy"
