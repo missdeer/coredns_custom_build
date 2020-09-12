@@ -9,6 +9,8 @@
 1. [proxy](https://github.com/missdeer/proxy) 
 2. [fallback](https://github.com/missdeer/fallback) with some modification for build error
 3. [forward](https://github.com/coredns/coredns/tree/master/plugin/forward) with some modification for speed up except list lookup
+4. [dnsredir](https://github.com/leiless/dnsredir)
+5. [ads](https://github.com/c-mueller/ads) 
 
 ## third party plugins
 
