@@ -205,7 +205,8 @@ install:
     - export GO111MODULE=on
     - export GOPROXY=direct
     - git clone --depth=1 https://github.com/coredns/coredns.git
-    - git clone --depth=1 https://github.com/coredns/fallback.git
+    - git clone --depth=1 https://github.com/c-mueller/ads.git
+    - git clone --depth=1 https://github.com/leiless/dnsredir.git
 
 # scripts that run before build
 before_build:
@@ -214,16 +215,26 @@ before_build:
 
 # custom build scripts
 build_script:
-    - cd fallback
-    - git apply "$APPVEYOR_BUILD_FOLDER/fallback.patch"
-    - go mod init github.com/coredns/fallback
+    - cd ads
+    - git apply "$APPVEYOR_BUILD_FOLDER/ads-setup.go.patch"
+    - rm -f go.mod go.sum
+    - go mod init github.com/c-mueller/ads
+    - cd ..
+    - cd dnsredir
+    - git apply "$APPVEYOR_BUILD_FOLDER/dnsredir-setup.go.patch"
+    - rm -f go.mod go.sum
+    - go mod init github.com/leiless/dnsredir
     - cd ..
     - cd coredns
     - git apply "$APPVEYOR_BUILD_FOLDER/forward.go.patch"
     - git apply "$APPVEYOR_BUILD_FOLDER/forward-setup.go.patch"
-    - sed -i 's|forward:forward|fallback:github.com/missdeer/fallback\nforward:forward\nproxy:github.com/missdeer/proxy|g' plugin.cfg
-    - sed -i 's|cache:cache|cache:cache\nredisc:github.com/missdeer/redis|g' plugin.cfg
+    - sed -i 's|forward:forward|fallback:github.com/missdeer/fallback\ndnsredir:github.com/leiless/dnsredir\nforward:forward\nproxy:github.com/missdeer/proxy|g' plugin.cfg
+    - sed -i 's|hosts:hosts|ads:github.com/c-mueller/ads\nhosts:hosts|g' plugin.cfg
     - sed -i 's|rewrite:rewrite|rewrite:rewrite\nbogus:github.com/missdeer/bogus\nipset:github.com/missdeer/ipset|g' plugin.cfg
+    - echo "replace (" >> go.mod
+    - echo "    github.com/c-mueller/ads => ../ads" >> go.mod
+    - echo "    github.com/leiless/dnsredir => ../dnsredir" >> go.mod
+    - echo ")" >> go.mod
     - sed -i '/azure/d' plugin.cfg
     - sed -i '/route53/d' plugin.cfg
     - env GOOS=linux GOARCH=amd64 make
