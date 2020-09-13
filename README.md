@@ -9,14 +9,14 @@
 1. [proxy](https://github.com/missdeer/proxy) 
 2. [fallback](https://github.com/missdeer/fallback) with some modification for build error
 3. [forward](https://github.com/coredns/coredns/tree/master/plugin/forward) with some modification for speed up except list lookup
-4. [dnsredir](https://github.com/leiless/dnsredir)
-5. [ads](https://github.com/c-mueller/ads) 
 
 ## third party plugins
 
 1. [bogus](https://github.com/missdeer/bogus)
 2. [ipset](https://github.com/missdeer/ipset)
 3. [redisc](https://github.com/missdeer/redis)
+4. [dnsredir](https://github.com/leiless/dnsredir)
+5. [ads](https://github.com/c-mueller/ads) 
 
 # Download Prebuilt Binaries
 
