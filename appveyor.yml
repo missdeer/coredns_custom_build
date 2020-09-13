@@ -237,6 +237,7 @@ build_script:
     - echo ")" >> go.mod
     - sed -i '/azure/d' plugin.cfg
     - sed -i '/route53/d' plugin.cfg
+    - sed -i '/trace/d' plugin.cfg
     - env GOOS=linux GOARCH=amd64 make
     - echo "==============================================="
     - ./coredns -plugins
