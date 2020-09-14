@@ -221,7 +221,6 @@ build_script:
     - go mod init github.com/c-mueller/ads
     - cd ..
     - cd dnsredir
-    - git apply "$APPVEYOR_BUILD_FOLDER/dnsredir-setup.go.patch"
     - rm -f go.mod go.sum
     - go mod init github.com/leiless/dnsredir
     - cd ..
