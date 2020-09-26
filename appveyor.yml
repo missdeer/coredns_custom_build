@@ -216,7 +216,6 @@ before_build:
 # custom build scripts
 build_script:
     - cd ads
-    - git apply "$APPVEYOR_BUILD_FOLDER/ads-setup.go.patch"
     - rm -f go.mod go.sum
     - go mod init github.com/c-mueller/ads
     - cd ..
