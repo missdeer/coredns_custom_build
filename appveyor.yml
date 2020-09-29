@@ -218,10 +218,12 @@ build_script:
     - cd ads
     - rm -f go.mod go.sum
     - go mod init github.com/c-mueller/ads
+    - find . -name '*.go' -type f -print -exec sed -i.bak 's/caddyserver/coredns/g' {} \;
     - cd ..
     - cd dnsredir
     - rm -f go.mod go.sum
     - go mod init github.com/leiless/dnsredir
+    - find . -name '*.go' -type f -print -exec sed -i.bak 's/caddyserver/coredns/g' {} \;
     - cd ..
     - cd coredns
     - git apply "$APPVEYOR_BUILD_FOLDER/forward.go.patch"
