@@ -1,6 +1,6 @@
 module github.com/missdeer/coredns_custom_build/dlredirector
 
-go 1.14
+go 1.15.5
 
 require (
 	github.com/gin-gonic/gin v1.6.3
