@@ -1,8 +1,8 @@
 diff --git a/plugin/forward/setup.go b/plugin/forward/setup.go
-index 9d873a41..6a663672 100644
+index 7504e940..ce7b424e 100644
 --- a/plugin/forward/setup.go
 +++ b/plugin/forward/setup.go
-@@ -139,9 +139,8 @@ func parseBlock(c *caddy.Controller, f *Forward) error {
+@@ -151,9 +151,8 @@ func parseBlock(c *caddy.Controller, f *Forward) error {
  			return c.ArgErr()
  		}
  		for i := 0; i < len(ignore); i++ {
