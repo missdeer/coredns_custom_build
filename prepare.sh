@@ -51,3 +51,5 @@ echo "    github.com/leiless/dnsredir => ../dnsredir" >> go.mod
 echo ")" >> go.mod
 sed -i '/azure/d' plugin.cfg
 sed -i '/route53/d' plugin.cfg
+sed -i '/trace/d' plugin.cfg
+sed -i '/etcd/d' plugin.cfg
