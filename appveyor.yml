@@ -1,5 +1,7 @@
-image: Ubuntu1804
-
+image: 
+  - macos
+  - Ubuntu
+  
 version: 1.8.0.{build}
 
 branches:
@@ -19,189 +21,230 @@ environment:
           GOARM: 7
           PREFIX: android-arm
           SUFFIX: 
+          HOST: linux
         - GOOS: android
           GOARCH: arm64
           CGO_ENABLED: 1
           PREFIX: android-aarch64
           SUFFIX: 
+          HOST: linux
         - GOOS: android
           GOARCH: 386
           CGO_ENABLED: 1
           PREFIX: android-386
           SUFFIX: 
+          HOST: linux
         - GOOS: android
           GOARCH: amd64
           CGO_ENABLED: 1
           PREFIX: android-amd64
           SUFFIX: 
+          HOST: linux
         - GOOS: windows
           GOARCH: amd64
           PREFIX: windows-amd64
           SUFFIX: .exe
+          HOST: linux
         - GOOS: darwin
           GOARCH: amd64
           PREFIX: darwin-amd64
           SUFFIX: 
+          HOST: darwin
         - GOOS: linux
           GOARCH: amd64
           CGO_ENABLED: 0
           PREFIX: linux-amd64
           SUFFIX: 
+          HOST: linux
         - GOOS: freebsd
           GOARCH: amd64
           PREFIX: freebsd-amd64
           SUFFIX: 
+          HOST: linux
         - GOOS: netbsd
           GOARCH: amd64
           PREFIX: netbsd-amd64
           SUFFIX: 
+          HOST: linux
         - GOOS: openbsd
           GOARCH: amd64
           PREFIX: openbsd-amd64
           SUFFIX: 
+          HOST: linux
         - GOOS: dragonfly
           GOARCH: amd64
           PREFIX: dragonfly-amd64
           SUFFIX: 
+          HOST: linux
         - GOOS: solaris
           GOARCH: amd64
           PREFIX: solaris-amd64
           SUFFIX: 
+          HOST: linux
         - GOOS: windows
           GOARCH: 386
           PREFIX: windows-386
           SUFFIX: .exe
+          HOST: linux
         - GOOS: linux
           GOARCH: 386
           CGO_ENABLED: 0
           PREFIX: linux-386
           SUFFIX: 
+          HOST: linux
         - GOOS: freebsd
           GOARCH: 386
           PREFIX: freebsd-386
           SUFFIX: 
+          HOST: linux
         - GOOS: netbsd
           GOARCH: 386
           PREFIX: netbsd-386
           SUFFIX: 
+          HOST: linux
         - GOOS: openbsd
           GOARCH: 386
           PREFIX: openbsd-386
           SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: arm
           GOARM: 5
           PREFIX: linux-armv5
           SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: arm
           GOARM: 6
           PREFIX: linux-armv6
           SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: arm
           GOARM: 7
           PREFIX: linux-armv7
           SUFFIX: 
+          HOST: linux
         - GOOS: freebsd
           GOARCH: arm
           PREFIX: freebsd-arm
           SUFFIX: 
+          HOST: linux
         - GOOS: netbsd
           GOARCH: arm
           PREFIX: netbsd-arm
           SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: arm64
           PREFIX: linux-arm64
           SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: ppc64
           PREFIX: linux-ppc64
           SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: ppc64le
           PREFIX: linux-ppc64le
           SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: mips64
           GOMIPS: hardfloat
           PREFIX: linux-mips64-hardfloat
           SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: mips64
           GOMIPS: softfloat
           PREFIX: linux-mips64-softfloat
           SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: mips64le
           GOMIPS: hardfloat
           PREFIX: linux-mips64le-hardfloat
           SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: mips64le
           GOMIPS: softfloat
           PREFIX: linux-mips64le-softfloat
           SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: mips
           GOMIPS: hardfloat
           PREFIX: linux-mips-hardfloat
           SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: mips
           GOMIPS: softfloat
           PREFIX: linux-mips-softfloat
           SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: mipsle
           GOMIPS: hardfloat
           PREFIX: linux-mipsle-hardfloat
           SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: mipsle
           GOMIPS: softfloat
           PREFIX: linux-mipsle-softfloat
           SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: s390x
           PREFIX: linux-s390x
           SUFFIX: 
+          HOST: linux
 
+matrix:
+  exclude:
+    - image: macos
+      HOST: linux
+    - image: Ubuntu
+      HOST: darwin
+      
 clone_depth: 1
 
 # scripts that run after cloning repository
 install:
     - export GOVERSION=1.15.6
-    - wget "https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz"
-    - tar xzf "go$GOVERSION.linux-amd64.tar.gz"
+    - wget "https://storage.googleapis.com/golang/go$GOVERSION.$HOST-amd64.tar.gz"
+    - tar xzf "go$GOVERSION.$HOST-amd64.tar.gz"
     - export GOROOT=$(pwd)/go
     - export PATH=$(pwd)/go/bin:$PATH
-    - if [ "$GOOS" = "android" ]; then export NDK_VERSION=r21; fi
-    - if [ "$GOOS" = "android" ]; then export ARCH=`uname -m`; fi
-    - if [ "$GOOS" = "android" ]; then export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-$NDK_VERSION; if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi; fi
-    - if [ "$GOOS" = "android" ]; then pushd $APPVEYOR_BUILD_FOLDER/.android; fi
-    - if [ "$GOOS" = "android" ]; then wget http://dl.google.com/android/repository/android-ndk-$NDK_VERSION-linux-$ARCH.zip -O android-ndk-$NDK_VERSION-linux-$ARCH.zip; fi
-    - if [ "$GOOS" = "android" ]; then unzip -q android-ndk-$NDK_VERSION-linux-$ARCH.zip; fi
-    - if [ "$GOOS" = "android" ]; then ls -l; fi
-    - if [ "$GOOS" = "android" ]; then popd; fi
-    - if [ "$GOOS" = "android" ]; then export ANDROID_ARM_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi29-clang; fi
-    - if [ "$GOOS" = "android" ]; then export ANDROID_ARM_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi29-clang++; fi
-    - if [ "$GOOS" = "android" ]; then export ANDROID_ARM_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/arm-linux-androideabi-strip; fi
-    - if [ "$GOOS" = "android" ]; then export ANDROID_X86_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android29-clang; fi
-    - if [ "$GOOS" = "android" ]; then export ANDROID_X86_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android29-clang++; fi
-    - if [ "$GOOS" = "android" ]; then export ANDROID_X86_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android-strip; fi
-    - if [ "$GOOS" = "android" ]; then export ANDROID_AARCH64_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang; fi
-    - if [ "$GOOS" = "android" ]; then export ANDROID_AARCH64_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang++; fi
-    - if [ "$GOOS" = "android" ]; then export ANDROID_AARCH64_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android-strip; fi
-    - if [ "$GOOS" = "android" ]; then export ANDROID_X64_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android29-clang; fi
-    - if [ "$GOOS" = "android" ]; then export ANDROID_X64_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android29-clang++; fi
-    - if [ "$GOOS" = "android" ]; then export ANDROID_X64_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android-strip; fi
-    - if [ "$GOOS" = "android" -a "$GOARCH" = "arm" ]; then export CC=$ANDROID_ARM_CC; CXX=$ANDROID_ARM_CXX; fi
-    - if [ "$GOOS" = "android" -a "$GOARCH" = "arm64" ]; then export CC=$ANDROID_AARCH64_CC; CXX=$ANDROID_AARCH64_CXX; fi
-    - if [ "$GOOS" = "android" -a "$GOARCH" = "386" ]; then export CC=$ANDROID_X86_CC; CXX=$ANDROID_X86_CXX; fi
-    - if [ "$GOOS" = "android" -a "$GOARCH" = "amd64" ]; then export CC=$ANDROID_X64_CC; CXX=$ANDROID_X64_CXX; fi
-    - if [ "$GOOS" = "android" ]; then export PATH=$ANDROID_NDK_HOME:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export NDK_VERSION=r21; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ARCH=`uname -m`; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-$NDK_VERSION; if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then pushd $APPVEYOR_BUILD_FOLDER/.android; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then wget http://dl.google.com/android/repository/android-ndk-$NDK_VERSION-linux-$ARCH.zip -O android-ndk-$NDK_VERSION-linux-$ARCH.zip; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then unzip -q android-ndk-$NDK_VERSION-linux-$ARCH.zip; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then ls -l; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then popd; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_ARM_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi29-clang; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_ARM_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi29-clang++; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_ARM_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/arm-linux-androideabi-strip; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_X86_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android29-clang; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_X86_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android29-clang++; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_X86_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android-strip; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_AARCH64_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_AARCH64_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang++; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_AARCH64_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android-strip; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_X64_CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android29-clang; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_X64_CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android29-clang++; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_X64_STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android-strip; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" -a "$GOARCH" = "arm" ]; then export CC=$ANDROID_ARM_CC; CXX=$ANDROID_ARM_CXX; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" -a "$GOARCH" = "arm64" ]; then export CC=$ANDROID_AARCH64_CC; CXX=$ANDROID_AARCH64_CXX; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" -a "$GOARCH" = "386" ]; then export CC=$ANDROID_X86_CC; CXX=$ANDROID_X86_CXX; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" -a "$GOARCH" = "amd64" ]; then export CC=$ANDROID_X64_CC; CXX=$ANDROID_X64_CXX; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export PATH=$ANDROID_NDK_HOME:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}; fi
     - export GO111MODULE=on
     - export GOPROXY=direct
     - git clone --depth=1 https://github.com/coredns/coredns.git
@@ -239,7 +282,7 @@ build_script:
     - sed -i '/route53/d' plugin.cfg
     - sed -i '/trace/d' plugin.cfg
     - sed -i '/etcd/d' plugin.cfg
-    - env GOOS=linux GOARCH=amd64 make
+    - env GOOS=$HOST GOARCH=amd64 make
     - echo "==============================================="
     - ./coredns -plugins
     - echo "==============================================="
