@@ -215,6 +215,7 @@ clone_depth: 1
 
 # scripts that run after cloning repository
 install:
+    - if [ "$HOST" = "darwin" ]; brew install wget; fi
     - export GOVERSION=1.15.6
     - wget "https://storage.googleapis.com/golang/go$GOVERSION.$HOST-amd64.tar.gz"
     - tar xzf "go$GOVERSION.$HOST-amd64.tar.gz"
