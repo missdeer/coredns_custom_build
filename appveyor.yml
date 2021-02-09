@@ -216,12 +216,12 @@ clone_depth: 1
 # scripts that run after cloning repository
 install:
     - if [ "$HOST" = "darwin" ]; then brew install wget; fi
-    - export GOVERSION=1.15.6
+    - export GOVERSION=1.15.8
     - wget "https://storage.googleapis.com/golang/go$GOVERSION.$HOST-amd64.tar.gz"
     - tar xzf "go$GOVERSION.$HOST-amd64.tar.gz"
     - export GOROOT=$(pwd)/go
     - export PATH=$(pwd)/go/bin:$PATH
-    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export NDK_VERSION=r21; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export NDK_VERSION=r22; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ARCH=`uname -m`; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-$NDK_VERSION; if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then pushd $APPVEYOR_BUILD_FOLDER/.android; fi
