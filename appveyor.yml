@@ -216,7 +216,7 @@ clone_depth: 1
 # scripts that run after cloning repository
 install:
     - if [ "$HOST" = "darwin" ]; then brew install wget; fi
-    - export GOVERSION=1.16.1
+    - export GOVERSION=1.15.9
     - wget "https://storage.googleapis.com/golang/go$GOVERSION.$HOST-amd64.tar.gz"
     - tar xzf "go$GOVERSION.$HOST-amd64.tar.gz"
     - export GOROOT=$(pwd)/go
@@ -262,13 +262,11 @@ build_script:
     - cd ads
     - rm -f go.mod go.sum
     - go mod init github.com/c-mueller/ads
-    - go mod tidy
     - find . -name '*.go' -type f -print -exec sed -i.bak 's/caddyserver/coredns/g' {} \;
     - cd ..
     - cd dnsredir
     - rm -f go.mod go.sum
     - go mod init github.com/leiless/dnsredir
-    - go mod tidy
     - find . -name '*.go' -type f -print -exec sed -i.bak 's/caddyserver/coredns/g' {} \;
     - cd ..
     - cd coredns
@@ -285,10 +283,6 @@ build_script:
     - sed -i.bak '/route53/d' plugin.cfg
     - sed -i.bak '/trace/d' plugin.cfg
     - sed -i.bak '/etcd/d' plugin.cfg
-    - go get github.com/missdeer/bogus
-    - go get github.com/missdeer/fallback
-    - go get github.com/missdeer/ipset
-    - go get github.com/missdeer/proxy
     - env GOOS=$HOST GOARCH=amd64 make
     - echo "==============================================="
     - ./coredns -plugins
