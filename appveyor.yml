@@ -262,11 +262,13 @@ build_script:
     - cd ads
     - rm -f go.mod go.sum
     - go mod init github.com/c-mueller/ads
+    - go mod tidy
     - find . -name '*.go' -type f -print -exec sed -i.bak 's/caddyserver/coredns/g' {} \;
     - cd ..
     - cd dnsredir
     - rm -f go.mod go.sum
     - go mod init github.com/leiless/dnsredir
+    - go mod tidy
     - find . -name '*.go' -type f -print -exec sed -i.bak 's/caddyserver/coredns/g' {} \;
     - cd ..
     - cd coredns
@@ -283,6 +285,10 @@ build_script:
     - sed -i.bak '/route53/d' plugin.cfg
     - sed -i.bak '/trace/d' plugin.cfg
     - sed -i.bak '/etcd/d' plugin.cfg
+    - go get github.com/missdeer/bogus
+    - go get github.com/missdeer/fallback
+    - go get github.com/missdeer/ipset
+    - go get github.com/missdeer/proxy
     - env GOOS=$HOST GOARCH=amd64 make
     - echo "==============================================="
     - ./coredns -plugins
