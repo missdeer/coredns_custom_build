@@ -230,7 +230,7 @@ install:
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ARCH=`uname -m`; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-$NDK_VERSION; if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then pushd $APPVEYOR_BUILD_FOLDER/.android; fi
-    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then curl -O -L http://dl.google.com/android/repository/android-ndk-$NDK_VERSION-linux-$ARCH.zip -O android-ndk-$NDK_VERSION-linux-$ARCH.zip; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then curl -L http://dl.google.com/android/repository/android-ndk-$NDK_VERSION-linux-$ARCH.zip -o android-ndk-$NDK_VERSION-linux-$ARCH.zip; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then unzip -q android-ndk-$NDK_VERSION-linux-$ARCH.zip; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then ls -l; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then popd; fi
