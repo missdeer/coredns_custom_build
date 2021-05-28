@@ -12,9 +12,10 @@ only_commits:
     files:
         - trigger
         - appveyor.yml
+        - *.patch
 
 environment:
-    GOVERSION: 1.16.3
+    GOVERSION: 1.16.4
     matrix:
         - GOOS: android
           GOARCH: arm
@@ -226,7 +227,7 @@ install:
     - tar xzf "go1.15.11.$HOST-amd64.tar.gz"
     - export GOROOT=$(pwd)/go
     - export PATH=$(pwd)/go/bin:$PATH
-    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export NDK_VERSION=r22; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export NDK_VERSION=r22b; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ARCH=`uname -m`; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-$NDK_VERSION; if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then pushd $APPVEYOR_BUILD_FOLDER/.android; fi
