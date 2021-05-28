@@ -12,7 +12,6 @@ only_commits:
     files:
         - trigger
         - appveyor.yml
-        - *.patch
 
 environment:
     GOVERSION: 1.16.4
