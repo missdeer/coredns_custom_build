@@ -221,9 +221,8 @@ clone_depth: 1
 
 # scripts that run after cloning repository
 install:
-    - curl -O -L "https://storage.googleapis.com/golang/go1.15.11.$HOST-amd64.tar.gz"
     - curl -O -L "https://storage.googleapis.com/golang/go$GOVERSION.$HOST-amd64.tar.gz"
-    - tar xzf "go1.15.11.$HOST-amd64.tar.gz"
+    - tar xzf "go$GOVERSION.$HOST-amd64.tar.gz"
     - export GOROOT=$(pwd)/go
     - export PATH=$(pwd)/go/bin:$PATH
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export NDK_VERSION=r22b; fi
@@ -262,7 +261,6 @@ before_build:
 
 # custom build scripts
 build_script:
-    - tar xzf "go$GOVERSION.$HOST-amd64.tar.gz"
     - cd coredns
     - git apply "$APPVEYOR_BUILD_FOLDER/forward.go.patch"
     - git apply "$APPVEYOR_BUILD_FOLDER/forward-setup.go.patch"
@@ -273,8 +271,8 @@ build_script:
     - sed -i.bak '/route53/d' plugin.cfg
     - sed -i.bak '/trace/d' plugin.cfg
     - sed -i.bak '/etcd/d' plugin.cfg
-    - go generate coredns.go
-    - go get
+    - env GOOS=$HOST GOARCH=amd64 go generate coredns.go
+    - env GOOS=$HOST GOARCH=amd64 go get
     - make CGO_ENABLED=$CGO_ENABLED
     - cd ..
 
