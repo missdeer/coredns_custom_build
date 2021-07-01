@@ -254,8 +254,6 @@ install:
     - export GO111MODULE=on
     - export GOPROXY=direct
     - git clone --depth=1 https://github.com/coredns/coredns.git
-    - git clone --depth=1 https://github.com/c-mueller/ads.git
-    - git clone --depth=1 https://github.com/leiless/dnsredir.git
 
 # scripts that run before build
 before_build:
@@ -264,26 +262,12 @@ before_build:
 
 # custom build scripts
 build_script:
-    - cd ads
-    - rm -f go.mod go.sum
-    - go mod init github.com/c-mueller/ads
-    - find . -name '*.go' -type f -print -exec sed -i.bak 's/caddyserver/coredns/g' {} \;
-    - cd ..
-    - cd dnsredir
-    - rm -f go.mod go.sum
-    - go mod init github.com/leiless/dnsredir
-    - find . -name '*.go' -type f -print -exec sed -i.bak 's/caddyserver/coredns/g' {} \;
-    - cd ..
     - cd coredns
     - git apply "$APPVEYOR_BUILD_FOLDER/forward.go.patch"
     - git apply "$APPVEYOR_BUILD_FOLDER/forward-setup.go.patch"
     - sed -i.bak 's|forward:forward|fallback:github.com/missdeer/fallback\ndnsredir:github.com/leiless/dnsredir\nforward:forward\nproxy:github.com/missdeer/proxy|g' plugin.cfg
-    - sed -i.bak 's|hosts:hosts|ads:github.com/c-mueller/ads\nhosts:hosts|g' plugin.cfg
+    - sed -i.bak 's|hosts:hosts|ads:github.com/c-mueller/ads\nblocklist:github.com/relekang/coredns-blocklist\nhosts:hosts|g' plugin.cfg
     - sed -i.bak 's|rewrite:rewrite|rewrite:rewrite\nbogus:github.com/missdeer/bogus\nipset:github.com/missdeer/ipset|g' plugin.cfg
-    - echo "replace (" >> go.mod
-    - echo "    github.com/c-mueller/ads => ../ads" >> go.mod
-    - echo "    github.com/leiless/dnsredir => ../dnsredir" >> go.mod
-    - echo ")" >> go.mod
     - sed -i.bak '/azure/d' plugin.cfg
     - sed -i.bak '/route53/d' plugin.cfg
     - sed -i.bak '/trace/d' plugin.cfg
