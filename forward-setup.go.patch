@@ -1,13 +1,16 @@
 diff --git a/plugin/forward/setup.go b/plugin/forward/setup.go
-index 3cebfe2d..902b366e 100644
+index 1f88daba..87bddb6e 100644
 --- a/plugin/forward/setup.go
 +++ b/plugin/forward/setup.go
-@@ -156,7 +156,7 @@ func parseBlock(c *caddy.Controller, f *Forward) error {
+@@ -157,7 +157,10 @@ func parseBlock(c *caddy.Controller, f *Forward) error {
  			return c.ArgErr()
  		}
  		for i := 0; i < len(ignore); i++ {
 -			f.ignored = append(f.ignored, plugin.Host(ignore[i]).NormalizeExact()...)
-+			f.ignored[plugin.Host(ignore[i]).Normalize()] = struct{}{}
++			ignores := plugin.Host(ignore[i]).NormalizeExact()
++			for _, ignored := range ignores {
++				f.ignored[ignored] = struct{}{}
++			}
  		}
  	case "max_fails":
  		if !c.NextArg() {
