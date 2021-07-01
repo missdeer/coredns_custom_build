@@ -225,6 +225,7 @@ install:
     - tar xzf "go$GOVERSION.$HOST-amd64.tar.gz"
     - export GOROOT=$(pwd)/go
     - export PATH=$(pwd)/go/bin:$PATH
+    - export GOPROXY=goproxy.io,direct
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export NDK_VERSION=r22b; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ARCH=`uname -m`; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-$NDK_VERSION; if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi; fi
