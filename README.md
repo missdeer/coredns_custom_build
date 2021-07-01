@@ -14,7 +14,7 @@
 
 1. [bogus](https://github.com/missdeer/bogus)
 2. [ipset](https://github.com/missdeer/ipset)
-3. [redisc](https://github.com/missdeer/redis)
+3. [blocklist](https://github.com/relekang/coredns-blocklist)
 4. [dnsredir](https://github.com/leiless/dnsredir)
 5. [ads](https://github.com/c-mueller/ads) 
 
