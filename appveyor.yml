@@ -272,9 +272,12 @@ build_script:
     - sed -i.bak '/route53/d' plugin.cfg
     - sed -i.bak '/trace/d' plugin.cfg
     - sed -i.bak '/etcd/d' plugin.cfg
+    - cat plugin.cfg
     - env CGO_ENABLED=0 GOOS=$HOST GOARCH=amd64 go generate coredns.go
     - env CGO_ENABLED=0 GOOS=$HOST GOARCH=amd64 go get
     - make CGO_ENABLED=$CGO_ENABLED
+    - if [ "$GOOS" = "linux" -a "$HOST" = "linux" -a "$GOARCH" = "amd64" ]; then ./coredns -plugins; fi
+    - if [ "$GOOS" = "darwin" -a "$HOST" = "darwin" -a "$GOARCH" = "amd64" ]; then ./coredns -plugins; fi
     - cd ..
 
 # scripts that run after build
