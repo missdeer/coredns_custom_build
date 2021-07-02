@@ -225,7 +225,8 @@ install:
     - tar xzf "go$GOVERSION.$HOST-amd64.tar.gz"
     - export GOROOT=$(pwd)/go
     - export PATH=$(pwd)/go/bin:$PATH
-    - if [ "$HOST" = "darwin" ]; then brew install gnu-sed; alias sed=gsed; fi
+    - if [ "$HOST" = "darwin" ]; then brew install gnu-sed; export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"; fi
+    - if [ "$HOST" = "darwin" ]; then curl -sL https://raw.githubusercontent.com/leiless/dnsredir/master/pf/download-pf-headers.sh | bash; done
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export NDK_VERSION=r22b; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ARCH=`uname -m`; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-$NDK_VERSION; if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi; fi
@@ -262,7 +263,6 @@ before_build:
 # custom build scripts
 build_script:
     - cd coredns
-    - if [ "$HOST" = "darwin" ]; then export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"; fi
     - git apply "$APPVEYOR_BUILD_FOLDER/forward.go.patch"
     - git apply "$APPVEYOR_BUILD_FOLDER/forward-setup.go.patch"
     - sed -i.bak 's|forward:forward|fallback:github.com/missdeer/fallback\ndnsredir:github.com/leiless/dnsredir\nforward:forward\nproxy:github.com/missdeer/proxy|g' plugin.cfg
