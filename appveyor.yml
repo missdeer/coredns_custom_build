@@ -226,8 +226,7 @@ install:
     - export GOROOT=$(pwd)/go
     - export PATH=$(pwd)/go/bin:$PATH
     - if [ "$HOST" = "darwin" ]; then brew install gnu-sed; export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"; fi
-    - if [ "$HOST" = "darwin" ]; then curl -sL https://raw.githubusercontent.com/leiless/dnsredir/master/pf/download-pf-headers.sh | bash ; fi
-    - if [ "$HOST" = "darwin" ]; then if [ "$(sw_vers -productVersion | cut -d'.' -f1)" = 10 ]; then pushd /Library/Developer/CommandLineTools/SDKs; sudo rm MacOSX.sdk; sudo ln -s MacOSX11.1.sdk MacOSX.sdk; sudo rm -rf MacOSX10.15.sdk; popd; fi; fi
+    - if [ "$HOST" = "darwin" ]; then curl -sL https://raw.githubusercontent.com/leiless/dnsredir/master/pf/download-pf-headers.sh | bash ; ls -l /usr/local/include/net; ls -l /usr/local/include/libkern; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export NDK_VERSION=r22b; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ARCH=`uname -m`; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-$NDK_VERSION; if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi; fi
