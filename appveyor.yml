@@ -280,8 +280,8 @@ build_script:
     - sed -i.bak '/trace/d' plugin.cfg
     - sed -i.bak '/etcd/d' plugin.cfg
     - cat plugin.cfg
-    - env CGO_ENABLED=0 GOOS=$HOST GOARCH=amd64 go generate coredns.go
-    - env CGO_ENABLED=0 GOOS=$HOST GOARCH=amd64 go get
+    - if [ "$HOST" = "darwin" ]; then env CGO_ENABLED=1 go generate coredns.go; else env CGO_ENABLED=0 GOOS=$HOST GOARCH=amd64 go generate coredns.go; fi
+    - if [ "$HOST" = "darwin" ]; then env CGO_ENABLED=1 go get; else env CGO_ENABLED=0 GOOS=$HOST GOARCH=amd64 go get; fi
     - make CGO_ENABLED=$CGO_ENABLED
     - if [ "$GOOS" = "linux" -a "$HOST" = "linux" -a "$GOARCH" = "amd64" ]; then ./coredns -plugins; fi
     - if [ "$GOOS" = "darwin" -a "$HOST" = "darwin" -a "$GOARCH" = "amd64" ]; then ./coredns -plugins; fi
