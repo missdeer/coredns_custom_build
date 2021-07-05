@@ -265,7 +265,7 @@ before_build:
 
 # custom build scripts
 build_script:
-    - cd coredns
+    - cd "$APPVEYOR_BUILD_FOLDER/coredns"
     - git apply "$APPVEYOR_BUILD_FOLDER/forward.go.patch"
     - git apply "$APPVEYOR_BUILD_FOLDER/forward-setup.go.patch"
     - sed -i.bak 's|forward:forward|fallback:github.com/missdeer/fallback\ndnsredir:github.com/leiless/dnsredir\nforward:forward\nproxy:github.com/missdeer/proxy|g' plugin.cfg
