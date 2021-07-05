@@ -226,7 +226,7 @@ install:
     - export GOROOT=$(pwd)/go
     - export PATH=$(pwd)/go/bin:$PATH
     - if [ "$HOST" = "darwin" ]; then brew install gnu-sed; export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"; fi
-    - if [ "$HOST" = "darwin" ]; then curl -sL https://raw.githubusercontent.com/leiless/dnsredir/master/pf/download-pf-headers.sh | bash ; ls -l /usr/local/include/net; ls -l /usr/local/include/libkern; fi
+    - if [ "$HOST" = "darwin" ]; then sudo bash -c `curl -sL https://raw.githubusercontent.com/leiless/dnsredir/master/pf/download-pf-headers.sh`; ls -l /usr/local/include/net; ls -l /usr/local/include/libkern; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export NDK_VERSION=r22b; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ARCH=`uname -m`; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-$NDK_VERSION; if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi; fi
@@ -254,6 +254,7 @@ install:
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export PATH=$ANDROID_NDK_HOME:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}; fi
     - export GO111MODULE=on
     - git clone --depth=1 https://github.com/coredns/coredns.git
+    - git clone --depth=1 https://github.com/leiless/dnsredir.git
 
 # scripts that run before build
 before_build:
@@ -269,6 +270,9 @@ build_script:
     - sed -i.bak 's|hosts:hosts|ads:github.com/c-mueller/ads\nblocklist:github.com/relekang/coredns-blocklist\nhosts:hosts|g' plugin.cfg
     - sed -i.bak 's|rewrite:rewrite|rewrite:rewrite\nbogus:github.com/missdeer/bogus\nipset:github.com/missdeer/ipset|g' plugin.cfg
     - sed -i.bak 's|cache:cache|cache:cache\nredisc:github.com/missdeer/redis|g' plugin.cfg
+    - echo "replace (" >> go.mod
+    - echo "    github.com/leiless/dnsredir => ../dnsredir" >> go.mod
+    - echo ")" >> go.mod
     - sed -i.bak '/azure/d' plugin.cfg
     - sed -i.bak '/route53/d' plugin.cfg
     - sed -i.bak '/trace/d' plugin.cfg
