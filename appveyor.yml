@@ -46,6 +46,11 @@ environment:
           PREFIX: windows-amd64
           SUFFIX: .exe
           HOST: linux
+        - GOOS: windows
+          GOARCH: arm
+          PREFIX: windows-arm
+          SUFFIX: .exe
+          HOST: linux
         - GOOS: darwin
           GOARCH: amd64
           CGO_ENABLED: 1
@@ -87,6 +92,11 @@ environment:
         - GOOS: solaris
           GOARCH: amd64
           PREFIX: solaris-amd64
+          SUFFIX: 
+          HOST: linux
+        - GOOS: illumos
+          GOARCH: amd64
+          PREFIX: illumos-amd64
           SUFFIX: 
           HOST: linux
         - GOOS: windows
@@ -148,6 +158,21 @@ environment:
           PREFIX: linux-arm64
           SUFFIX: 
           HOST: linux
+        - GOOS: freebsd
+          GOARCH: arm64
+          PREFIX: freebsd-arm64
+          SUFFIX: 
+          HOST: linux
+        - GOOS: netbsd
+          GOARCH: arm64
+          PREFIX: netbsd-arm64
+          SUFFIX: 
+          HOST: linux
+        - GOOS: openbsd
+          GOARCH: arm64
+          PREFIX: openbsd-arm64
+          SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: ppc64
           PREFIX: linux-ppc64
@@ -156,6 +181,11 @@ environment:
         - GOOS: linux
           GOARCH: ppc64le
           PREFIX: linux-ppc64le
+          SUFFIX: 
+          HOST: linux
+        - GOOS: openbsd
+          GOARCH: mips64
+          PREFIX: openbsd-mips64
           SUFFIX: 
           HOST: linux
         - GOOS: linux
@@ -209,6 +239,11 @@ environment:
         - GOOS: linux
           GOARCH: s390x
           PREFIX: linux-s390x
+          SUFFIX: 
+          HOST: linux
+        - GOOS: linux
+          GOARCH: riscv64
+          PREFIX: linux-riscv64
           SUFFIX: 
           HOST: linux
 
