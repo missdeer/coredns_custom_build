@@ -48,11 +48,13 @@ environment:
           HOST: linux
         - GOOS: darwin
           GOARCH: amd64
+          CGO_ENABLED: 1
           PREFIX: darwin-amd64
           SUFFIX: 
           HOST: darwin
         - GOOS: darwin
           GOARCH: arm64
+          CGO_ENABLED: 1
           PREFIX: darwin-arm64
           SUFFIX: 
           HOST: darwin
