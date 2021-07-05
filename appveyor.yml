@@ -228,7 +228,7 @@ install:
     - export GOROOT=$(pwd)/go
     - export PATH=$(pwd)/go/bin:$PATH
     - if [ "$HOST" = "darwin" ]; then brew install gnu-sed; export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"; fi
-    - if [ "$HOST" = "darwin" ]; then sudo bash -c `curl -sL https://raw.githubusercontent.com/leiless/dnsredir/master/pf/download-pf-headers.sh`; ls -l /usr/local/include/net; ls -l /usr/local/include/libkern; fi
+    - if [ "$HOST" = "darwin" ]; then sudo mkdir -p /usr/local/include/net && sudo mkdir -p /usr/local/include/libkern; sudo bash -c `curl -sL https://raw.githubusercontent.com/leiless/dnsredir/master/pf/download-pf-headers.sh`; ls -l /usr/local/include/net; ls -l /usr/local/include/libkern; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export NDK_VERSION=r22b; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ARCH=`uname -m`; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-$NDK_VERSION; if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi; fi
