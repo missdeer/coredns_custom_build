@@ -153,6 +153,11 @@ environment:
           PREFIX: netbsd-arm
           SUFFIX: 
           HOST: linux
+        - GOOS: openbsd
+          GOARCH: arm
+          PREFIX: openbsd-arm
+          SUFFIX: 
+          HOST: linux
         - GOOS: linux
           GOARCH: arm64
           PREFIX: linux-arm64
