@@ -26,6 +26,7 @@ All prebuilt binaries are build by [Appveyor service](https://ci.appveyor.com/pr
 |--------------|---------|--------    |---------------------------------------------------------------------|
 | Windows      | x86_64  |            | https://coredns.minidump.info/dl/coredns-windows-amd64.zip             |
 | Windows      | x86     |            | https://coredns.minidump.info/dl/coredns-windows-386.zip               |
+| Windows      | arm     |            | https://coredns.minidump.info/dl/coredns-windows-arm.zip               |
 | macOS        | x86_64  |            | https://coredns.minidump.info/dl/coredns-darwin-amd64.zip              |
 | macOS        | arm64   |            | https://coredns.minidump.info/dl/coredns-darwin-arm64.zip              |
 | Linux        | x86     |            | https://coredns.minidump.info/dl/coredns-linux-386.zip                 |
@@ -48,13 +49,18 @@ All prebuilt binaries are build by [Appveyor service](https://ci.appveyor.com/pr
 | FreeBSD      | x86_64  |            | https://coredns.minidump.info/dl/coredns-freebsd-amd64.zip             |
 | FreeBSD      | x86     |            | https://coredns.minidump.info/dl/coredns-freebsd-386.zip               |
 | FreeBSD      | arm     |            | https://coredns.minidump.info/dl/coredns-freebsd-arm.zip               |
+| FreeBSD      | arm64   |            | https://coredns.minidump.info/dl/coredns-freebsd-arm64.zip             |
 | NetBSD       | x86_64  |            | https://coredns.minidump.info/dl/coredns-netbsd-amd64.zip              |
 | NetBSD       | x86     |            | https://coredns.minidump.info/dl/coredns-netbsd-386.zip                |
 | NetBSD       | arm     |            | https://coredns.minidump.info/dl/coredns-netbsd-arm.zip                |
+| NetBSD       | arm64   |            | https://coredns.minidump.info/dl/coredns-netbsd-arm64.zip              |
 | OpenBSD      | x86_64  |            | https://coredns.minidump.info/dl/coredns-openbsd-amd64.zip             |
 | OpenBSD      | x86     |            | https://coredns.minidump.info/dl/coredns-openbsd-386.zip               |
+| OpenBSD      | arm     |            | https://coredns.minidump.info/dl/coredns-openbsd-arm.zip               |
+| OpenBSD      | arm64   |            | https://coredns.minidump.info/dl/coredns-openbsd-arm64.zip             |
 | DragonflyBSD | x86_64  |            | https://coredns.minidump.info/dl/coredns-dragonfly-amd64.zip           |
 | Solaris      | x86_64  |            | https://coredns.minidump.info/dl/coredns-solaris-amd64.zip             |
+| illumos      | x86_64  |            | https://coredns.minidump.info/dl/coredns-illumos-amd64.zip             |
 | Android      | x86_64  |            | https://coredns.minidump.info/dl/coredns-android-amd64.zip             |
 | Android      | x86     |            | https://coredns.minidump.info/dl/coredns-android-386.zip               |
 | Android      | arm     |            | https://coredns.minidump.info/dl/coredns-android-arm.zip               |
