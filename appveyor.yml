@@ -14,7 +14,7 @@ only_commits:
         - appveyor.yml
 
 environment:
-    GOVERSION: 1.16.5
+    GOVERSION: 1.17
     matrix:
         - GOOS: android
           GOARCH: arm
@@ -49,6 +49,11 @@ environment:
         - GOOS: windows
           GOARCH: arm
           PREFIX: windows-arm
+          SUFFIX: .exe
+          HOST: linux
+        - GOOS: windows
+          GOARCH: arm64
+          PREFIX: windows-arm64
           SUFFIX: .exe
           HOST: linux
         - GOOS: darwin
