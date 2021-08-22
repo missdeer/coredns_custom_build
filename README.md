@@ -27,6 +27,7 @@ All prebuilt binaries are built by [Appveyor service](https://ci.appveyor.com/pr
 | Windows      | x86_64  |            | https://coredns.minidump.info/dl/coredns-windows-amd64.zip             |
 | Windows      | x86     |            | https://coredns.minidump.info/dl/coredns-windows-386.zip               |
 | Windows      | arm     |            | https://coredns.minidump.info/dl/coredns-windows-arm.zip               |
+| Windows      | arm64   |            | https://coredns.minidump.info/dl/coredns-windows-arm64.zip             |
 | macOS        | x86_64  |            | https://coredns.minidump.info/dl/coredns-darwin-amd64.zip              |
 | macOS        | arm64   |            | https://coredns.minidump.info/dl/coredns-darwin-arm64.zip              |
 | Linux        | x86     |            | https://coredns.minidump.info/dl/coredns-linux-386.zip                 |
