@@ -325,6 +325,9 @@ build_script:
     - sed -i.bak '/route53/d' plugin.cfg
     - sed -i.bak '/trace/d' plugin.cfg
     - sed -i.bak '/etcd/d' plugin.cfg
+    - sed -i.bak '/clouddns/d' plugin.cfg
+    - sed -i.bak '/k8s_external/d' plugin.cfg
+    - sed -i.bak '/kubernetes/d' plugin.cfg
     - cat plugin.cfg
     - if [ "$HOST" = "darwin" ]; then env CGO_ENABLED=1 GOOS=$HOST GOARCH=amd64 go generate coredns.go; else env CGO_ENABLED=0 GOOS=$HOST GOARCH=amd64 go generate coredns.go; fi
     - if [ "$HOST" = "darwin" ]; then env CGO_ENABLED=1 GOOS=$HOST GOARCH=amd64 go get; else env CGO_ENABLED=0 GOOS=$HOST GOARCH=amd64 go get; fi
