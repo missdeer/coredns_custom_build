@@ -2,7 +2,7 @@ image:
   - macos
   - Ubuntu
   
-version: 1.8.4.{build}
+version: 1.8.5.{build}
 
 branches:
     only:
@@ -41,6 +41,35 @@ environment:
           PREFIX: android-amd64
           SUFFIX: 
           HOST: linux
+        - GOOS: android
+          GOARCH: arm
+          CGO_ENABLED: 1
+          GOARM: 7
+          PREFIX: android-arm-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: android
+          GOARCH: arm64
+          CGO_ENABLED: 1
+          PREFIX: android-aarch64-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: android
+          GOARCH: 386
+          CGO_ENABLED: 1
+          PREFIX: android-386-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: android
+          GOARCH: amd64
+          CGO_ENABLED: 1
+          PREFIX: android-amd64-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
         - GOOS: windows
           GOARCH: amd64
           PREFIX: windows-amd64
@@ -56,6 +85,18 @@ environment:
           PREFIX: windows-arm64
           SUFFIX: .exe
           HOST: linux
+        - GOOS: windows
+          GOARCH: arm
+          PREFIX: windows-arm-lite
+          SUFFIX: .exe
+          HOST: linux
+          LITE: 1
+        - GOOS: windows
+          GOARCH: arm64
+          PREFIX: windows-arm64-lite
+          SUFFIX: .exe
+          HOST: linux
+          LITE: 1
         - GOOS: darwin
           GOARCH: amd64
           CGO_ENABLED: 1
@@ -68,6 +109,13 @@ environment:
           PREFIX: darwin-arm64
           SUFFIX: 
           HOST: darwin
+        - GOOS: darwin
+          GOARCH: arm64
+          CGO_ENABLED: 1
+          PREFIX: darwin-arm64-lite
+          SUFFIX: 
+          HOST: darwin
+          LITE: 1
         - GOOS: linux
           GOARCH: amd64
           CGO_ENABLED: 0
@@ -256,6 +304,149 @@ environment:
           PREFIX: linux-riscv64
           SUFFIX: 
           HOST: linux
+        - GOOS: linux
+          GOARCH: riscv64
+          PREFIX: linux-riscv64-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: linux
+          GOARCH: arm
+          GOARM: 5
+          PREFIX: linux-armv5-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: linux
+          GOARCH: arm
+          GOARM: 6
+          PREFIX: linux-armv6-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: linux
+          GOARCH: arm
+          GOARM: 7
+          PREFIX: linux-armv7-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: freebsd
+          GOARCH: arm
+          PREFIX: freebsd-arm-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: netbsd
+          GOARCH: arm
+          PREFIX: netbsd-arm-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: openbsd
+          GOARCH: arm
+          PREFIX: openbsd-arm-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: linux
+          GOARCH: arm64
+          PREFIX: linux-arm64-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: freebsd
+          GOARCH: arm64
+          PREFIX: freebsd-arm64-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: netbsd
+          GOARCH: arm64
+          PREFIX: netbsd-arm64-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: openbsd
+          GOARCH: arm64
+          PREFIX: openbsd-arm64-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: linux
+          GOARCH: ppc64
+          PREFIX: linux-ppc64-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: linux
+          GOARCH: ppc64le
+          PREFIX: linux-ppc64le-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: openbsd
+          GOARCH: mips64
+          PREFIX: openbsd-mips64-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: linux
+          GOARCH: mips64
+          GOMIPS: hardfloat
+          PREFIX: linux-mips64-hardfloat-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: linux
+          GOARCH: mips64
+          GOMIPS: softfloat
+          PREFIX: linux-mips64-softfloat-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: linux
+          GOARCH: mips64le
+          GOMIPS: hardfloat
+          PREFIX: linux-mips64le-hardfloat-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: linux
+          GOARCH: mips64le
+          GOMIPS: softfloat
+          PREFIX: linux-mips64le-softfloat-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: linux
+          GOARCH: mips
+          GOMIPS: hardfloat
+          PREFIX: linux-mips-hardfloat-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: linux
+          GOARCH: mips
+          GOMIPS: softfloat
+          PREFIX: linux-mips-softfloat-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: linux
+          GOARCH: mipsle
+          GOMIPS: hardfloat
+          PREFIX: linux-mipsle-hardfloat-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
+        - GOOS: linux
+          GOARCH: mipsle
+          GOMIPS: softfloat
+          PREFIX: linux-mipsle-softfloat-lite
+          SUFFIX: 
+          HOST: linux
+          LITE: 1
 
 matrix:
   exclude:
@@ -328,6 +519,24 @@ build_script:
     - sed -i.bak '/clouddns/d' plugin.cfg
     - sed -i.bak '/k8s_external/d' plugin.cfg
     - sed -i.bak '/kubernetes/d' plugin.cfg
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/geoip/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/nsid/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/debug/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/trace/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/autopath/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/erratic/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/metadata/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/cancel/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/pprof/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/dnstap/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/dns64/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/acl/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/chaos/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/dnssec/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/secondary/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/loop/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/grpc/d' plugin.cfg; fi
+    - if [ "$LITE"x = "1"x ]; then sed -i.bak '/sign/d' plugin.cfg; fi
     - cat plugin.cfg
     - if [ "$HOST" = "darwin" ]; then env CGO_ENABLED=1 GOOS=$HOST GOARCH=amd64 go generate coredns.go; else env CGO_ENABLED=0 GOOS=$HOST GOARCH=amd64 go generate coredns.go; fi
     - if [ "$HOST" = "darwin" ]; then env CGO_ENABLED=1 GOOS=$HOST GOARCH=amd64 go get; else env CGO_ENABLED=0 GOOS=$HOST GOARCH=amd64 go get; fi
