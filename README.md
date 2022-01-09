@@ -16,7 +16,7 @@
 2. [ipset](https://github.com/missdeer/ipset)
 3. [blocklist](https://github.com/relekang/coredns-blocklist)
 4. [dnsredir](https://github.com/leiless/dnsredir)
-5. [ads](https://github.com/c-mueller/ads) 
+5. [ads](https://github.com/missdeer/ads) 
 
 # Download Prebuilt Binaries
 
