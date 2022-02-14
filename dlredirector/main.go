@@ -119,6 +119,7 @@ func main() {
 	go updateLinkMap("")
 
 	r := gin.Default()
+	r.StaticFile("/ads.txt", "ads.txt")
 	r.LoadHTMLGlob("templates/*")
 	r.NoRoute(configurationGenerator)
 	r.POST("/", generateConfiguration)
