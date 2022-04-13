@@ -8,6 +8,10 @@
 
 [![paypal donate](https://raw.githubusercontent.com/missdeer/corednshome/master/paypal-donate.png)](https://www.paypal.me/dfordsoft/)
 
+# Thanks for JetBrains Open Source License
+
+[![JetBrains](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png?_gl=1*17cbnzd*_ga*MjAwMTE2MjQ1My4xNjQ5ODE3OTIy*_ga_V0XZL7QHEB*MTY0OTgxNzkyMS4xLjAuMTY0OTgxNzkyMy4w&_ga=2.114923843.599955531.1649817922-2001162453.1649817922)](https://www.jetbrains.com/community/opensource/#support)
+
 # Additional plugins
 
 ## official plugins
