@@ -2,16 +2,6 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/e2y1n3k3wwiei0bs?svg=true)](https://ci.appveyor.com/project/missdeer/coredns-custom-build)
 
-# Donate
-
-![微信扫一扫](https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/wepay.jpg)  ![支付宝扫一扫](https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/alipay.jpg)
-
-[![paypal donate](https://raw.githubusercontent.com/missdeer/corednshome/master/paypal-donate.png)](https://www.paypal.me/dfordsoft/)
-
-# Thanks for JetBrains Open Source License
-
-[![JetBrains](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png?_gl=1*17cbnzd*_ga*MjAwMTE2MjQ1My4xNjQ5ODE3OTIy*_ga_V0XZL7QHEB*MTY0OTgxNzkyMS4xLjAuMTY0OTgxNzkyMy4w&_ga=2.114923843.599955531.1649817922-2001162453.1649817922)](https://www.jetbrains.com/community/opensource/#support)
-
 # Additional plugins
 
 ## official plugins
@@ -130,4 +120,16 @@ Check [bash script](https://gist.github.com/missdeer/5c7c82b5b67f8afb41cfd43d51b
 1. [增强版CoreDNS，上网更科学](https://blog.minidump.info/2019/12/enhanced-coredns/)
 2. [CoreDNS搭建无污染DNS](https://blog.minidump.info/2019/07/coredns-no-dns-poisoning/)
 3. [使用Prometheus观察CoreDNS运行状况](https://blog.minidump.info/2020/03/prometheus-for-coredns/)
+
+
+# Donate
+
+![微信扫一扫](https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/wepay.jpg)  ![支付宝扫一扫](https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/alipay.jpg)
+
+[![paypal donate](https://raw.githubusercontent.com/missdeer/corednshome/master/paypal-donate.png)](https://www.paypal.me/dfordsoft/)
+
+# Thanks for JetBrains Open Source License
+
+[![JetBrains](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png?_gl=1*17cbnzd*_ga*MjAwMTE2MjQ1My4xNjQ5ODE3OTIy*_ga_V0XZL7QHEB*MTY0OTgxNzkyMS4xLjAuMTY0OTgxNzkyMy4w&_ga=2.114923843.599955531.1649817922-2001162453.1649817922)](https://www.jetbrains.com/community/opensource/#support)
+
 
