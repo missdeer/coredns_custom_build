@@ -124,14 +124,20 @@ Check [bash script](https://gist.github.com/missdeer/5c7c82b5b67f8afb41cfd43d51b
 
 # Donate
 
-<a href="wxp://f2f0JOwB8LU7CU53fcitPGIuC6lYMX1q-nlk"><img src="https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/wepay.jpg" alt="微信扫一扫" width="200/></a>
-<a href="alipays://platformapi/startapp?appId=10000007&qrcode=https://qr.alipay.com/tsx00458kzwvymgbjk0ci9e"><img src="https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/alipay.jpg" alt="支付宝扫一扫" width="200/></a>
-<a href="https://www.paypal.me/dfordsoft/" target="_blank"><img src="https://raw.githubusercontent.com/missdeer/corednshome/master/paypal-donate.png" alt="paypal donate" width="200/></a>                                                                                                                      
+<a href="wxp://f2f0JOwB8LU7CU53fcitPGIuC6lYMX1q-nlk">
+  <img src="https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/wepay.jpg" alt="微信扫一扫" width="200">
+</a>
+<a href="alipays://platformapi/startapp?appId=10000007&qrcode=https://qr.alipay.com/tsx00458kzwvymgbjk0ci9e">
+  <img src="https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/alipay.jpg" alt="支付宝扫一扫" width="200">
+</a>
+<a href="https://www.paypal.me/dfordsoft/" target="_blank">
+  <img src="https://raw.githubusercontent.com/missdeer/corednshome/master/paypal-donate.png" alt="paypal donate" width="200">
+</a>                                                                                                                      
 
 # Thanks for JetBrains Open Source License
 
 <a href="https://www.jetbrains.com/community/opensource/#support" target="_blank">
-<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains" width="200/>
+<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains" width="200">
 </a>
 
 
