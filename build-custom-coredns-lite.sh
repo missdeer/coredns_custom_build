@@ -7,7 +7,7 @@ cd ../dnsredir
 git pull
 cd ../coredns_custom_build
 git pull
-cd ..
+cd ../coredns
 git apply ../coredns_custom_build/forward.go.patch
 git apply ../coredns_custom_build/forward-setup.go.patch
 sed -i.bak 's|forward:forward|fallback:github.com/missdeer/fallback\ndnsredir:github.com/leiless/dnsredir\nforward:forward\nproxy:github.com/missdeer/proxy|g' plugin.cfg
