@@ -101,26 +101,15 @@ Notice: Lite version is lack of some plugins: geoip/nsid/debug/trace/autopath/er
 
 ## Web edition GUI configuration generator, strongly recommended
 
-[https://coredns.minidump.info](https://coredns.minidump.info) screenshot
-
-![web configuration generator](https://raw.githubusercontent.com/missdeer/coredns_custom_build/master/screenshots/web-configuration-generator.png)
+[https://coredns.minidump.info](https://coredns.minidump.info) 
 
 ## Desktop edition GUI Configuration generator
 
-[CoreDNS Home](https://github.com/missdeer/corednshome)  screenshot:
-
-![main window](https://raw.githubusercontent.com/missdeer/corednshome/master/screenshots/mainwindow.png)
+[CoreDNS Home](https://github.com/missdeer/corednshome)
 
 ## Shell script for UNIX-like environment
 
 Check [bash script](https://gist.github.com/missdeer/5c7c82b5b67f8afb41cfd43d51b82c2d) for generating configuration file. 
-
-# More Information
-
-1. [增强版CoreDNS，上网更科学](https://blog.minidump.info/2019/12/enhanced-coredns/)
-2. [CoreDNS搭建无污染DNS](https://blog.minidump.info/2019/07/coredns-no-dns-poisoning/)
-3. [使用Prometheus观察CoreDNS运行状况](https://blog.minidump.info/2020/03/prometheus-for-coredns/)
-
 
 # Donate
 
@@ -139,5 +128,11 @@ Check [bash script](https://gist.github.com/missdeer/5c7c82b5b67f8afb41cfd43d51b
 <a href="https://www.jetbrains.com/community/opensource/#support" target="_blank">
 <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains" width="200">
 </a>
+
+# More Information
+
+1. [增强版CoreDNS，上网更科学](https://blog.minidump.info/2019/12/enhanced-coredns/)
+2. [CoreDNS搭建无污染DNS](https://blog.minidump.info/2019/07/coredns-no-dns-poisoning/)
+3. [使用Prometheus观察CoreDNS运行状况](https://blog.minidump.info/2020/03/prometheus-for-coredns/)
 
 
