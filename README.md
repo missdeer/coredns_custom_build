@@ -113,6 +113,7 @@ Check [bash script](https://gist.github.com/missdeer/5c7c82b5b67f8afb41cfd43d51b
 
 # Donate
 
+<center class="half">
 <a href="wxp://f2f0JOwB8LU7CU53fcitPGIuC6lYMX1q-nlk">
   <img src="https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/wepay.jpg" alt="微信扫一扫" width="200">
 </a>
@@ -122,6 +123,7 @@ Check [bash script](https://gist.github.com/missdeer/5c7c82b5b67f8afb41cfd43d51b
 <a href="https://www.paypal.me/dfordsoft/" target="_blank">
   <img src="https://raw.githubusercontent.com/missdeer/corednshome/master/paypal-donate.png" alt="paypal donate" width="200">
 </a>                                                                                                                      
+</center>
 
 # Thanks for JetBrains Open Source License
 
