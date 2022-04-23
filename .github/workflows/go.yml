@@ -44,7 +44,7 @@ jobs:
         env CGO_ENABLED=0 GOOS=netbsd GOARCH=386 go build -o netbsd-386/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl netbsd-386/
         env CGO_ENABLED=0 GOOS=dragonfly GOARCH=amd64 go build -o dragonfly-amd64/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl dragonfly-amd64/
         cd ..
-        env GOPATH=$PWD/gopath go get -u github.com/missdeer/cicdutil
+        env GOPATH=$PWD/gopath go install github.com/missdeer/cicdutil
       
     - name: Upload artifact dlredirector-linux-amd64
       uses: actions/upload-artifact@v1.0.0
