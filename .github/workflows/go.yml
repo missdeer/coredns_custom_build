@@ -28,23 +28,18 @@ jobs:
       run: |
         cd dlredirector
         env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o linux-amd64/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl linux-amd64/
-        env CGO_ENABLED=0 GOOS=linux GOARCH=386 go build -o linux-386/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl linux-386/
         env CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=5 go build -o linux-arm-5/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl linux-arm-5/
         env CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=6 go build -o linux-arm-6/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl linux-arm-6/
         env CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build -o linux-arm-7/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl linux-arm-7/
         env CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o linux-arm64/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl linux-arm64/
         env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o darwin-amd64/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl darwin-amd64/
         env CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o windows-amd64/dlredirector.exe -ldflags="-s -w" . && cp -r templates Corefile.tmpl windows-amd64/
-        env CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -o windows-386/dlredirector.exe -ldflags="-s -w" . && cp -r templates Corefile.tmpl windows-386/
         env CGO_ENABLED=0 GOOS=freebsd GOARCH=amd64 go build -o freebsd-amd64/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl freebsd-amd64/
-        env CGO_ENABLED=0 GOOS=freebsd GOARCH=386 go build -o freebsd-386/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl freebsd-386/
         env CGO_ENABLED=0 GOOS=openbsd GOARCH=amd64 go build -o openbsd-amd64/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl openbsd-amd64/
-        env CGO_ENABLED=0 GOOS=openbsd GOARCH=386 go build -o openbsd-386/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl openbsd-386/
         env CGO_ENABLED=0 GOOS=netbsd GOARCH=amd64 go build -o netbsd-amd64/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl netbsd-amd64/
-        env CGO_ENABLED=0 GOOS=netbsd GOARCH=386 go build -o netbsd-386/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl netbsd-386/
         env CGO_ENABLED=0 GOOS=dragonfly GOARCH=amd64 go build -o dragonfly-amd64/dlredirector -ldflags="-s -w" . && cp -r templates Corefile.tmpl dragonfly-amd64/
         cd ..
-        env GOPATH=$PWD/gopath go install github.com/missdeer/cicdutil
+        env GOPATH=$PWD/gopath go install github.com/missdeer/cicdutil@latest
       
     - name: Upload artifact dlredirector-linux-amd64
       uses: actions/upload-artifact@v1.0.0
@@ -53,14 +48,6 @@ jobs:
         name: dlredirector-linux-amd64
         # Directory containing files to upload
         path: dlredirector/linux-amd64
-
-    - name: Upload artifact dlredirector-linux-386
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        # Artifact name
-        name: dlredirector-linux-386
-        # Directory containing files to upload
-        path: dlredirector/linux-386
 
     - name: Upload artifact dlredirector-linux-arm-5
       uses: actions/upload-artifact@v1.0.0
@@ -118,14 +105,6 @@ jobs:
         # Directory containing files to upload
         path: dlredirector/openbsd-amd64
 
-    - name: Upload artifact dlredirector-openbsd-386
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        # Artifact name
-        name: dlredirector-openbsd-386
-        # Directory containing files to upload
-        path: dlredirector/openbsd-386
-
     - name: Upload artifact dlredirector-netbsd-amd64
       uses: actions/upload-artifact@v1.0.0
       with:
@@ -133,14 +112,6 @@ jobs:
         name: dlredirector-netbsd-amd64
         # Directory containing files to upload
         path: dlredirector/netbsd-amd64
-
-    - name: Upload artifact dlredirector-netbsd-386
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        # Artifact name
-        name: dlredirector-netbsd-386
-        # Directory containing files to upload
-        path: dlredirector/netbsd-386
 
     - name: Upload artifact dlredirector-freebsd-amd64
       uses: actions/upload-artifact@v1.0.0
@@ -150,14 +121,6 @@ jobs:
         # Directory containing files to upload
         path: dlredirector/freebsd-amd64
 
-    - name: Upload artifact dlredirector-freebsd-386
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        # Artifact name
-        name: dlredirector-freebsd-386
-        # Directory containing files to upload
-        path: dlredirector/freebsd-386
-
     - name: Upload artifact dlredirector-windows-amd64
       uses: actions/upload-artifact@v1.0.0
       with:
@@ -165,14 +128,6 @@ jobs:
         name: dlredirector-windows-amd64
         # Directory containing files to upload
         path: dlredirector/windows-amd64
-
-    - name: Upload artifact dlredirector-windows-386
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        # Artifact name
-        name: dlredirector-windows-386
-        # Directory containing files to upload
-        path: dlredirector/windows-386
 
     - name: Remove old artifacts
       run: |
