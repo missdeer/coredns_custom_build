@@ -547,7 +547,7 @@ after_build:
     - cp "$APPVEYOR_BUILD_FOLDER/coredns/coredns" "distrib/coredns$SUFFIX"
     - if [ "$GOOS" = "windows" ]; then cp "$APPVEYOR_BUILD_FOLDER/coredns.exe.manifest" "distrib/coredns-$PREFIX/coredns.exe.manifest"; fi
     - cd distrib
-    - curl -sSL git.io/corefile | bash
+    - curl -sSL https://gist.githubusercontent.com/missdeer/5c7c82b5b67f8afb41cfd43d51b82c2d/raw/gen_Corefile.sh | bash
     - mv Corefile "coredns-$PREFIX/Corefile"
     - zip -r "coredns-$PREFIX.zip" "coredns-$PREFIX" 
     - zip -r coredns.zip "coredns$SUFFIX"
