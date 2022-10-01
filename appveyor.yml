@@ -2,7 +2,7 @@ image:
   - macos
   - Ubuntu
   
-version: 1.9.3.{build}
+version: 1.10.0.{build}
 
 branches:
     only:
