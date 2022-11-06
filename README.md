@@ -2,6 +2,10 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/e2y1n3k3wwiei0bs?svg=true)](https://ci.appveyor.com/project/missdeer/coredns-custom-build)
 
+# Discuss
+
+[Telegram Group](https://t.me/+ajB0OIMbWPIzZTc1)
+
 # Additional plugins
 
 ## official plugins
