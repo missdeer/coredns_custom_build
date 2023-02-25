@@ -2,7 +2,7 @@ image:
   - macos
   - Ubuntu
   
-version: 1.10.0.{build}
+version: 1.10.1.{build}
 
 branches:
     only:
@@ -14,7 +14,7 @@ only_commits:
         - appveyor.yml
 
 environment:
-    GOVERSION: 1.19.3
+    GOVERSION: 1.20.1
     matrix:
         - GOOS: android
           GOARCH: arm
