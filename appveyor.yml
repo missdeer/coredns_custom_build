@@ -14,7 +14,7 @@ only_commits:
         - appveyor.yml
 
 environment:
-    GOVERSION: 1.20.1
+    GOVERSION: 1.20.4
     matrix:
         - GOOS: android
           GOARCH: arm
