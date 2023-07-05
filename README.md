@@ -110,7 +110,7 @@ Check [bash script](https://gist.github.com/missdeer/5c7c82b5b67f8afb41cfd43d51b
 
 # Donate
 
-[![微信扫一扫](https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/wepay.jpg)](wxp://f2f0JOwB8LU7CU53fcitPGIuC6lYMX1q-nlk)  [![支付宝扫一扫](https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/alipay.jpg)](alipays://platformapi/startapp?appId=10000007&qrcode=https://qr.alipay.com/tsx00458kzwvymgbjk0ci9e)  [![paypal donate](https://raw.githubusercontent.com/missdeer/corednshome/master/paypal-donate.png)](https://www.paypal.me/dfordsoft/)
+[![微信扫一扫](https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/wepay.jpg)](wxp://f2f0JOwB8LU7CU53fcitPGIuC6lYMX1q-nlk)  [![支付宝扫一扫](https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/alipay.jpg)](alipays://platformapi/startapp?appId=10000007&qrcode=https://qr.alipay.com/tsx00458kzwvymgbjk0ci9e)  [![paypal donate](https://raw.githubusercontent.com/missdeer/corednshome/master/paypal-donate.png)](https://www.paypal.me/usdfordsoft/)
 
 # More Information
 
