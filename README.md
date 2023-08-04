@@ -21,6 +21,7 @@
 3. [blocklist](https://github.com/relekang/coredns-blocklist)
 4. [dnsredir](https://github.com/leiless/dnsredir)
 5. [ads](https://github.com/missdeer/ads) 
+6. [https](https:github.com/v-byte-cpu/coredns-https)
 
 # Download Prebuilt Binaries
 
