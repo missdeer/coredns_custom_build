@@ -14,7 +14,7 @@ only_commits:
         - appveyor.yml
 
 environment:
-    GOVERSION: 1.21.1
+    GOVERSION: 1.21.5
     matrix:
         - GOOS: android
           GOARCH: arm
@@ -235,11 +235,6 @@ environment:
           PREFIX: linux-ppc64le
           SUFFIX: 
           HOST: linux
-        - GOOS: openbsd
-          GOARCH: mips64
-          PREFIX: openbsd-mips64
-          SUFFIX: 
-          HOST: linux
         - GOOS: linux
           GOARCH: mips64
           GOMIPS: hardfloat
@@ -376,12 +371,6 @@ environment:
         - GOOS: linux
           GOARCH: ppc64le
           PREFIX: linux-ppc64le-lite
-          SUFFIX: 
-          HOST: linux
-          LITE: 1
-        - GOOS: openbsd
-          GOARCH: mips64
-          PREFIX: openbsd-mips64-lite
           SUFFIX: 
           HOST: linux
           LITE: 1
