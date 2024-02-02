@@ -112,6 +112,15 @@ Check [bash script](https://gist.github.com/missdeer/5c7c82b5b67f8afb41cfd43d51b
 # Donate
 
 [![微信扫一扫](https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/wepay.jpg)](wxp://f2f0JOwB8LU7CU53fcitPGIuC6lYMX1q-nlk)  [![支付宝扫一扫](https://raw.githubusercontent.com/missdeer/corednshome/master/src/res/alipay.jpg)](alipays://platformapi/startapp?appId=10000007&qrcode=https://qr.alipay.com/tsx00458kzwvymgbjk0ci9e)  [![paypal donate](https://raw.githubusercontent.com/missdeer/corednshome/master/paypal-donate.png)](https://www.paypal.me/usdfordsoft/)
+<form action="https://www.paypal.com/donate" method="post" target="_top">
+<input type="hidden" name="business" value="UGGFS8ML7CHF4" />
+<input type="hidden" name="no_recurring" value="0" />
+<input type="hidden" name="item_name" value="Support us to make the software better." />
+<input type="hidden" name="currency_code" value="USD" />
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+</form>
+
 
 # More Information
 
