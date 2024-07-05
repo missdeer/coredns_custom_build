@@ -14,7 +14,7 @@ only_commits:
         - appveyor.yml
 
 environment:
-    GOVERSION: 1.22.2
+    GOVERSION: 1.22.4
     matrix:
         - GOOS: android
           GOARCH: arm
@@ -447,7 +447,7 @@ install:
     - export GOROOT=$(pwd)/go
     - export PATH=$(pwd)/go/bin:$PATH
     - if [ "$HOST" = "darwin" ]; then brew install gnu-sed; export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"; fi
-    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export NDK_VERSION=r26c; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export NDK_VERSION=r26d; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ARCH=`uname -m`; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-$NDK_VERSION; if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then pushd $APPVEYOR_BUILD_FOLDER/.android; fi
