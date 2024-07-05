@@ -535,6 +535,7 @@ after_build:
     - cp "$APPVEYOR_BUILD_FOLDER/coredns/coredns" "distrib/coredns-$PREFIX/coredns$SUFFIX"
     - cp "$APPVEYOR_BUILD_FOLDER/coredns/coredns" "distrib/coredns$SUFFIX"
     - if [ "$GOOS" = "windows" ]; then cp "$APPVEYOR_BUILD_FOLDER/coredns.exe.manifest" "distrib/coredns-$PREFIX/coredns.exe.manifest"; fi
+    - if [ "$GOOS" = "linux" ]; then cp "$APPVEYOR_BUILD_FOLDER/setcap.sh" "distrib/coredns-$PREFIX/setcap.sh"; fi
     - cd distrib
     - curl -sSL https://gist.githubusercontent.com/missdeer/5c7c82b5b67f8afb41cfd43d51b82c2d/raw/gen_Corefile.sh | bash
     - mv Corefile "coredns-$PREFIX/Corefile"
