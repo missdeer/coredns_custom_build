@@ -1,11 +1,11 @@
 diff --git a/plugin/forward/setup.go b/plugin/forward/setup.go
-index e8211abf8..2253f6038 100644
+index f0301c343..85c2f5802 100644
 --- a/plugin/forward/setup.go
 +++ b/plugin/forward/setup.go
 @@ -177,7 +177,10 @@ func parseBlock(c *caddy.Controller, f *Forward) error {
  			return c.ArgErr()
  		}
- 		for i := 0; i < len(ignore); i++ {
+ 		for i := range ignore {
 -			f.ignored = append(f.ignored, plugin.Host(ignore[i]).NormalizeExact()...)
 +			ignores := plugin.Host(ignore[i]).NormalizeExact()
 +			for _, ignored := range ignores {
