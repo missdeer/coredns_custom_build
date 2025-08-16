@@ -3,7 +3,11 @@ name: trigger appveyor
 on: 
   schedule:
     - cron:  '0 16 */7 * *'
-
+  paths:
+    - '*.sh'
+    - '*.yml'
+    - '*.patch'
+    
 jobs:
   fix:
     runs-on: ubuntu-latest
