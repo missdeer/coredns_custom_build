@@ -3,11 +3,6 @@ name: trigger appveyor
 on: 
   schedule:
     - cron:  '0 16 */7 * *'
-  push:
-    paths:
-      - '*.sh'
-      - '*.yml'
-      - '*.patch'
     
 jobs:
   fix:
