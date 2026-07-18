@@ -1,5 +1,5 @@
 diff --git a/plugin/forward/forward.go b/plugin/forward/forward.go
-index 0c95bafdf..86f17f7f1 100644
+index bfe810738..22bc70413 100644
 --- a/plugin/forward/forward.go
 +++ b/plugin/forward/forward.go
 @@ -8,6 +8,7 @@ import (
@@ -7,10 +7,10 @@ index 0c95bafdf..86f17f7f1 100644
  	"crypto/tls"
  	"errors"
 +	"strings"
- 	"sync/atomic"
- 	"time"
- 
-@@ -41,7 +42,7 @@ type Forward struct {
+ 	"net"
+ 	"net/http"
+ 	"slices"
+@@ -45,7 +46,7 @@ type Forward struct {
  	hcInterval time.Duration
  
  	from    string
@@ -18,17 +18,17 @@ index 0c95bafdf..86f17f7f1 100644
 +	ignored map[string]struct{}
  
  	nextAlternateRcodes []int
- 
-@@ -239,8 +240,10 @@ func (f *Forward) isAllowedDomain(name string) bool {
+ 	nextOnNodata        bool
+@@ -287,8 +288,10 @@ func (f *Forward) isAllowedDomain(name string) bool {
  		return true
  	}
  
 -	for _, ignore := range f.ignored {
 -		if plugin.Name(ignore).Matches(name) {
 +	ss := strings.Split(name, ".")
-+	for i := 0; i < len(ss); i++ {
-+		n := strings.Join(ss[i:], ".")
-+		if _, ok := f.ignored[n]; ok {
++        for i := 0; i < len(ss); i++ {
++                n := strings.Join(ss[i:], ".")
++                if _, ok := f.ignored[n]; ok {
  			return false
  		}
  	}
