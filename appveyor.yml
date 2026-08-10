@@ -2,7 +2,7 @@ image:
   - macos
   - Ubuntu
   
-version: 1.14.3.{build}
+version: 1.14.6.{build}
 
 branches:
     only:
@@ -435,7 +435,7 @@ install:
     - tar xzf "go$GOVERSION.$HOST-amd64.tar.gz"
     - export GOROOT=$(pwd)/go
     - export PATH=$(pwd)/go/bin:$PATH
-    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export NDK_VERSION=r27c; fi
+    - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export NDK_VERSION=r27d; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ARCH=`uname -m`; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then export ANDROID_NDK_HOME=$APPVEYOR_BUILD_FOLDER/.android/android-ndk-$NDK_VERSION; if [ ! -d "$ANDROID_NDK_HOME" ]; then mkdir -p $ANDROID_NDK_HOME; fi; fi
     - if [ "$GOOS" = "android" -a "$HOST" = "linux" ]; then pushd $APPVEYOR_BUILD_FOLDER/.android; fi
