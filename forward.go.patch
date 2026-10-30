@@ -1,17 +1,17 @@
 diff --git a/plugin/forward/forward.go b/plugin/forward/forward.go
-index 2dc939bc7..603d31043 100644
+index 5678effb8..6a0687215 100644
 --- a/plugin/forward/forward.go
 +++ b/plugin/forward/forward.go
-@@ -8,6 +8,7 @@ import (
- 	"context"
- 	"crypto/tls"
- 	"errors"
-+	"strings"
+@@ -10,6 +10,7 @@ import (
  	"net"
  	"net/http"
  	"slices"
-@@ -45,7 +46,7 @@ type Forward struct {
- 	hcInterval time.Duration
++	"strings"
+ 	"sync/atomic"
+ 	"time"
+ 
+@@ -46,7 +47,7 @@ type Forward struct {
+ 	startFailed bool
  
  	from    string
 -	ignored []string
@@ -19,7 +19,7 @@ index 2dc939bc7..603d31043 100644
  
  	nextAlternateRcodes []int
  	nextOnNodata        bool
-@@ -81,7 +82,7 @@ type Forward struct {
+@@ -83,7 +84,7 @@ type Forward struct {
  
  // New returns a new Forward.
  func New() *Forward {
@@ -28,16 +28,16 @@ index 2dc939bc7..603d31043 100644
  	return f
  }
  
-@@ -291,8 +292,10 @@ func (f *Forward) isAllowedDomain(name string) bool {
+@@ -311,8 +312,10 @@ func (f *Forward) isAllowedDomain(name string) bool {
  		return true
  	}
  
 -	for _, ignore := range f.ignored {
 -		if plugin.Name(ignore).Matches(name) {
 +	ss := strings.Split(name, ".")
-+        for i := 0; i < len(ss); i++ {
-+                n := strings.Join(ss[i:], ".")
-+                if _, ok := f.ignored[n]; ok {
++	for i := 0; i < len(ss); i++ {
++		n := strings.Join(ss[i:], ".")
++		if _, ok := f.ignored[n]; ok {
  			return false
  		}
  	}
